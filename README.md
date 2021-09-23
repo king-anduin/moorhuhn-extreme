@@ -50,3 +50,5 @@ Bewertungsmatrix:
     Codestärke (Lesbarkeit und Patterns) (30%)
 
     Sichere Präsentation des Projektes (10%)
+
+test
