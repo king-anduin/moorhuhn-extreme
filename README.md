@@ -52,5 +52,9 @@ Bewertungsmatrix:
     Sichere Präsentation des Projektes (10%)
 
 test for MoH
+<<<<<<< HEAD
 
 test for Peter
+=======
+Mo
+>>>>>>> CM01-start-game
