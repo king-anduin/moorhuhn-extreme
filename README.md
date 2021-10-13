@@ -58,3 +58,5 @@ test for Peter
 =======
 Mo
 >>>>>>> CM01-start-game
+
+<<<Test von Richard>>>
