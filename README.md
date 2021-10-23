@@ -75,7 +75,7 @@ Designpattern
 Designpattern Pygame
 
 - Gameloop (Seite 194) --> Peter
-- Sprites --> Sebastian
+    - Sprites --> Sebastian
 - Update (Seite 206)
 - Movement (Seite 219) --> Richard
 - Vektoren (Seite 237)
