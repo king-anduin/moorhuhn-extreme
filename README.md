@@ -58,10 +58,13 @@ Moorhuhn Infos zum Ablauf
 To-Do-Liste:
 
 -	Klassendiagramm aufzeichnen (UML) (Seite 59) --> Moh
+
 o	Ist ein
 o	Hat ein
 
+
 -	Designpattern
+
 o	Dependency Injection (Seite 93)
 o	Strategy (Seite 103)
 o	State (Seite 112)
@@ -71,6 +74,7 @@ o	Factory (Seite 142)
 o	Command (Seite 152)
 
 -	Designpattern Pygame
+
 o	Gameloop (Seite 194) --> Peter
 	Sprites --> Sebastian
 o	Update (Seite 206)
