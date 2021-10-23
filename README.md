@@ -124,3 +124,6 @@ Dailys jeweils 11 Uhr:
 
 Weekly 12 Uhr:
 -	Sonntag (Fertiges Produkt)
+
+Nächste Meeting ist am Samstag (30.10) um 11:00 Uhr:
+Es dauert maximal eineinhalb Stunden.
