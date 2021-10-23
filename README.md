@@ -59,50 +59,50 @@ To-Do-Liste:
 
 Klassendiagramm aufzeichnen (UML) (Seite 59) --> Moh
 
-- Ist ein
-- Hat ein
+    - Ist ein
+    - Hat ein
 
 Designpattern
 
-- Dependency Injection (Seite 93)
-- Strategy (Seite 103)
-- State (Seite 112)
-- MVC (Seite 124)
-- Observer (Seite 133)
-- Factory (Seite 142)
-- Command (Seite 152)
+    - Dependency Injection (Seite 93)
+    - Strategy (Seite 103)
+    - State (Seite 112)
+    - MVC (Seite 124)
+    - Observer (Seite 133)
+    - Factory (Seite 142)
+    - Command (Seite 152)
 
 Designpattern Pygame
 
-- Gameloop (Seite 194) --> Peter
-    - Sprites --> Sebastian
-- Update (Seite 206)
-- Movement (Seite 219) --> Richard
-- Vektoren (Seite 237)
-- Collusion Detection (Seite 246)
-- Tilemap (Seite 282)
-- Flyweight (Seite 300)
-- Camera (Seite 310)
+    - Gameloop (Seite 194) --> Peter
+        - Sprites --> Sebastian
+    - Update (Seite 206)
+    - Movement (Seite 219) --> Richard
+    - Vektoren (Seite 237)
+    - Collusion Detection (Seite 246)
+    - Tilemap (Seite 282)
+    - Flyweight (Seite 300)
+    - Camera (Seite 310)
 
 
 Mindestanforderungen:
--	Mind. 3 Szenen: Startbildschirm, Game Over, Spiel
--	Mind. 5 unterschiedliche agierende Objekte (Spieler, Gegner, Hindernisse)
--	Einbindung objektorientierter Konzepte
--	Einbindung von Entwurfsmustern
+    -	Mind. 3 Szenen: Startbildschirm, Game Over, Spiel
+    -	Mind. 5 unterschiedliche agierende Objekte (Spieler, Gegner, Hindernisse)
+    -	Einbindung objektorientierter Konzepte
+    -	Einbindung von Entwurfsmustern
 
 
 Pluspunkte für:
--	Designpatterns
--	Übersichtlicher und strukturierter Code
--	Kreativität
+    -	Designpatterns
+    -	Übersichtlicher und strukturierter Code
+    -	Kreativität
 
 
 Bewertungsmatrix:
--	Fehlerfreiheit (30%)
--	Vollständigkeit und Features (30%)
--	Codestärke (Lesbarkeit und Patterns) (30%)
--	Sichere Präsentation des Projektes (10%)
+    -	Fehlerfreiheit (30%)
+    -	Vollständigkeit und Features (30%)
+    -	Codestärke (Lesbarkeit und Patterns) (30%)
+    -	Sichere Präsentation des Projektes (10%)
 
 
 Sprites:
@@ -114,12 +114,12 @@ Vorgehensmodell:
 SCRUM
 
 Rollen
--	Scrum Master: Moh
--	Product Owner: Peter
--	Team: Richard, Sebastian
+    -	Scrum Master: Moh
+    -	Product Owner: Peter
+    -	Team: Richard, Sebastian
 
 Dailys jeweils 11 Uhr:
--	Mittwoch, Freitag 
+    -	Mittwoch, Freitag 
 
 Weekly 12 Uhr:
--	Sonntag (Fertiges Produkt)
+    -	Sonntag (Fertiges Produkt)
