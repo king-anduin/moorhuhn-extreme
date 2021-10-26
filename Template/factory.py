@@ -24,7 +24,7 @@ class BallFactory:
                     SPEED * random.choice([1, -1, 0.5, -0.5]), 'ball')
         return ball
 
-    def createCoinAtPosition(self, x, y):
+    def createCoinAtPosition(self, x, y, direction: str):
         ball = Coin(self.imageDict, x, y, SPEED * random.choice([1, -1, 0.5, -0.5]),
-                    SPEED * random.choice([1, -1, 0.5, -0.5]))
+                    SPEED * random.choice([1, -1, 0.5, -0.5]),"Left")
         return ball

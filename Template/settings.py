@@ -1,6 +1,6 @@
 # Settings
-WIDTH = 960/2
-HEIGHT = 720/2
+WIDTH = 960
+HEIGHT = 720*0.70
 FPS = 60
 
 # Sprite
@@ -15,3 +15,5 @@ BLUE = (0, 0, 255)
 # as lower as more chickens will spawn
 # Maybe usefull for dificulties 
 SPAWNER = 50
+
+CHICKEN_SIZE = 70

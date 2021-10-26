@@ -1,5 +1,6 @@
 import os
 import pygame as pg
+from settings import *
 
 
 class Image:
@@ -17,7 +18,7 @@ class ImageFlyweight:
 
         for i in range(1, 12):
             self.images['chicken'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'chicken'+str(i)+'.png')).convert_alpha(),(50,50))
+                img_folder, 'chicken'+str(i)+'.png')).convert_alpha(),(CHICKEN_SIZE,CHICKEN_SIZE))
 
 
     def getFlyweightImages(self):
