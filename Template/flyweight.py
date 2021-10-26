@@ -14,8 +14,6 @@ class ImageFlyweight:
         img_folder = os.path.join(game_folder, '_img')
         # Make Dictionary of Images
         self.images = {}
-        self.images["ball"] = pg.image.load(os.path.join(
-            img_folder, 'ball.png')).convert_alpha()
 
         for i in range(1, 12):
             self.images['chicken'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
@@ -24,3 +22,11 @@ class ImageFlyweight:
 
     def getFlyweightImages(self):
         return self.images
+
+
+class Background(pg.sprite.Sprite):
+    def __init__(self, bg, location):
+        pg.sprite.Sprite.__init__(self)  #call Sprite initializer
+        self.image = bg
+        self.rect = self.image.get_rect()
+        self.rect.left, self.rect.top = location

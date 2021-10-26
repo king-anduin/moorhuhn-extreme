@@ -1,6 +1,6 @@
 # Settings
-WIDTH = 480
-HEIGHT = 360
+WIDTH = 960/2
+HEIGHT = 720/2
 FPS = 60
 
 # Sprite
