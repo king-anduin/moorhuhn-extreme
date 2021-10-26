@@ -50,7 +50,7 @@ class Coin(Ball):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.image = self.flyweightImages['coin1']
+        self.image = self.flyweightImages['chicken1']
         self.imageIndex = 1
         print(id(self.flyweightImages))
         self.rect = self.image.get_rect()
@@ -71,6 +71,6 @@ class Coin(Ball):
         if self.timer == self.maxtimer:
             self.timer = 0
             self.imageIndex += 1
-            if (self.imageIndex == 9):
+            if (self.imageIndex == 12):
                 self.imageIndex = 1
-            self.image = self.flyweightImages['coin'+str(self.imageIndex)]
+            self.image = self.flyweightImages['chicken'+str(self.imageIndex)]
