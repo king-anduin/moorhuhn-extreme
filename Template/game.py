@@ -52,13 +52,17 @@ while running:
             # if you're not in the event loop.
             cursor_rect.center = event.pos
 
-        # create chicken with a click - outdated!
-        # if event.type == pygame.MOUSEBUTTONDOWN:
-        #     mousex, mousey = event.pos
-        #     sprites.append(ballFactory.createCoinAtPosition(mousex, mousey))
+    # If a chicken got hit by mouse it will be removed 
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            mousex, mousey = event.pos
+            print("Maus-Pos",mousex,mousey)
+            for sprite in sprites:                
+                if sprite.checkHit(mousex, mousey):
+                    print(sprite.getPos())
+                    sprites.remove(sprite)
 
     
-    #create a chicken every 50th iteration on right side of screen
+    #create a chicken every spawners iteration on right side of screen
     randomizer = random.randrange(1, SPAWNER, 1)
     if randomizer == 1:
         sprites.append(ballFactory.createCoinAtPosition(WIDTH-(0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.9*HEIGHT)),"Left"))

@@ -14,6 +14,6 @@ BLUE = (0, 0, 255)
 # SPAWNER is the iteration Timer for spawning new chickens
 # as lower as more chickens will spawn
 # Maybe usefull for dificulties 
-SPAWNER = 50
+SPAWNER = 300
 
 CHICKEN_SIZE = 70
