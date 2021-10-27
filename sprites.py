@@ -1,5 +1,4 @@
 import pygame as pg
-import os
 from settings import *
 
 
@@ -38,12 +37,12 @@ class Ball(Sprite):
 
         if (self.rect.right >= WIDTH):
             self.sx = self.sx * -1
-            #direction is needed for flipping the chicken
+            # direction is needed for flipping the chicken
             self.direction = "Left"
 
         if (self.rect.left <= 0):
             self.sx = self.sx * -1
-            #direction is needed for flipping the chicken
+            # direction is needed for flipping the chicken
             self.direction = "Right"
 
         if (self.rect.top <= 0):
@@ -57,7 +56,7 @@ class Coin(Ball):
         self.flyweightImages = flyweightImages
         self.image = self.flyweightImages['chicken1']
         self.imageIndex = 1
-        #print(id(self.flyweightImages))
+        # print(id(self.flyweightImages))
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
         self.sx = sx
@@ -73,15 +72,16 @@ class Coin(Ball):
         self.rotate()
         Ball.update(self)
 
-# get position of the mouse 
+# get position of the mouse
     def getPos(self):
         return self.x, self.y
 
 # Checks that the hit is inside rect of chicken borders
     def checkHit(self, x, y):
-        print ("Huhn",self.rect.left, self.rect.right, self.rect.top, self.rect.bottom)
-        if self.rect.left <= x and self.rect.right >=x and self.rect.top <= y and self.rect.bottom >= y:
-            print ("HIT")
+        print("Huhn", self.rect.left, self.rect.right,
+              self.rect.top, self.rect.bottom)
+        if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
+            print("HIT")
             return True
         else:
             return False
@@ -96,7 +96,8 @@ class Coin(Ball):
                 self.imageIndex += 1
                 if (self.imageIndex == 12):
                     self.imageIndex = 1
-                self.image = pg.transform.flip(self.flyweightImages['chicken'+str(self.imageIndex)],True,False)
+                self.image = pg.transform.flip(
+                    self.flyweightImages['chicken'+str(self.imageIndex)], True, False)
         else:
             self.timer += 1
             if self.timer == self.maxtimer:
@@ -104,4 +105,5 @@ class Coin(Ball):
                 self.imageIndex += 1
                 if (self.imageIndex == 12):
                     self.imageIndex = 1
-                self.image = self.flyweightImages['chicken'+str(self.imageIndex)]
+                self.image = self.flyweightImages['chicken' +
+                                                  str(self.imageIndex)]
