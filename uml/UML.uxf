@@ -1,0 +1,117 @@
+<diagram program="umletino" version="14.4.0-SNAPSHOT"><zoom_level>10</zoom_level><help_text>&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;240&lt;/x&gt;&lt;y&gt;120&lt;/y&gt;&lt;w&gt;190&lt;/w&gt;&lt;h&gt;30&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;170;10&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;370&lt;/x&gt;&lt;y&gt;370&lt;/y&gt;&lt;w&gt;30&lt;/w&gt;&lt;h&gt;100&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;10;80&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;UMLClass&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;370&lt;/x&gt;&lt;y&gt;239&lt;/y&gt;&lt;w&gt;100&lt;/w&gt;&lt;h&gt;140&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;Background
+--
+ location: list
+&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;90&lt;/x&gt;&lt;y&gt;499&lt;/y&gt;&lt;w&gt;30&lt;/w&gt;&lt;h&gt;70&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;50;10;10&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;UMLClass&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;28&lt;/x&gt;&lt;y&gt;555&lt;/y&gt;&lt;w&gt;170&lt;/w&gt;&lt;h&gt;110&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;Waffe
+--
+anzahl-schuess : int
+
+
+--
+nachladen ()
+&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;190&lt;/x&gt;&lt;y&gt;470&lt;/y&gt;&lt;w&gt;150&lt;/w&gt;&lt;h&gt;30&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;130;10&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;UMLClass&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;28&lt;/x&gt;&lt;y&gt;365&lt;/y&gt;&lt;w&gt;170&lt;/w&gt;&lt;h&gt;140&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;spieler
+--
+-name : str
+-x : int
+-y : int
+
+
+--
+
+-bewegung (x:int, y: int)&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;410&lt;/x&gt;&lt;y&gt;320&lt;/y&gt;&lt;w&gt;150&lt;/w&gt;&lt;h&gt;210&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;-
+m1=0..n&lt;/panel_attributes&gt;&lt;additional_attributes&gt;120;10;10;190&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;UMLClass&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;320&lt;/x&gt;&lt;y&gt;450&lt;/y&gt;&lt;w&gt;100&lt;/w&gt;&lt;h&gt;100&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;Spiel
+--
+rest_time: int
+score: int
+
+&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;240&lt;/x&gt;&lt;y&gt;180&lt;/y&gt;&lt;w&gt;80&lt;/w&gt;&lt;h&gt;150&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;60;130;10;130;10;10&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;UMLClass&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;370&lt;/x&gt;&lt;y&gt;239&lt;/y&gt;&lt;w&gt;100&lt;/w&gt;&lt;h&gt;140&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;Background
+--
+ location: list
+&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;440&lt;/x&gt;&lt;y&gt;170&lt;/y&gt;&lt;w&gt;30&lt;/w&gt;&lt;h&gt;90&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;70;10;10&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;UMLClass&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;590&lt;/x&gt;&lt;y&gt;439&lt;/y&gt;&lt;w&gt;100&lt;/w&gt;&lt;h&gt;160&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;Coin
+--
+x: int
+y: int
+
+--
+update()
+getPos()
+checkHit()
+rotate()
+
+&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;400&lt;/x&gt;&lt;y&gt;159&lt;/y&gt;&lt;w&gt;30&lt;/w&gt;&lt;h&gt;100&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;10;10;80&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;UMLClass&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;350&lt;/x&gt;&lt;y&gt;10&lt;/y&gt;&lt;w&gt;170&lt;/w&gt;&lt;h&gt;160&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;Sprite
+--
+flyweightImagges: dict
+x: int
+y: int
+imagename: str
+direction: str
+--
+update()
+getImage()
+getRect()
+
+
+&lt;/panel_attributes&gt;&lt;additional_attributes&gt;&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;&lt;diagram program="umletino" version="14.4.0-SNAPSHOT"&gt;&lt;zoom_level&gt;10&lt;/zoom_level&gt;&lt;element&gt;&lt;id&gt;Relation&lt;/id&gt;&lt;coordinates&gt;&lt;x&gt;100&lt;/x&gt;&lt;y&gt;90&lt;/y&gt;&lt;w&gt;30&lt;/w&gt;&lt;h&gt;150&lt;/h&gt;&lt;/coordinates&gt;&lt;panel_attributes&gt;lt=&amp;lt;-&lt;/panel_attributes&gt;&lt;additional_attributes&gt;10;130;10;10&lt;/additional_attributes&gt;&lt;/element&gt;&lt;/diagram&gt;Space for diagram notes</help_text><element><id>UMLClass</id><coordinates><x>330</x><y>70</y><w>140</w><h>110</h></coordinates><panel_attributes>Huhn(ball wie bei datei)
+--
+xs: int
+ys: int
+
+--
+update()</panel_attributes><additional_attributes></additional_attributes></element><element><id>UMLClass</id><coordinates><x>550</x><y>90</y><w>130</w><h>100</h></coordinates><panel_attributes>Image
+--
+flyweightImages: list
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>110</y><w>110</w><h>30</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>90;10;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>570</x><y>260</y><w>120</w><h>140</h></coordinates><panel_attributes>ImageFlyweight
+--
+imagename: str</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>600</x><y>180</y><w>30</w><h>100</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;80;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>310</x><y>240</y><w>170</w><h>160</h></coordinates><panel_attributes>Sprite
+--
+flyweightImagges: dict
+x: int
+y: int
+imagename: str
+direction: str
+--
+update()
+getImage()
+getRect()
+
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>400</x><y>170</y><w>30</w><h>90</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;70;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>180</x><y>40</y><w>100</w><h>140</h></coordinates><panel_attributes>Coin
+--
+x: int
+y: int
+
+--
+update()
+getPos()
+checkHit()
+rotate()
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>180</y><w>80</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>60;130;10;130;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>40</y><w>100</w><h>140</h></coordinates><panel_attributes>Background
+--
+ location: list
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>130</x><y>170</y><w>190</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>170;180;10;180;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>440</y><w>160</w><h>100</h></coordinates><panel_attributes>Spiel
+--
+rest_time: int
+score: int
+
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>460</x><y>130</y><w>70</w><h>330</h></coordinates><panel_attributes>lt=&lt;-
+m1=0..n</panel_attributes><additional_attributes>10;10;50;10;50;310</additional_attributes></element><element><id>UMLClass</id><coordinates><x>110</x><y>420</y><w>170</w><h>140</h></coordinates><panel_attributes>spieler
+--
+-name : str
+-x : int
+-y : int
+
+
+--
+
+-bewegung (x:int, y: int)</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>270</x><y>480</y><w>110</w><h>30</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;10;90;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>110</x><y>600</y><w>170</w><h>110</h></coordinates><panel_attributes>Waffe
+--
+anzahl-schuess : int
+
+
+--
+nachladen ()
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>550</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>580</x><y>560</y><w>100</w><h>100</h></coordinates><panel_attributes>Background
+--
+ location: list
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>530</y><w>170</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;80;150;80</additional_attributes></element></diagram>
