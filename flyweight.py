@@ -18,8 +18,7 @@ class ImageFlyweight:
 
         for i in range(1, 12):
             self.images['chicken'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'chicken'+str(i)+'.png')).convert_alpha(),(CHICKEN_SIZE,CHICKEN_SIZE))
-
+                img_folder, 'chicken'+str(i)+'.png')).convert_alpha(), (CHICKEN_SIZE))
 
     def getFlyweightImages(self):
         return self.images
@@ -27,7 +26,7 @@ class ImageFlyweight:
 
 class Background(pg.sprite.Sprite):
     def __init__(self, bg, location):
-        pg.sprite.Sprite.__init__(self)  #call Sprite initializer
+        pg.sprite.Sprite.__init__(self)  # call Sprite initializer
         self.image = bg
         self.rect = self.image.get_rect()
         self.rect.left, self.rect.top = location

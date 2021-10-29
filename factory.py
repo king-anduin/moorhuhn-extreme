@@ -4,7 +4,7 @@ from flyweight import *
 import random
 
 
-class BallFactory:
+class ChickenFactory:
     def __init__(self):
         self.imageDict = ImageFlyweight().getFlyweightImages()
 
@@ -26,5 +26,5 @@ class BallFactory:
 
     def createCoinAtPosition(self, x, y, direction: str):
         ball = Coin(self.imageDict, x, y, SPEED * random.choice([1, -1, 0.5, -0.5]),
-                    SPEED * random.choice([1, -1, 0.5, -0.5]),"Left")
+                    SPEED * random.choice([1, -1, 0.5, -0.5]), "Left")
         return ball

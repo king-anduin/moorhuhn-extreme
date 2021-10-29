@@ -13,7 +13,12 @@ BLUE = (0, 0, 255)
 
 # SPAWNER is the iteration Timer for spawning new chickens
 # as lower as more chickens will spawn
-# Maybe usefull for dificulties 
+# Maybe usefull for dificulties
 SPAWNER = 100
 
-CHICKEN_SIZE = 70
+# flyweight.py
+CHICKEN_SIZE = (70, 70)
+
+# predator.py
+CURSOR_SIZE = (20, 20)
+CURSOR_MID = (40, 40)
