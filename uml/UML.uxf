@@ -86,10 +86,7 @@ getPos()
 checkHit()
 rotate()
 
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>180</y><w>80</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>60;130;10;130;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>60</x><y>40</y><w>100</w><h>140</h></coordinates><panel_attributes>Background
---
- location: list
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>130</x><y>170</y><w>190</w><h>200</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>170;180;10;180;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>440</y><w>160</w><h>100</h></coordinates><panel_attributes>Spiel
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>240</x><y>180</y><w>80</w><h>150</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>60;130;10;130;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>360</x><y>440</y><w>160</w><h>100</h></coordinates><panel_attributes>Spiel
 --
 rest_time: int
 score: int
@@ -114,4 +111,4 @@ nachladen ()
 </panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>210</x><y>550</y><w>30</w><h>70</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>10;50;10;10</additional_attributes></element><element><id>UMLClass</id><coordinates><x>580</x><y>560</y><w>100</w><h>100</h></coordinates><panel_attributes>Background
 --
  location: list
-</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>430</x><y>530</y><w>170</w><h>100</h></coordinates><panel_attributes>lt=&lt;&lt;-</panel_attributes><additional_attributes>10;10;10;80;150;80</additional_attributes></element></diagram>
+</panel_attributes><additional_attributes></additional_attributes></element><element><id>Relation</id><coordinates><x>440</x><y>530</y><w>150</w><h>120</h></coordinates><panel_attributes>lt=&lt;-</panel_attributes><additional_attributes>130;100;10;100;10;10</additional_attributes></element></diagram>
