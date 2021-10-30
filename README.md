@@ -129,3 +129,9 @@ Weekly 12 Uhr:
 
 Nächste Meeting ist am Samstag (30.10) um 11:00 Uhr:
 Es dauert maximal eineinhalb Stunden.
+
+
+Nice to have:
+
+-   Explosionen
+-   Bewegendes Bild
