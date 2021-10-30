@@ -69,7 +69,7 @@ Designpattern
 
 - Dependency Injection (Seite 93)
 - Strategy (Seite 103)
-- State (Seite 112)
+- State (Seite 112) --> Sebastian
 - MVC (Seite 124)
 - Observer (Seite 133)
 - Factory (Seite 142)
@@ -86,6 +86,10 @@ Designpattern Pygame
 - Tilemap (Seite 282)
 - Flyweight (Seite 300)
 - Camera (Seite 310)
+
+Sounds --> Moh
+
+Startbildschirm, Game Over, Spiel --> Peter
 
 
 Mindestanforderungen:
