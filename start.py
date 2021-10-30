@@ -4,23 +4,26 @@ from factory import *
 from settings import *
 from predator import *
 from background import *
+from gameStartEnd import *
 
 # Initialization
 pygame.init()
 pygame.mixer.init()
 screen = pygame.display.set_mode((WIDTH, HEIGHT), pygame.SCALED)
-pygame.display.set_caption("Morhuhn Extreme")
+pygame.display.set_caption("Moorhuhn Extreme")
 
 # create object
 sprites = []
 ChickenFactory = ChickenFactory()
+
+# creates gameStartEndStates
+game = Game()
 
 # pygame Clock
 clock = pygame.time.Clock()
 
 
 def main():
-
     # GameLoop running?
     running = True
 
@@ -63,11 +66,15 @@ def main():
 
         for sprite in sprites:
             screen.blit(sprite.getImage(), sprite.getRect())
+
         # Blit the image at the rect's topleft coords.
         screen.blit(CURSOR_IMG, cursor_rect)
 
         # Double Buffering
         pygame.display.flip()
+
+
+# Start screen
 
 
 # Start main
