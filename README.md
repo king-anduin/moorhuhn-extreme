@@ -1,6 +1,6 @@
 Projektarbeit
 
-Pull Re : 
+Pull Re :
 
 Mindestanforderungen:
 
@@ -8,7 +8,7 @@ Mindestanforderungen:
 
     Teambildung (2 - 4 Personen)
 
-    Ausschließlich Python mit Modul PyGame
+    Ausschließlich Python mit Modul pg
 
     mind. 3 Szenen: Startbildschirm, Game Over, Spiel
 
@@ -20,12 +20,11 @@ Mindestanforderungen:
 
     Sauberer Code (siehe Vorlesung)
 
-
 Keine Wertung für:
 
     supertolle Grafik
 
-    mega Sound 
+    mega Sound
 
 Pluspunkte für:
 
@@ -35,13 +34,11 @@ Pluspunkte für:
 
     Kreativität
 
-
 Abgabe der Arbeit (am Ende des Semesters):
 
     Source Code + Bericht (ZIP-Datei) im Moodle-System
 
     Arbeitsmatrix (wer hat was gemacht)
-
 
 Bewertungsmatrix:
 
@@ -53,10 +50,7 @@ Bewertungsmatrix:
 
     Sichere Präsentation des Projektes (10%)
 
-
-
 Moorhuhn Infos zum Ablauf
-
 
 To-Do-Liste:
 
@@ -75,10 +69,10 @@ Designpattern
 - Factory (Seite 142)
 - Command (Seite 152)
 
-Designpattern Pygame
+Designpattern pg
 
 - Gameloop (Seite 194) --> Peter
-    - Sprites --> Sebastian
+  - Sprites --> Sebastian
 - Update (Seite 206)
 - Movement (Seite 219) --> Richard
 - Vektoren (Seite 237)
@@ -91,51 +85,51 @@ Sounds --> Moh
 
 Startbildschirm, Game Over, Spiel --> Peter
 
-
 Mindestanforderungen:
--	Mind. 3 Szenen: Startbildschirm, Game Over, Spiel
--	Mind. 5 unterschiedliche agierende Objekte (Spieler, Gegner, Hindernisse)
--	Einbindung objektorientierter Konzepte
--	Einbindung von Entwurfsmustern
 
+- Mind. 3 Szenen: Startbildschirm, Game Over, Spiel
+- Mind. 5 unterschiedliche agierende Objekte (Spieler, Gegner, Hindernisse)
+- Einbindung objektorientierter Konzepte
+- Einbindung von Entwurfsmustern
 
 Pluspunkte für:
--	Designpatterns
--	Übersichtlicher und strukturierter Code
--	Kreativität
 
+- Designpatterns
+- Übersichtlicher und strukturierter Code
+- Kreativität
 
 Bewertungsmatrix:
--	Fehlerfreiheit (30%)
--	Vollständigkeit und Features (30%)
--	Codestärke (Lesbarkeit und Patterns) (30%)
--	Sichere Präsentation des Projektes (10%)
 
+- Fehlerfreiheit (30%)
+- Vollständigkeit und Features (30%)
+- Codestärke (Lesbarkeit und Patterns) (30%)
+- Sichere Präsentation des Projektes (10%)
 
 Sprites:
-https://www.spriters-resource.com/fullview/46803/ 
-
+https://www.spriters-resource.com/fullview/46803/
 
 Vorgehensmodell:
 
 SCRUM
 
 Rollen
--	Scrum Master: Moh
--	Product Owner: Peter
--	Team: Richard, Sebastian
+
+- Scrum Master: Moh
+- Product Owner: Peter
+- Team: Richard, Sebastian
 
 Dailys jeweils 11 Uhr:
--	Mittwoch, Freitag 
+
+- Mittwoch, Freitag
 
 Weekly 12 Uhr:
--	Sonntag (Fertiges Produkt)
+
+- Sonntag (Fertiges Produkt)
 
 Nächste Meeting ist am Samstag (30.10) um 11:00 Uhr:
 Es dauert maximal eineinhalb Stunden.
 
-
 Nice to have:
 
--   Explosionen
--   Bewegendes Bild
+- Explosionen
+- Bewegendes Bild
