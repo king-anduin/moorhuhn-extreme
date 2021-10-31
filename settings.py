@@ -22,3 +22,6 @@ CHICKEN_SIZE = (70, 70)
 # predator.py
 CURSOR_SIZE = (20, 20)
 CURSOR_MID = (40, 40)
+
+# startloop.py
+BORDERRADIUS = 5
