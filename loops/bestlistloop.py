@@ -9,6 +9,12 @@ def bestlistloop(clock, screen):
     # GameLoop running?
     running = True
 
+    # Create Buttons Object
+    buttons = MenuButtons()
+
+    # Render
+    font_text = pg.font.Font("freesansbold.ttf", 24)
+
     while running:
         # Delta Time
         dt = clock.tick(FPS)
@@ -30,7 +36,7 @@ def bestlistloop(clock, screen):
 
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
-                if objectsRect[0].collidepoint(event.pos):
+                if buttons.objectsRect[0].collidepoint(event.pos):
                     running = False
                     return True
 
@@ -38,26 +44,9 @@ def bestlistloop(clock, screen):
         screen.fill((WHITE))
         screen.blit(GameStartEnd.image, GameStartEnd.rect)
 
-        # Render
-        font_text = pg.font.Font("freesansbold.ttf", 24)
-
-        # Render rects for options on screen
-        y = 50
-        objectsRect = []
-        for i in range(2):
-            objectsRect.append(pg.Rect(200, y, 150, 50))
-            pg.draw.rect(
-                screen, WHITE, objectsRect[i], border_radius=BORDERRADIUS)
-            y += 100
-
-        # Render text for buttons on screen
-        for i in range(2):
-            text = ["menu", "Best list"]
-            location = [(250, 50), (250, 150), (250, 250)]
-            font_box = font_text.render(text[i], True, [0, 0, 0])
-            rect_box = font_box.get_rect()
-            rect_box.left, rect_box.top = location[i]
-            screen.blit(font_box, rect_box)
+        # Render text and rects for menu
+        buttons.drawRect(screen, 2, WHITE, WIDTH * 0.5 - 100, 100, 200, 50, 5)
+        buttons.drawText(screen, font_text, LOCATIONBEST, TEXTBEST, 2, BLACK)
 
         # Blit the image at the rect's topleft coords.
         screen.blit(CURSOR_IMG, cursor_rect)

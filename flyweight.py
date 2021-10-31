@@ -30,3 +30,26 @@ class Background(pg.sprite.Sprite):
         self.image = bg
         self.rect = self.image.get_rect()
         self.rect.left, self.rect.top = location
+
+
+class MenuButtons(pg.sprite.Sprite):
+    def __init__(self):
+        pg.sprite.Sprite.__init__(self)  # call Sprite initializer
+        self.objectsRect = []
+
+    def drawText(self, screen, font_text, location, text, amount, color):
+        for i in range(amount):
+            self.text = text
+            self.location = location
+            font_box = font_text.render(text[i], True, color)
+            rect_box = font_box.get_rect()
+            rect_box.center = location[i]
+            screen.blit(font_box, rect_box)
+
+    def drawRect(self, screen, amount, color, left, top, width, height, borderradius):
+        y = top
+        for i in range(amount):
+            self.objectsRect.append(pg.Rect(left, y, width, height))
+            pg.draw.rect(
+                screen, color, self.objectsRect[i], border_radius=borderradius)
+            y += 100

@@ -10,6 +10,12 @@ def gameLoop(clock, ChickenFactory, screen, sprites):
 
     count = 0
 
+    # Create Buttons Object
+    buttons = MenuButtons()
+
+    # Render
+    font_text = pg.font.Font("freesansbold.ttf", 24)
+
     # GameLoop running?
     running = True
 
@@ -63,6 +69,10 @@ def gameLoop(clock, ChickenFactory, screen, sprites):
         # Render
         screen.fill((WHITE))
         screen.blit(background.image, background.rect)
+
+        # render top menu bar
+        buttons.drawRect(screen, 1, BLACK, 0, 0, WIDTH, 30, 0)
+        buttons.drawText(screen, font_text, LOCATIONGAME, TEXTGAME, 1, WHITE)
 
         for sprite in sprites:
             screen.blit(sprite.getImage(), sprite.getRect())
