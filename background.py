@@ -18,11 +18,18 @@ background2 = Background(bg, [0, 50])
 bgStartGame = (
     (pg.image.load(os.path.join(img_folder, 'backgrounds/backgroundworlds.png'))))
 startGameBG = BackgroundScreens(bgStartGame, [WIDTH * 0.5, HEIGHT * 0.5])
+
 # Adding Backround start, end, bestlist screen 2
 bgEndGame = (
     (pg.image.load(os.path.join(img_folder, 'backgrounds/backgroundtarget1.png'))))
 endGameBG = BackgroundScreens(bgEndGame, [WIDTH * 0.5, HEIGHT * 0.5])
+
 # Adding Backround start, end, bestlist screen 3
 bgBestList = (
     (pg.image.load(os.path.join(img_folder, 'backgrounds/backgroundtarget2.png'))))
 bestListBG = BackgroundScreens(bgBestList, [WIDTH * 0.5, HEIGHT * 0.5])
+
+# Adding Trunk to the world
+bgTrunk = (
+    (pg.image.load(os.path.join(img_folder, 'world/trunk2.png'))))
+TrunkBG = BackgroundScreens(bgTrunk, [700, HEIGHT * 0.5])

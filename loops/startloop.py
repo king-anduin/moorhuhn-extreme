@@ -52,15 +52,6 @@ def screenLoop(clock, screen):
         screen.fill((WHITE))
         screen.blit(startGameBG.image, startGameBG.rect)
 
-        # Render signpost
-        # sprites.append(SignPostFactory.createSignPost(50, 50, 100, 150))
-
-        # Update signpost
-        # for sprite in sprites:
-        #     sprite.update()
-
-        # screen.blit(sprite.getImage(), sprite.getRect())
-
         # Render text and rects for menu
         buttons.drawRect(screen, 3, WHITE, WIDTH * 0.5 - 100, 100, 200, 50, 5)
         buttons.drawText(screen, font_text, LOCATION, TEXT, 3, BLACK)
