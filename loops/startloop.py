@@ -6,12 +6,14 @@ from background import *
 
 
 def screenLoop(clock, screen):
-
     # GameLoop running?
     running = True
 
     # Create Buttons Object
     buttons = MenuButtons()
+
+    # Sprite list for signpost
+    sprites = []
 
     # Render
     font_text = pg.font.Font("freesansbold.ttf", 24)
@@ -48,7 +50,7 @@ def screenLoop(clock, screen):
 
         # Render
         screen.fill((WHITE))
-        screen.blit(GameStartEnd.image, GameStartEnd.rect)
+        screen.blit(startGameBG.image, startGameBG.rect)
 
         # Render text and rects for menu
         buttons.drawRect(screen, 3, WHITE, WIDTH * 0.5 - 100, 100, 200, 50, 5)

@@ -107,3 +107,63 @@ class Coin(Ball):
                     self.imageIndex = 1
                 self.image = self.flyweightImages['chicken' +
                                                   str(self.imageIndex)]
+
+
+class SignPost(Ball):
+    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, direction: str):
+        self.x = x
+        self.y = y
+        self.flyweightImages = flyweightImages
+        self.image = self.flyweightImages['signpost1']
+        self.imageIndex = 1
+        # print(id(self.flyweightImages))
+        self.rect = self.image.get_rect()
+        self.rect.topleft = (self.x, self.y)
+        self.sx = sx
+        self.sy = sy
+        self.direction = "Right"
+
+        # Coin Speed
+        self.maxtimer = COINSPEED
+        self.timer = 0
+
+    # update function
+    def update(self):
+        self.rotate()
+        Ball.update(self)
+
+# get position of the mouse
+    def getPos(self):
+        return self.x, self.y
+
+# Checks that the hit is inside rect of chicken borders
+    def checkHit(self, x, y):
+        print("Sign", self.rect.left, self.rect.right,
+              self.rect.top, self.rect.bottom)
+        if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
+            print("HIT")
+            return True
+        else:
+            return False
+
+# iterates over all .png to animate the chicken
+# if a chicken hits the wall at right or left, they will turn in that direction
+    def rotate(self):
+        if (self.direction == "Right"):
+            self.timer += 1
+            if self.timer == self.maxtimer:
+                self.timer = 0
+                self.imageIndex += 1
+                if (self.imageIndex == 2):
+                    self.imageIndex = 1
+                self.image = pg.transform.flip(
+                    self.flyweightImages['signpost'+str(self.imageIndex)], True, False)
+        else:
+            self.timer += 1
+            if self.timer == self.maxtimer:
+                self.timer = 0
+                self.imageIndex += 1
+                if (self.imageIndex == 2):
+                    self.imageIndex = 1
+                self.image = self.flyweightImages['signpost' +
+                                                  str(self.imageIndex)]

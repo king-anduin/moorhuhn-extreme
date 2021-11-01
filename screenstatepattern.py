@@ -14,9 +14,11 @@ pg.mixer.init()
 screen = pg.display.set_mode((WIDTH, HEIGHT), pg.SCALED)
 pg.display.set_caption("Moorhuhn Extreme")
 
-# create object
-sprites = []
+# creates object
 ChickenFactory = ChickenFactory()
+
+# Create Object
+SignPostFactory = SignPostFactory()
 
 # pg Clock
 clock = pg.time.Clock()
@@ -114,7 +116,7 @@ class GameLoopState(GameState):
 
     def enter(self):
         print("You enter game loop, GameLoopState")
-        if gameLoop(clock, ChickenFactory, screen, sprites):
+        if gameLoop(clock, ChickenFactory, screen, SignPostFactory):
             game.endGame()
 
     def exit(self):
@@ -175,7 +177,7 @@ class GameBestList(GameState):
 game = Game()
 
 # Starts the game
-game.startGame()
+game.loopGame()
 
 # Done! Time to quit.
 pg.quit()

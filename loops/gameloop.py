@@ -4,11 +4,22 @@ from factory import *
 from settings import *
 from predator import *
 from background import *
+from mapcamera import *
 
 
-def gameLoop(clock, ChickenFactory, screen, sprites):
+def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
+
+    # Choose random map
+    int = random.randint(0, 1)
+    world = [background1, background2]
 
     count = 0
+
+    # Sprite list for chicken
+    sprites = []
+
+    # Sprite SignPost
+    spritesSignPost = []
 
     # Create Buttons Object
     buttons = MenuButtons()
@@ -38,11 +49,11 @@ def gameLoop(clock, ChickenFactory, screen, sprites):
 
                 # Checks for ending the game
                 if count < 5:
-                    count += 1
                     mousex, mousey = event.pos
                     # print("Maus-Pos", mousex, mousey)
                     for sprite in sprites:
                         if sprite.checkHit(mousex, mousey):
+                            count += 1
                             # print(sprite.getPos())
                             sprites.remove(sprite)
 
@@ -62,20 +73,34 @@ def gameLoop(clock, ChickenFactory, screen, sprites):
             sprites.append(ChickenFactory.createCoinAtPosition(
                 WIDTH-(0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.9*HEIGHT)), "Left"))
 
-        # Update
+        # Update chicken sprites
         for sprite in sprites:
             sprite.update()
 
-        # Render
-        screen.fill((WHITE))
-        screen.blit(background.image, background.rect)
+        spritesSignPost.append(
+            SignPostFactory.createSignPost(50, 50, 100, 50))
+
+        # Update signpost
+        for spritePost in spritesSignPost:
+            spritePost.update()
+
+        # Render background image and color
+        screen.fill((SKYBLUE))
+        screen.blit(world[int].image, world[int].rect)
+
+        # Render chickens to the screen
+        for sprite in sprites:
+            screen.blit(sprite.getImage(), sprite.getRect())
+
+        # loops through the list
+        screen.blit(spritePost.getImage(),
+                    spritePost.getRect())
+
+        screen.blit(TrunkBG.image, TrunkBG.rect)
 
         # render top menu bar
         buttons.drawRect(screen, 1, BLACK, 0, 0, WIDTH, 30, 0)
         buttons.drawText(screen, font_text, LOCATIONGAME, TEXTGAME, 1, WHITE)
-
-        for sprite in sprites:
-            screen.blit(sprite.getImage(), sprite.getRect())
 
         # Blit the image at the rect's topleft coords.
         screen.blit(CURSOR_IMG, cursor_rect)
