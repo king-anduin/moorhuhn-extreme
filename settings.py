@@ -11,6 +11,7 @@ COINSPEED = int(FPS / 8)
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
+SKYBLUE = (135, 206, 235, 1)
 
 # SPAWNER is the iteration Timer for spawning new chickens
 # as lower as more chickens will spawn
@@ -19,6 +20,7 @@ SPAWNER = 100
 
 # flyweight.py
 CHICKEN_SIZE = (70, 70)
+SIGNPOST = (100, 500)
 
 # predator.py
 CURSOR_SIZE = (20, 20)

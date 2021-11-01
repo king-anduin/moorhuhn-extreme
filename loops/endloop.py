@@ -46,7 +46,7 @@ def endloop(clock, screen):
 
         # Render
         screen.fill((WHITE))
-        screen.blit(GameStartEnd.image, GameStartEnd.rect)
+        screen.blit(endGameBG.image, endGameBG.rect)
 
         # Render text and rects for menu
         buttons.drawRect(screen, 2, WHITE, WIDTH * 0.5 - 100, 100, 200, 50, 5)

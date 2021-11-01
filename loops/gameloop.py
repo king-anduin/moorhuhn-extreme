@@ -4,11 +4,19 @@ from factory import *
 from settings import *
 from predator import *
 from background import *
+from mapcamera import *
 
 
-def gameLoop(clock, ChickenFactory, screen, sprites):
+def gameLoop(clock, ChickenFactory, screen):
+
+    # Choose random map
+    int = random.randint(0, 1)
+    world = [background1, background2]
 
     count = 0
+
+    # Sprite list for chicken
+    sprites = []
 
     # Create Buttons Object
     buttons = MenuButtons()
@@ -62,18 +70,19 @@ def gameLoop(clock, ChickenFactory, screen, sprites):
             sprites.append(ChickenFactory.createCoinAtPosition(
                 WIDTH-(0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.9*HEIGHT)), "Left"))
 
-        # Update
+        # Update chicken sprites
         for sprite in sprites:
             sprite.update()
 
-        # Render
-        screen.fill((WHITE))
-        screen.blit(background.image, background.rect)
+        # Render background image and color
+        screen.fill((SKYBLUE))
+        screen.blit(world[int].image, world[int].rect)
 
         # render top menu bar
         buttons.drawRect(screen, 1, BLACK, 0, 0, WIDTH, 30, 0)
         buttons.drawText(screen, font_text, LOCATIONGAME, TEXTGAME, 1, WHITE)
 
+        # Render chickens to teh screen
         for sprite in sprites:
             screen.blit(sprite.getImage(), sprite.getRect())
 
