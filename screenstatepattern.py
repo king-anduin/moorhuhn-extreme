@@ -11,7 +11,7 @@ from loops.bestlistloop import *
 # Initialization
 pg.init()
 pg.mixer.init()
-screen = pg.display.set_mode((WIDTH, HEIGHT), pg.SCALED)
+screen = pg.display.set_mode((WIDTH, int(HEIGHT)), pg.SCALED)
 pg.display.set_caption("Moorhuhn Extreme")
 
 # creates object
