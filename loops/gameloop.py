@@ -52,7 +52,7 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
                     mousex, mousey = event.pos
                     # print("Maus-Pos", mousex, mousey)
                     for sprite in sprites:
-                        if sprite.checkHit(mousex, mousey):
+                        if sprite.checkHit(mousex, mousey) and not TrunkBG.rect.collidepoint(event.pos):
                             count += 1
                             # print(sprite.getPos())
                             sprites.remove(sprite)
