@@ -1,4 +1,5 @@
 import pygame as pg
+import random
 from settings import *
 
 
@@ -9,7 +10,7 @@ class Sprite:
         self.image = flyweightImages[imagename]
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
-        self.direction = "Left"
+        self.direction = ""
 
     def update(self):
         raise NotImplementedError
@@ -35,15 +36,15 @@ class Ball(Sprite):
         if (self.rect.bottom >= HEIGHT):
             self.sy = self.sy * -1
 
-        if (self.rect.right >= WIDTH):
-            self.sx = self.sx * -1
-            # direction is needed for flipping the chicken
-            self.direction = "Left"
+        # if (self.rect.right >= WIDTH):
+        #     self.sx = self.sx * -1
+        #     # direction is needed for flipping the chicken
+        #     self.direction = "Left"
 
-        if (self.rect.left <= 0):
-            self.sx = self.sx * -1
-            # direction is needed for flipping the chicken
-            self.direction = "Right"
+        # if (self.rect.left <= 0):
+        #     self.sx = self.sx * -1
+        #     # direction is needed for flipping the chicken
+        #     self.direction = "Right"
 
         if (self.rect.top <= 0):
             self.sy = self.sy * -1
@@ -54,14 +55,17 @@ class Coin(Ball):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.image = self.flyweightImages['chicken1']
+        self.size = random.choice([(30,30), (50,50), (70,70)])
+        self.image = pg.transform.scale(self.flyweightImages['chicken1'], self.size)
         self.imageIndex = 1
+        self.imageIndexDead = 1
         # print(id(self.flyweightImages))
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
         self.sx = sx
         self.sy = sy
-        self.direction = "Left"
+        self.direction = ""
+        self.isDead = False
 
         # Coin Speed
         self.maxtimer = COINSPEED
@@ -69,8 +73,11 @@ class Coin(Ball):
 
 # update function
     def update(self):
-        self.rotate()
-        Ball.update(self)
+        if self.isDead == False:
+            self.rotate()
+            Ball.update(self)
+        else:
+            self.deadchicken()
 
 # get position of the mouse
     def getPos(self):
@@ -97,7 +104,7 @@ class Coin(Ball):
                 if (self.imageIndex == 12):
                     self.imageIndex = 1
                 self.image = pg.transform.flip(
-                    self.flyweightImages['chicken'+str(self.imageIndex)], True, False)
+                    pg.transform.scale(self.flyweightImages['chicken'+str(self.imageIndex)], self.size), True, False)
         else:
             self.timer += 1
             if self.timer == self.maxtimer:
@@ -105,8 +112,20 @@ class Coin(Ball):
                 self.imageIndex += 1
                 if (self.imageIndex == 12):
                     self.imageIndex = 1
-                self.image = self.flyweightImages['chicken' +
-                                                  str(self.imageIndex)]
+                self.image = pg.transform.scale(self.flyweightImages['chicken' + str(self.imageIndex)], self.size)
+
+# changes the state of the chicken to dead
+    def deadchicken(self):
+        transparent = (0,0,0,0)
+        self.isDead = True
+        self.timer += 1
+        if self.timer == self.maxtimer:
+            self.timer = 0
+            self.imageIndexDead += 1
+            if (self.imageIndexDead <= 8):
+                self.image = pg.transform.scale(self.flyweightImages['chickendead' + str(self.imageIndexDead)], self.size)
+            else:
+                self.image.fill(transparent)
 
 
 class SignPost(Ball):
