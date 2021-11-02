@@ -14,6 +14,9 @@ def bestlistloop(clock, screen):
 
     # Render
     font_text = pg.font.Font("freesansbold.ttf", 24)
+    # Sounds
+    bestlist_sound = pg.mixer.Sound("sounds/bestlist.mp3")
+    bestlist_sound.play(-1)
 
     while running:
         # Delta Time
@@ -23,6 +26,8 @@ def bestlistloop(clock, screen):
         for event in pg.event.get():
             if event.type == pg.QUIT:
                 running = False
+                bestlist_sound.stop()
+                start_sound.stop()
             elif event.type == pg.MOUSEMOTION:
                 # If the mouse is moved, set the center of the rect
                 # to the mouse pos. You can also use pg.mouse.get_pos()
@@ -33,11 +38,13 @@ def bestlistloop(clock, screen):
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
                     running = False
+                    bestlist_sound.stop()
 
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
                 if buttons.objectsRect[0].collidepoint(event.pos):
                     running = False
+                    bestlist_sound.stop()
                     return True
 
         # Render
