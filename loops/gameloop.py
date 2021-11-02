@@ -67,7 +67,6 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
                             # print(sprite.getPos())
                             sprite.deadchicken()
                             # sprites.remove(sprite)
-                            
 
                 # Else Check for ending the game
                 else:
@@ -80,7 +79,6 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
                 if event.key == pg.K_ESCAPE:
                     running = False
                     background_sound.stop()
-                    ende_sound.play()
 
         # create a chicken every spawners iteration on right side of screen
         randomizer = random.randrange(1, SPAWNER, 1)
@@ -91,7 +89,6 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         if randomizer == 2:
             sprites.append(ChickenFactory.createChickenLeftSide(
                 (0.05*WIDTH), random.uniform((0.1*HEIGHT), (0.9*HEIGHT)), "Right"))
-
 
         # Update chicken sprites
         for sprite in sprites:
