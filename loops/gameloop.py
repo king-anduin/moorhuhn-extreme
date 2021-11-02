@@ -71,7 +71,11 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         randomizer = random.randrange(1, SPAWNER, 1)
         if randomizer == 1:
             sprites.append(ChickenFactory.createCoinAtPosition(
-                WIDTH-(0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.9*HEIGHT)), "Left"))
+                (1.12*WIDTH), random.uniform((0.1*HEIGHT), (0.9*HEIGHT)), "Left"))
+
+        if randomizer == 2:
+            sprites.append(ChickenFactory.createCoinAtPosition((-0.12*WIDTH),random.uniform((0.1*HEIGHT), (0.9*HEIGHT)),
+                 "Right"))
 
         # Update chicken sprites
         for sprite in sprites:

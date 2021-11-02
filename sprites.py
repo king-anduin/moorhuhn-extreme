@@ -35,15 +35,15 @@ class Ball(Sprite):
         if (self.rect.bottom >= HEIGHT):
             self.sy = self.sy * -1
 
-        if (self.rect.right >= WIDTH):
-            self.sx = self.sx * -1
-            # direction is needed for flipping the chicken
-            self.direction = "Left"
+        # if (self.rect.right >= WIDTH):
+        #     self.sx = self.sx * -1
+        #     # direction is needed for flipping the chicken
+        #     self.direction = "Left"
 
-        if (self.rect.left <= 0):
-            self.sx = self.sx * -1
-            # direction is needed for flipping the chicken
-            self.direction = "Right"
+        # if (self.rect.left <= 0):
+        #     self.sx = self.sx * -1
+        #     # direction is needed for flipping the chicken
+        #     self.direction = "Right"
 
         if (self.rect.top <= 0):
             self.sy = self.sy * -1
@@ -61,7 +61,7 @@ class Coin(Ball):
         self.rect.topleft = (self.x, self.y)
         self.sx = sx
         self.sy = sy
-        self.direction = "Left"
+        self.direction = direction
 
         # Coin Speed
         self.maxtimer = COINSPEED
