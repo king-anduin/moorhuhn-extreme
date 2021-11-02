@@ -20,6 +20,10 @@ class ImageFlyweight:
             self.images['chicken'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
                 img_folder, 'chicken'+str(i)+'.png')).convert_alpha(), (CHICKEN_SIZE))
 
+        for i in range(1, 9):
+            self.images['chickendead'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'chickendead'+str(i)+'.png')).convert_alpha(),(CHICKEN_SIZE))
+
     def getFlyweightImages(self):
         return self.images
 
