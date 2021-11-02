@@ -28,8 +28,8 @@ def endloop(clock, screen):
         # Events
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                running = False
                 ende_sound.stop()
+                running = False
             elif event.type == pg.MOUSEMOTION:
                 # If the mouse is moved, set the center of the rect
                 # to the mouse pos. You can also use pg.mouse.get_pos()
@@ -39,18 +39,19 @@ def endloop(clock, screen):
             # Ends the game on ESC
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
-                    running = False
                     ende_sound.stop()
+                    running = False
 
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
                 if buttons.objectsRect[0].collidepoint(event.pos):
-                    running = False
                     ende_sound.stop()
+                    running = False
+
                     return True
                 elif buttons.objectsRect[1].collidepoint(event.pos):
-                    running = False
                     ende_sound.stop()
+                    running = False
 
         # Render
         screen.fill((WHITE))
