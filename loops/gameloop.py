@@ -80,7 +80,6 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
                 if event.key == pg.K_ESCAPE:
                     running = False
                     background_sound.stop()
-                    ende_sound.play()
 
         # create a chicken every spawners iteration on right side of screen
         randomizer = random.randrange(1, SPAWNER, 1)
