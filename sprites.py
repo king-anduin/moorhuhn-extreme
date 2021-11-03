@@ -64,7 +64,7 @@ class Coin(Ball):
         self.rect.topleft = (self.x, self.y)
         self.sx = sx
         self.sy = sy
-        self.direction = ""
+        self.direction = direction
         self.isDead = False
 
         # Coin Speed
