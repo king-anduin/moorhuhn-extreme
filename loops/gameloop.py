@@ -1,10 +1,10 @@
 import pygame as pg
 import random
-from factory import *
 from settings import *
 from predator import *
 from background import *
 from mapcamera import *
+from signpost import *
 
 
 def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
@@ -23,6 +23,9 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
     # Create Buttons Object
     buttons = MenuButtons()
+
+    # Create SignPost Object
+    signPost = SignPost()
 
     # Render
     font_text = pg.font.Font("freesansbold.ttf", 24)
@@ -60,25 +63,33 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
                 # Checks for ending the game
                 if count < 5:
                     mousex, mousey = event.pos
-                    # print("Maus-Pos", mousex, mousey)
+                    # print("Maus-Pos", mousex, mousey
+                    # checks for hitting a chicken
                     for sprite in sprites:
-                        if sprite.checkHit(mousex, mousey) and not TrunkBG.rect.collidepoint(event.pos):
+                        if sprite.checkHit(mousex, mousey) and not TrunkBG.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos):
                             count += 1
                             # print(sprite.getPos())
-                            sprite.deadchicken()
-                            # sprites.remove(sprite)
+                            if sprite.deadchicken():
+                                sprites.remove(sprite)
+
+                    # checks for hitting sign post and uses state pattern to change
+                    for spritePost in spritesSignPost:
+                        if spritePost.checkHit(mousex, mousey):
+                            signPost.endState()
+                        else:
+                            signPost.startState()
 
                 # Else Check for ending the game
                 else:
-                    running = False
                     background_sound.stop()
+                    running = False
                     return True
 
             # Ends the game on ESC
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
-                    running = False
                     background_sound.stop()
+                    running = False
 
         # create a chicken every spawners iteration on right side of screen
         randomizer = random.randrange(1, SPAWNER, 1)
@@ -86,6 +97,7 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
             sprites.append(ChickenFactory.createChickenRightSide(
                 WIDTH-(0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.9*HEIGHT)), "Left"))
 
+        # create a chicken every spawners iteration on right side of screen
         if randomizer == 2:
             sprites.append(ChickenFactory.createChickenLeftSide(
                 (0.05*WIDTH), random.uniform((0.1*HEIGHT), (0.9*HEIGHT)), "Right"))
@@ -95,7 +107,7 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
             sprite.update()
 
         spritesSignPost.append(
-            SignPostFactory.createSignPost(50, 50, 100, 50))
+            SignPostFactory.createSignPost(50, 50, 100, 150))
 
         # Update signpost
         for spritePost in spritesSignPost:

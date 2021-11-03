@@ -86,8 +86,8 @@ class Coin(Ball):
 
 # Checks that the hit is inside rect of chicken borders
     def checkHit(self, x, y):
-        print("Huhn", self.rect.left, self.rect.right,
-              self.rect.top, self.rect.bottom)
+        # print("Huhn", self.rect.left, self.rect.right,
+        #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
             print("HIT")
             return True
@@ -129,6 +129,7 @@ class Coin(Ball):
                     self.flyweightImages['chickendead' + str(self.imageIndexDead)], self.size)
             else:
                 self.image.fill(transparent)
+                return True
 
 
 class SignPost(Ball):
@@ -160,8 +161,8 @@ class SignPost(Ball):
 
 # Checks that the hit is inside rect of chicken borders
     def checkHit(self, x, y):
-        print("Sign", self.rect.left, self.rect.right,
-              self.rect.top, self.rect.bottom)
+        # print("Sign", self.rect.left, self.rect.right,
+        #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
             print("HIT")
             return True
