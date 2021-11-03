@@ -27,6 +27,11 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
     # Render
     font_text = pg.font.Font("freesansbold.ttf", 24)
 
+    # Sounds
+    background_sound = pg.mixer.Sound("sounds/background.mp3")
+    background_sound.play(-1)
+    shot_sound = pg.mixer.Sound("sounds/schiessen.mp3")
+
     # GameLoop running?
     running = True
 
@@ -37,7 +42,9 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         # Events
         for event in pg.event.get():
             if event.type == pg.QUIT:
+                background_sound.stop()
                 running = False
+
             elif event.type == pg.MOUSEMOTION:
                 # If the mouse is moved, set the center of the rect
                 # to the mouse pos. You can also use pg.mouse.get_pos()
@@ -47,6 +54,10 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         # If a chicken got hit by mouse it will be removed
             if event.type == pg.MOUSEBUTTONDOWN:
 
+                # Play shot sound
+                # TODO: change sound if no ammo
+
+                shot_sound.play()
                 # Checks for ending the game
                 if count < 5:
                     mousex, mousey = event.pos
@@ -55,16 +66,20 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
                         if sprite.checkHit(mousex, mousey):
                             count += 1
                             # print(sprite.getPos())
-                            sprites.remove(sprite)
+                            sprite.deadchicken()
+                            # sprites.remove(sprite)
+                            
 
                 # Else Check for ending the game
                 else:
+                    background_sound.stop()
                     running = False
                     return True
 
             # Ends the game on ESC
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
+                    background_sound.stop()
                     running = False
 
         # create a chicken every spawners iteration on right side of screen
@@ -76,6 +91,8 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         if randomizer == 2:
             sprites.append(ChickenFactory.createCoinAtPosition((-0.12*WIDTH),random.uniform((0.1*HEIGHT), (0.9*HEIGHT)),
                  "Right"))
+
+
 
         # Update chicken sprites
         for sprite in sprites:

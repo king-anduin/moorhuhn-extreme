@@ -18,6 +18,10 @@ def screenLoop(clock, screen):
     # Render
     font_text = pg.font.Font("freesansbold.ttf", 24)
 
+    # Sounds
+    start_sound = pg.mixer.Sound("sounds/start.mp3")
+    start_sound.play(-1)
+
     while running:
         # Delta Time
         dt = clock.tick(FPS)
@@ -25,6 +29,7 @@ def screenLoop(clock, screen):
         # Events
         for event in pg.event.get():
             if event.type == pg.QUIT:
+                start_sound.stop()
                 running = False
             elif event.type == pg.MOUSEMOTION:
                 # If the mouse is moved, set the center of the rect
@@ -35,17 +40,22 @@ def screenLoop(clock, screen):
             # Ends the game on ESC
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
+                    start_sound.stop()
                     running = False
 
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
                 if buttons.objectsRect[0].collidepoint(event.pos):
                     running = False
+                    start_sound.stop()
                     return True
                 elif buttons.objectsRect[1].collidepoint(event.pos):
+                    start_sound.stop()
                     running = False
+
                     return False
                 elif buttons.objectsRect[2].collidepoint(event.pos):
+                    start_sound.stop()
                     running = False
 
         # Render

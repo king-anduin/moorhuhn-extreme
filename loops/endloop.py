@@ -16,6 +16,10 @@ def endloop(clock, screen):
     # Render
     font_text = pg.font.Font("freesansbold.ttf", 24)
 
+    # Sounds
+    ende_sound = pg.mixer.Sound("sounds/ende.mp3")
+    ende_sound.play(-1)
+
     while running:
 
         # Delta Time
@@ -24,6 +28,7 @@ def endloop(clock, screen):
         # Events
         for event in pg.event.get():
             if event.type == pg.QUIT:
+                ende_sound.stop()
                 running = False
             elif event.type == pg.MOUSEMOTION:
                 # If the mouse is moved, set the center of the rect
@@ -34,14 +39,18 @@ def endloop(clock, screen):
             # Ends the game on ESC
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
+                    ende_sound.stop()
                     running = False
 
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
                 if buttons.objectsRect[0].collidepoint(event.pos):
+                    ende_sound.stop()
                     running = False
+
                     return True
                 elif buttons.objectsRect[1].collidepoint(event.pos):
+                    ende_sound.stop()
                     running = False
 
         # Render
