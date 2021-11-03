@@ -29,8 +29,8 @@ def screenLoop(clock, screen):
         # Events
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                running = False
                 start_sound.stop()
+                running = False
             elif event.type == pg.MOUSEMOTION:
                 # If the mouse is moved, set the center of the rect
                 # to the mouse pos. You can also use pg.mouse.get_pos()
@@ -40,8 +40,8 @@ def screenLoop(clock, screen):
             # Ends the game on ESC
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
-                    running = False
                     start_sound.stop()
+                    running = False
 
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
@@ -50,12 +50,13 @@ def screenLoop(clock, screen):
                     start_sound.stop()
                     return True
                 elif buttons.objectsRect[1].collidepoint(event.pos):
-                    running = False
                     start_sound.stop()
+                    running = False
+
                     return False
                 elif buttons.objectsRect[2].collidepoint(event.pos):
-                    running = False
                     start_sound.stop()
+                    running = False
 
         # Render
         screen.fill((WHITE))
