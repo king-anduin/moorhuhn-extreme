@@ -24,16 +24,9 @@ class ChickenFactory:
                     SPEED * random.choice([1, -1, 0.5, -0.5]), 'ball')
         return ball
 
-    def createChickenRightSide(self, x, y, direction: str):
-        ball = Coin(self.imageDict, x, y, SPEED * random.choice([-1, -1, -0.5, -0.5]),
-                    SPEED * random.choice([0, -0, 0, -0]), "Left")
-        ball.direction = "Left"
-        return ball
-
-    def createChickenLeftSide(self, x, y, direction: str):
-        ball = Coin(self.imageDict, x, y, SPEED * random.choice([1, 1, 0.5, 0.5]),
-                    SPEED * random.choice([0, -0, 0, -0]), "Right")
-        ball.direction = "Right"
+    def createCoinAtPosition(self, x, y, direction: str):
+        ball = Coin(self.imageDict, x, y, SPEED * random.choice([1, -1, 0.5, -0.5]),
+                    SPEED * random.choice([0, -0, 0, -0]), direction)
         return ball
 
 
