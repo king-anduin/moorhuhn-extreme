@@ -89,7 +89,7 @@ class Coin(Ball):
         # print("Huhn", self.rect.left, self.rect.right,
         #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
-            print("HIT")
+            print("HIT chicken")
             return True
         else:
             return False
@@ -164,7 +164,7 @@ class SignPost(Ball):
         # print("Sign", self.rect.left, self.rect.right,
         #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
-            print("HIT")
+            print("HIT signpost")
             return True
         else:
             return False
