@@ -64,6 +64,8 @@ Designpattern
 - Dependency Injection (Seite 93)
 - Strategy (Seite 103)
 - State (Seite 112) --> Sebastian
+  - SignPostm ---> Peter
+  - Ammo --> MoH
 - MVC (Seite 124)
 - Observer (Seite 133)
 - Factory (Seite 142)
@@ -73,13 +75,14 @@ Designpattern pg
 
 - Gameloop (Seite 194) --> Peter
   - Sprites --> Sebastian
+  - Zeit und Punkte --> Richard
 - Update (Seite 206)
 - Movement (Seite 219) --> Richard
 - Vektoren (Seite 237)
 - Collusion Detection (Seite 246)
 - Tilemap (Seite 282)
 - Flyweight (Seite 300)
-- Camera (Seite 310)
+- Camera (Seite 310) ---> Sebastian
 
 Sounds --> Moh
 
@@ -132,4 +135,4 @@ Es dauert maximal eineinhalb Stunden.
 Nice to have:
 
 - Explosionen
-- Bewegendes Bild
+- Mute Button

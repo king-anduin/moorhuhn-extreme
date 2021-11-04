@@ -38,6 +38,9 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
     # GameLoop running?
     running = True
 
+    # check signPost when shooting
+    post = True
+
     while running:
         # Delta Time
         dt = clock.tick(FPS)
@@ -76,9 +79,12 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
                     # checks for hitting sign post and uses state pattern to change
                     for spritePost in spritesSignPost:
                         if spritePost.checkHit(mousex, mousey):
-                            signPost.endState()
-                        else:
-                            signPost.startState()
+                            if post == True:
+                                post = False
+                                signPost.endState()
+                            else:
+                                post = True
+                                signPost.startState()
 
                 # Else Check for ending the game
                 else:
@@ -100,9 +106,8 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
         # create a chicken every spawners iteration on right side of screen
         if randomizer == 2:
-            sprites.append(ChickenFactory.createCoinAtPosition((-0.12*WIDTH),random.uniform((0.1*HEIGHT), (0.9*HEIGHT)),
-                 "Right"))
-
+            sprites.append(ChickenFactory.createCoinAtPosition((-0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.9*HEIGHT)),
+                                                               "Right"))
 
         # Update chicken sprites
         for sprite in sprites:

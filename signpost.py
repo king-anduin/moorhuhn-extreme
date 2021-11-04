@@ -41,11 +41,11 @@ class SignPostStartState(SignPostState):
         print("Sign is already in start state, SignPostStartState")
 
     def end(self):
-        print("Changes to end state, SignPostStartState")
         self.signPost.changeState(SignPostEndState(self.signPost))
 
     def enter(self):
         print("Sign is in start state, SignPostStartState")
+        return True
 
     def exit(self):
         pass
@@ -56,7 +56,6 @@ class SignPostEndState(SignPostState):
         self.signPost = signPost
 
     def start(self):
-        print("Change to start state, SignPostEndState")
         self.signPost.changeState(SignPostStartState(self.signPost))
 
     def end(self):
