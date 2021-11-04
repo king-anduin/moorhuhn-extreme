@@ -12,3 +12,8 @@ CURSOR_IMG = ((pg.image.load(os.path.join(img_folder, 'cursor/cursor.png'))))
 # pg.draw.circle(CURSOR_IMG, pg.Color('red'), (CURSOR_SIZE), 2)
 # Create a rect which we'll use as the blit position of the cursor.
 cursor_rect = CURSOR_IMG.get_rect()
+
+# Create ammo image
+SHELL_IMG = ((pg.image.load(os.path.join(img_folder, 'munition/shell.png'))))
+# Get the rect of the ammo image
+shell_rect = SHELL_IMG.get_rect()
