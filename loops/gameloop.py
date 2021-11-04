@@ -9,6 +9,9 @@ from mapcamera import *
 
 def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
+    # starting coordinates for map
+    startX,startY=0,100 
+
     # Choose random map
     int = random.randint(0, 1)
     world = [background1, background2]
@@ -107,7 +110,19 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
         # Render background image and color
         screen.fill((SKYBLUE))
-        screen.blit(world[int].image, world[int].rect)
+        screen.blit(world[int].image, (startX, startY))
+
+        # Move camera
+        if cursor_rect.center[0]<50 :
+            if startX >= world[int].rect[0]:
+                startX += 0
+            else:
+                startX += 5
+        if WIDTH - cursor_rect.center[0]<50:
+            if startX - WIDTH <= -world[int].rect[2]:
+                startX -= 0
+            else:
+                startX -= 5
 
         # Render chickens to the screen
         for sprite in sprites:
