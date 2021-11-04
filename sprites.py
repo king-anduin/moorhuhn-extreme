@@ -129,7 +129,7 @@ class Coin(Ball):
                     self.flyweightImages['chickendead' + str(self.imageIndexDead)], self.size)
             else:
                 self.image.fill(transparent)
-                return True
+                # return True
 
 
 class SignPost(Ball):
