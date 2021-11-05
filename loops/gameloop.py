@@ -1,11 +1,15 @@
 import pygame as pg
 import random
+from pygame import font
+
+from pygame.font import Font
+from loops.endloop import endloop
 from settings import *
 from predator import *
 from background import *
 from signpost import *
 import time
-from fonts import fonts1
+from fonts import *
 
 
 
@@ -41,8 +45,13 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
     # Create SignPost Object
     signPost = SignPost()
 
+    #create font object
+    fonts = Fonts(24)
+  
     # Render
-    font_text = pg.font.Font("freesansbold.ttf", 24)
+    
+    font_text = fonts.font_text
+    
 
     # Ambient sound
     background_sound = pg.mixer.Sound("sounds/background.mp3")
@@ -179,6 +188,22 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         buttons.drawRect(screen, 1, BLACK, 0, 0, WIDTH, 30, 0)
         buttons.drawText(screen, font_text, LOCATIONGAME, TEXTGAME, 1, WHITE)
 
+        # initiate the timer 
+        timerinitialiser = timerinitialiser + 1 
+        if timerinitialiser == 1:
+            before = time.time()
+
+        # get gametime and display in top right corner
+        game_timer = round((time.time()-before))
+        time_string = (str(120-game_timer)+" time left")
+        text = fonts.renderFont(time_string)
+        screen.blit(text, (WIDTH * 0.8, 0))
+        if game_timer == 5:
+            background_sound.stop()
+            running = False
+            return True
+
+
         # render the current ammo
         shell_x = screen_width - shell_rect.width * 0.5
         shell_y = screen_height - shell_rect.height * 0.5
@@ -190,19 +215,7 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         screen.blit(CURSOR_IMG, cursor_rect)
 
 
-        # initiate the timer 
-        timerinitialiser = timerinitialiser + 1 
-        if timerinitialiser == 1:
-            before = time.time()
 
-        # get gametime and display in top right corner
-        game_timer = round((time.time()-before))
-        time_string = (str(120-game_timer)+" time left")
-        text = fonts1(time_string)
-        screen.blit(text, (WIDTH*0.82, HEIGHT*0.1))
-        if game_timer == 120:
-            background_sound.stop()
-            running = False
 
         # Double Buffering
         pg.display.flip()
