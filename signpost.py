@@ -144,7 +144,6 @@ class SignPostList(Post):
         self.y = y
         self.flyweightImages = flyweightImages
         self.image = self.flyweightImages['signpost1']
-        self.imageIndex = 1
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
         self.sx = sx
