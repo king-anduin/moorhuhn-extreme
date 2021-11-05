@@ -145,12 +145,12 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         randomizer = random.randrange(1, SPAWNER, 1)
         if randomizer == 1:
             sprites.append(ChickenFactory.createCoinAtPosition(
-                (1.12*WIDTH), random.uniform((0.3*HEIGHT), (0.9*HEIGHT)), "Left"))
+                (1.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Left"))
 
         # create a chicken every spawners iteration on right side of screen
         if randomizer == 2:
             sprites.append(ChickenFactory.createCoinAtPosition(
-                (-0.12*WIDTH), random.uniform((0.3*HEIGHT), (0.9*HEIGHT)), "Right"))
+                (-0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Right"))
 
 
         # Update chicken sprites
@@ -202,7 +202,9 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         game_timer = round((time.time()-before))
         time_string = (str(120-game_timer)+" time left")
         text = fonts1(time_string)
-        screen.blit(text, (WIDTH*0.85, HEIGHT*0.1))
+        screen.blit(text, (WIDTH*0.82, HEIGHT*0.1))
+        if game_timer == 120:
+            running = False
 
         # Double Buffering
         pg.display.flip()
