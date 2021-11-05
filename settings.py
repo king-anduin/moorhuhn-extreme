@@ -43,6 +43,9 @@ TEXTBEST = ["menu", "Best list"]
 LOCATIONGAME = [(WIDTH * 0.5, 15)]
 TEXTGAME = ["Moorhuhn Extreme"]
 SIZEMENUBAR = (WIDTH, HEIGHT)
+# Distinguish between right and left mouse click
+RIGHT = 3
+LEFT = 1
 
 # sprites.py
 CHICKENSIZE1 = (30, 30)

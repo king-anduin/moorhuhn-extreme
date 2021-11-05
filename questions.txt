@@ -1,3 +1,3 @@
 Peter:
 - click two times in main menu
-- SignPost doesn't recognize image and rect -> it changes state everytime
+- SignPost pattern?!

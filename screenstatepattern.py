@@ -74,7 +74,7 @@ class GameStartState(GameState):
 
     def start(self):
         print("Already in start screen, GameStartState")
-        if screenLoop(clock, screen) == True:
+        if screenLoop(clock, screen):
             game.loopGame()
         elif screenLoop(clock, screen) == False:
             game.bestGame()
@@ -90,7 +90,7 @@ class GameStartState(GameState):
 
     def enter(self):
         print("You enter start screen, GameStartState")
-        if screenLoop(clock, screen) == True:
+        if screenLoop(clock, screen):
             game.loopGame()
         elif screenLoop(clock, screen) == False:
             game.bestGame()
@@ -178,7 +178,7 @@ class GameBestList(GameState):
 game = Game()
 
 # Starts the game
-game.loopGame()
+game.startGame()
 
 # Done! Time to quit.
 pg.quit()
