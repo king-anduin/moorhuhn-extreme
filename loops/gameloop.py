@@ -1,12 +1,24 @@
 import pygame as pg
 import random
+from pygame import font
+
+from pygame.font import Font
+from loops.endloop import endloop
 from settings import *
 from predator import *
 from background import *
 from signpost import *
+import time
+from fonts import *
+
 
 
 def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
+
+
+    #starting timer
+    starting_timer = 0
+    timerinitialiser = 0
 
     # Choose random map
     int = random.randint(0, 1)
@@ -33,8 +45,13 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
     # Create SignPost Object
     signPost = SignPost()
 
+    #create font object
+    fonts = Fonts(24)
+  
     # Render
-    font_text = pg.font.Font("freesansbold.ttf", 24)
+    
+    font_text = fonts.font_text
+    
 
     # Ambient sound
     background_sound = pg.mixer.Sound("sounds/background.mp3")
@@ -53,10 +70,13 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
     # Can predator shoot
     shoot = True
-
+    
     while running:
         # Delta Time
         dt = clock.tick(FPS)
+
+
+
 
         # Events
         for event in pg.event.get():
@@ -131,12 +151,13 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         randomizer = random.randrange(1, SPAWNER, 1)
         if randomizer == 1:
             sprites.append(ChickenFactory.createCoinAtPosition(
-                (1.12*WIDTH), random.uniform((0.1*HEIGHT), (0.9*HEIGHT)), "Left"))
+                (1.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Left"))
 
         # create a chicken every spawners iteration on right side of screen
         if randomizer == 2:
             sprites.append(ChickenFactory.createCoinAtPosition(
-                (-0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.9*HEIGHT)), "Right"))
+                (-0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Right"))
+
 
         # Update chicken sprites
         for sprite in sprites:
@@ -167,6 +188,22 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         buttons.drawRect(screen, 1, BLACK, 0, 0, WIDTH, 30, 0)
         buttons.drawText(screen, font_text, LOCATIONGAME, TEXTGAME, 1, WHITE)
 
+        # initiate the timer 
+        timerinitialiser = timerinitialiser + 1 
+        if timerinitialiser == 1:
+            before = time.time()
+
+        # get gametime and display in top right corner
+        game_timer = round((time.time()-before))
+        time_string = (str(120-game_timer)+" time left")
+        text = fonts.renderFont(time_string)
+        screen.blit(text, (WIDTH * 0.8, 0))
+        if game_timer == 5:
+            background_sound.stop()
+            running = False
+            return True
+
+
         # render the current ammo
         shell_x = screen_width - shell_rect.width * 0.5
         shell_y = screen_height - shell_rect.height * 0.5
@@ -176,6 +213,9 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
         # Blit the image at the rect's topleft coords.
         screen.blit(CURSOR_IMG, cursor_rect)
+
+
+
 
         # Double Buffering
         pg.display.flip()
