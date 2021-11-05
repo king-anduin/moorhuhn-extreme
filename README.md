@@ -64,8 +64,8 @@ Designpattern
 - Dependency Injection (Seite 93)
 - Strategy (Seite 103)
 - State (Seite 112) --> Sebastian
-  - SignPostm ---> Peter
-  - Ammo --> MoH
+  - SignPost ---> Peter (Flyweight, Factory)
+  - Ammo --> MoH (Flyweight, Factory, StatePattern)
 - MVC (Seite 124)
 - Observer (Seite 133)
 - Factory (Seite 142)
@@ -74,15 +74,15 @@ Designpattern
 Designpattern pg
 
 - Gameloop (Seite 194) --> Peter
-  - Sprites --> Sebastian
-  - Zeit und Punkte --> Richard
+  - Sprites --> Sebastian (chicken)
+  - Zeit und Punkte --> Richard (eventuell decorater, Verwendung Observer pattern für Punkte) (Huhnpunkte = (5, 10, 25), AbzügeSign = (-5)), Mutterhuhn = (25)
 - Update (Seite 206)
 - Movement (Seite 219) --> Richard
 - Vektoren (Seite 237)
 - Collusion Detection (Seite 246)
 - Tilemap (Seite 282)
 - Flyweight (Seite 300)
-- Camera (Seite 310) ---> Sebastian
+- Camera (Seite 310) ---> Sebastian (Hühner spwanen auf der ganzen Welt, scrollen mit arrow left & arrow right, Sprites bewegen sich mit)
 
 Sounds --> Moh
 
@@ -90,8 +90,8 @@ Startbildschirm, Game Over, Spiel --> Peter
 
 Mindestanforderungen:
 
-- Mind. 3 Szenen: Startbildschirm, Game Over, Spiel
-- Mind. 5 unterschiedliche agierende Objekte (Spieler, Gegner, Hindernisse)
+- Mind. 3 Szenen: Startbildschirm, Game Over, Spiel, Bestenliste
+- Mind. 5 unterschiedliche agierende Objekte (Spieler, Gegner(drei verschiedene Hühnergrößen), Hindernisse, Map?) 
 - Einbindung objektorientierter Konzepte
 - Einbindung von Entwurfsmustern
 

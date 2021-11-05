@@ -3,6 +3,7 @@ from factory import *
 from settings import *
 from predator import *
 from background import *
+from signpost import *
 from loops.startloop import *
 from loops.gameloop import *
 from loops.endloop import *
@@ -177,7 +178,7 @@ class GameBestList(GameState):
 game = Game()
 
 # Starts the game
-game.startGame()
+game.loopGame()
 
 # Done! Time to quit.
 pg.quit()
