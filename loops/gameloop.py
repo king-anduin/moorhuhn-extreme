@@ -9,8 +9,13 @@ from signpost import *
 
 def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
-    # starting coordinates for map
+    # Starting coordinates for map
     startX,startY=0,100 
+
+    # Key scroll parameters
+    right = False
+    left = False
+    keypressed = pg.key.get_pressed()
 
     # Choose random map
     int = random.randint(0, 1)
@@ -131,6 +136,11 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
                     # Reset ammo count and play reload sound
                     bullets_count = 10
                     reload_sound.play()
+                if keypressed(pg.K_LEFT):
+                    left = True
+
+                if keypressed(pg.K_RIGHT):
+                    right = True
 
         # create a chicken every spawners iteration on right side of screen
         randomizer = random.randrange(1, SPAWNER, 1)
@@ -159,13 +169,13 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         screen.blit(world[int].image, (startX, startY))
 
         # Move camera
-        if cursor_rect.center[0]<50 :
+        if cursor_rect.center[0]<50 or left == True :
             if startX >= world[int].rect[0]:
                 startX += 0
             else:
                 startX += 5
-        if WIDTH - cursor_rect.center[0]<50:
-            if startX - WIDTH <= -world[int].rect[2]:
+        if WIDTH - cursor_rect.center[0]<50 or right == True:
+            if startX - WIDTH <= -world[int].rect[2] + 50:
                 startX -= 0
             else:
                 startX -= 5
