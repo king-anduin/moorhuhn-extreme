@@ -3,7 +3,6 @@ import random
 from settings import *
 from predator import *
 from background import *
-from mapcamera import *
 from signpost import *
 import time
 from fonts import fonts1
@@ -27,13 +26,14 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
     screen_height = screen.get_height()
 
     count = 0
+
     # Current ammo count
     bullets_count = 10
 
     # Sprite list for chicken
     sprites = []
 
-    # Sprite SignPost
+    # Sprite List for SignPost
     spritesSignPost = []
 
     # Create Buttons Object
@@ -86,8 +86,6 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
             if event.type == pg.MOUSEBUTTONDOWN:
 
                 # Play shot sound
-                # TODO: change sound if no ammo
-
                 if bullets_count >= 1:
                     shot_sound.play()
                     shoot = True
@@ -117,7 +115,7 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
                 # checks for hitting sign post and uses state pattern to change
                 for spritePost in spritesSignPost:
-                    if spritePost.checkHit(mousex, mousey):
+                    if spritePost.checkHitSign(mousex, mousey):
                         if post == True:
                             post = False
                             signPost.endState()
@@ -158,11 +156,11 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
             sprite.update()
 
         spritesSignPost.append(
-            SignPostFactory.createSignPost(50, 50, 100, 150))
+            SignPostFactory.createSignPost(50, HEIGHT - 360, 50, 50))
 
         # Update signpost
         for spritePost in spritesSignPost:
-            spritePost.update()
+            spritePost.updateSign(post)
 
         # Render background image and color
         screen.fill((SKYBLUE))

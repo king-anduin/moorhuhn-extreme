@@ -20,7 +20,7 @@ SPAWNER = 70
 
 # flyweight.py
 CHICKEN_SIZE = (70, 70)
-SIGNPOST = (100, 500)
+SIGNPOSTSIZE = (379, 313)
 
 # predator.py
 CURSOR_SIZE = (20, 20)
