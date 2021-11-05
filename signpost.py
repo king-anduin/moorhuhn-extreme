@@ -27,8 +27,8 @@ class SignPostFactory:
     def __init__(self):
         self.imageDict = ImageSignPost().getFlyweightImages()
 
-    def createSignPost(self, x, y, sx, sy):
-        signPost = SignPostList(self.imageDict, x, y, sx, sy)
+    def createSignPost(self, x, y):
+        signPost = SignPostList(self.imageDict, x, y)
         return signPost
 # Sprites
 
@@ -52,21 +52,13 @@ class Sprite:
 
 
 class Post(Sprite):
-    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, imagename: str):
+    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
         Sprite.__init__(self, x, y, imagename)
-        self.sx = sx
-        self.sy = sy
 
     def update(self):
-        self.x = self.x + self.sx
-        self.y = self.y + self.sy
+        self.x = self.x
+        self.y = self.y
         self.rect.topleft = (self.x, self.y)
-
-        if (self.rect.bottom >= HEIGHT):
-            self.sy = self.sy * -1
-
-        if (self.rect.top <= 0):
-            self.sy = self.sy * -1
 
 # State Pattern
 
@@ -114,7 +106,6 @@ class SignPostStartState(SignPostState):
 
     def enter(self):
         print("Sign is in start state, SignPostStartState")
-        return True
 
     def exit(self):
         pass
@@ -139,15 +130,13 @@ class SignPostEndState(SignPostState):
 
 
 class SignPostList(Post):
-    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int):
+    def __init__(self, flyweightImages: dict, x: int, y: int):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
         self.image = self.flyweightImages['signpost1']
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
-        self.sx = sx
-        self.sy = sy
 
     # update function
     def updateSign(self, start: bool):
@@ -169,10 +158,9 @@ class SignPostList(Post):
             return False
 
     # iterates over all .png to animate the signPost
-    def rotate(self, start):
+    def rotate(self, start: bool):
         self.start = start
-        if self.start == True:
+        if self.start:
             self.image = self.flyweightImages['signpost1']
-
         else:
             self.image = self.flyweightImages['signpost2']

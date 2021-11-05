@@ -1,23 +1,18 @@
 import pygame as pg
 import random
-from pygame import font
+import time
 
-from pygame.font import Font
-from loops.endloop import endloop
 from settings import *
 from predator import *
 from background import *
 from signpost import *
-import time
 from fonts import *
-
 
 
 def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
-
-    #starting timer
-    starting_timer = 0
+    # starting timer
+    # starting_timer = 0
     timerinitialiser = 0
 
     # Choose random map
@@ -27,8 +22,6 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
     # Cache screen size
     screen_width = screen.get_width()
     screen_height = screen.get_height()
-
-    count = 0
 
     # Current ammo count
     bullets_count = 10
@@ -45,13 +38,12 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
     # Create SignPost Object
     signPost = SignPost()
 
-    #create font object
+    # create font object
     fonts = Fonts(24)
-  
+
     # Render
-    
+
     font_text = fonts.font_text
-    
 
     # Ambient sound
     background_sound = pg.mixer.Sound("sounds/background.mp3")
@@ -62,6 +54,8 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
     empty_sound = pg.mixer.Sound("sounds/empty.mp3")
     reload_sound = pg.mixer.Sound("sounds/reload.mp3")
 
+    spritesSignPostAppend = True
+
     # GameLoop running?
     running = True
 
@@ -70,13 +64,10 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
     # Can predator shoot
     shoot = True
-    
+
     while running:
         # Delta Time
         dt = clock.tick(FPS)
-
-
-
 
         # Events
         for event in pg.event.get():
@@ -84,15 +75,30 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
                 background_sound.stop()
                 running = False
 
-            if event.type == pg.MOUSEMOTION:
+            # Ends the game on ESC
+            if event.type == pg.KEYDOWN:
+                if event.key == pg.K_ESCAPE:
+                    background_sound.stop()
+                    running = False
+                if event.key == pg.K_SPACE:
+                    # Reset ammo count and play reload sound
+                    bullets_count = 10
+                    reload_sound.play()
+
+            elif event.type == pg.MOUSEMOTION:
                 # If the mouse is moved, set the center of the rect
                 # to the mouse pos. You can also use pg.mouse.get_pos()
                 # if you're not in the event loop.
                 cursor_rect.center = event.pos
 
-            # If a chicken got hit by mouse it will be removed
-            if event.type == pg.MOUSEBUTTONDOWN:
+            # Else Check for ending the game
+            elif event.type == pg.MOUSEBUTTONDOWN and event.button == RIGHT:
+                # Reset ammo count and play reload sound
+                bullets_count = 10
+                reload_sound.play()
 
+            # If a chicken got hit by mouse it will be removed
+            elif event.type == pg.MOUSEBUTTONDOWN and event.button == LEFT:
                 # Play shot sound
                 if bullets_count >= 1:
                     shot_sound.play()
@@ -105,47 +111,25 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
                 # minus one bullet
                 bullets_count -= 1
 
-                # Checks for ending the game
-                if count < 5:
-                    mousex, mousey = event.pos
-                    # print("Maus-Pos", mousex, mousey)
-                    for sprite in sprites:
-                        if sprite.checkHit(mousex, mousey) and not TrunkBG.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
-                            count += 1
-                            # print(sprite.getPos())
-                            sprite.deadchicken()
-                            # sprites.remove(sprite)
-                # Else Check for ending the game
-                else:
-                    background_sound.stop()
-                    running = False
-                    return True
+                # Mouse position
+                mousex, mousey = event.pos
+
+                # print("Maus-Pos", mousex, mousey)
+                for sprite in sprites:
+                    if sprite.checkHit(mousex, mousey) and not TrunkBG.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                        # print(sprite.getPos())
+                        sprite.deadchicken()
+                        # sprites.remove(sprite)
 
                 # checks for hitting sign post and uses state pattern to change
                 for spritePost in spritesSignPost:
-                    if spritePost.checkHitSign(mousex, mousey):
-                        if post == True:
+                    if spritePost.checkHitSign(mousex, mousey) and shoot:
+                        if post:
+                            # post = signPost.endState()
                             post = False
-                            signPost.endState()
                         else:
+                            # post = signPost.startState()
                             post = True
-                            signPost.startState()
-
-                # Else Check for ending the game
-                if event.button == pg.BUTTON_RIGHT:
-                    # Reset ammo count and play reload sound
-                    bullets_count = 10
-                    reload_sound.play()
-
-            # Ends the game on ESC
-            if event.type == pg.KEYDOWN:
-                if event.key == pg.K_ESCAPE:
-                    background_sound.stop()
-                    running = False
-                if event.key == pg.K_SPACE:
-                    # Reset ammo count and play reload sound
-                    bullets_count = 10
-                    reload_sound.play()
 
         # create a chicken every spawners iteration on right side of screen
         randomizer = random.randrange(1, SPAWNER, 1)
@@ -158,15 +142,16 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
             sprites.append(ChickenFactory.createCoinAtPosition(
                 (-0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Right"))
 
-
         # Update chicken sprites
         for sprite in sprites:
             sprite.update()
 
-        spritesSignPost.append(
-            SignPostFactory.createSignPost(50, HEIGHT - 360, 50, 50))
+        if spritesSignPostAppend:
+            spritesSignPost.append(
+                SignPostFactory.createSignPost(50, HEIGHT - 310))
+            spritesSignPostAppend = False
 
-        # Update signpost
+        # # Update signpost
         for spritePost in spritesSignPost:
             spritePost.updateSign(post)
 
@@ -178,7 +163,7 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         for sprite in sprites:
             screen.blit(sprite.getImage(), sprite.getRect())
 
-        # loops through the list
+        # loops through the signPost list and render it
         screen.blit(spritePost.getImage(),
                     spritePost.getRect())
 
@@ -188,8 +173,8 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         buttons.drawRect(screen, 1, BLACK, 0, 0, WIDTH, 30, 0)
         buttons.drawText(screen, font_text, LOCATIONGAME, TEXTGAME, 1, WHITE)
 
-        # initiate the timer 
-        timerinitialiser = timerinitialiser + 1 
+        # initiate the timer
+        timerinitialiser = timerinitialiser + 1
         if timerinitialiser == 1:
             before = time.time()
 
@@ -198,11 +183,10 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         time_string = (str(120-game_timer)+" time left")
         text = fonts.renderFont(time_string)
         screen.blit(text, (WIDTH * 0.8, 0))
-        if game_timer == 5:
+        if game_timer == 25:
             background_sound.stop()
             running = False
             return True
-
 
         # render the current ammo
         shell_x = screen_width - shell_rect.width * 0.5
@@ -213,9 +197,6 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
         # Blit the image at the rect's topleft coords.
         screen.blit(CURSOR_IMG, cursor_rect)
-
-
-
 
         # Double Buffering
         pg.display.flip()
