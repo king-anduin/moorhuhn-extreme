@@ -55,8 +55,9 @@ class Coin(Ball):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.size = random.choice([(30,30), (50,50), (70,70)])
-        self.image = pg.transform.scale(self.flyweightImages['chicken1'], self.size)
+        self.size = random.choice([CHICKENSIZE1, CHICKENSIZE2, CHICKENSIZE3])
+        self.image = pg.transform.scale(
+            self.flyweightImages['chicken1'], self.size)
         self.imageIndex = 1
         self.imageIndexDead = 1
         # print(id(self.flyweightImages))
@@ -85,10 +86,10 @@ class Coin(Ball):
 
 # Checks that the hit is inside rect of chicken borders
     def checkHit(self, x, y):
-        print("Huhn", self.rect.left, self.rect.right,
-              self.rect.top, self.rect.bottom)
+        # print("Huhn", self.rect.left, self.rect.right,
+        #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
-            print("HIT")
+            print("HIT chicken")
             return True
         else:
             return False
@@ -112,20 +113,23 @@ class Coin(Ball):
                 self.imageIndex += 1
                 if (self.imageIndex == 12):
                     self.imageIndex = 1
-                self.image = pg.transform.scale(self.flyweightImages['chicken' + str(self.imageIndex)], self.size)
+                self.image = pg.transform.scale(
+                    self.flyweightImages['chicken' + str(self.imageIndex)], self.size)
 
 # changes the state of the chicken to dead
     def deadchicken(self):
-        transparent = (0,0,0,0)
+        transparent = (0, 0, 0, 0)
         self.isDead = True
         self.timer += 1
         if self.timer == self.maxtimer:
             self.timer = 0
             self.imageIndexDead += 1
             if (self.imageIndexDead <= 8):
-                self.image = pg.transform.scale(self.flyweightImages['chickendead' + str(self.imageIndexDead)], self.size)
+                self.image = pg.transform.scale(
+                    self.flyweightImages['chickendead' + str(self.imageIndexDead)], self.size)
             else:
                 self.image.fill(transparent)
+                # return True
 
 
 class SignPost(Ball):
@@ -157,10 +161,10 @@ class SignPost(Ball):
 
 # Checks that the hit is inside rect of chicken borders
     def checkHit(self, x, y):
-        print("Sign", self.rect.left, self.rect.right,
-              self.rect.top, self.rect.bottom)
+        # print("Sign", self.rect.left, self.rect.right,
+        #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
-            print("HIT")
+            print("HIT signpost")
             return True
         else:
             return False

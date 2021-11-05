@@ -43,3 +43,8 @@ TEXTBEST = ["menu", "Best list"]
 LOCATIONGAME = [(WIDTH * 0.5, 15)]
 TEXTGAME = ["Moorhuhn Extreme"]
 SIZEMENUBAR = (WIDTH, HEIGHT)
+
+# sprites.py
+CHICKENSIZE1 = (30, 30)
+CHICKENSIZE2 = (50, 50)
+CHICKENSIZE3 = (70, 70)
