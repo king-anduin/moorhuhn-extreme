@@ -5,9 +5,18 @@ from predator import *
 from background import *
 from mapcamera import *
 from signpost import *
+import time
+from fonts import fonts1
+
 
 
 def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
+
+    font = pg.font.SysFont("Comic Sans MS", 72)
+
+    #starting timer
+    starting_timer = 0
+    timerinitialiser = 0
 
     # Choose random map
     int = random.randint(0, 1)
@@ -53,10 +62,13 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
     # Can predator shoot
     shoot = True
-
+    
     while running:
         # Delta Time
         dt = clock.tick(FPS)
+
+
+
 
         # Events
         for event in pg.event.get():
@@ -133,12 +145,13 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         randomizer = random.randrange(1, SPAWNER, 1)
         if randomizer == 1:
             sprites.append(ChickenFactory.createCoinAtPosition(
-                (1.12*WIDTH), random.uniform((0.1*HEIGHT), (0.9*HEIGHT)), "Left"))
+                (1.12*WIDTH), random.uniform((0.3*HEIGHT), (0.9*HEIGHT)), "Left"))
 
         # create a chicken every spawners iteration on right side of screen
         if randomizer == 2:
             sprites.append(ChickenFactory.createCoinAtPosition(
-                (-0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.9*HEIGHT)), "Right"))
+                (-0.12*WIDTH), random.uniform((0.3*HEIGHT), (0.9*HEIGHT)), "Right"))
+
 
         # Update chicken sprites
         for sprite in sprites:
@@ -178,6 +191,18 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
         # Blit the image at the rect's topleft coords.
         screen.blit(CURSOR_IMG, cursor_rect)
+
+
+        # initiate the timer 
+        timerinitialiser = timerinitialiser + 1 
+        if timerinitialiser == 1:
+            before = time.time()
+
+        # get gametime and display in top right corner
+        game_timer = round((time.time()-before))
+        time_string = (str(120-game_timer)+" time left")
+        text = fonts1(time_string)
+        screen.blit(text, (WIDTH*0.85, HEIGHT*0.1))
 
         # Double Buffering
         pg.display.flip()
