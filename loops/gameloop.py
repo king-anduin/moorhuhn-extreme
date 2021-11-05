@@ -11,7 +11,6 @@ from fonts import fonts1
 
 def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
-    font = pg.font.SysFont("Comic Sans MS", 72)
 
     #starting timer
     starting_timer = 0
@@ -202,6 +201,7 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         text = fonts1(time_string)
         screen.blit(text, (WIDTH*0.82, HEIGHT*0.1))
         if game_timer == 120:
+            background_sound.stop()
             running = False
 
         # Double Buffering
