@@ -16,11 +16,11 @@ SKYBLUE = (135, 206, 235, 1)
 # SPAWNER is the iteration Timer for spawning new chickens
 # as lower as more chickens will spawn
 # Maybe usefull for dificulties
-SPAWNER = 100
+SPAWNER = 70
 
 # flyweight.py
 CHICKEN_SIZE = (70, 70)
-SIGNPOST = (100, 500)
+SIGNPOSTSIZE = (379, 313)
 
 # predator.py
 CURSOR_SIZE = (20, 20)
@@ -43,6 +43,9 @@ TEXTBEST = ["menu", "Best list"]
 LOCATIONGAME = [(WIDTH * 0.5, 15)]
 TEXTGAME = ["Moorhuhn Extreme"]
 SIZEMENUBAR = (WIDTH, HEIGHT)
+# Distinguish between right and left mouse click
+RIGHT = 3
+LEFT = 1
 
 # sprites.py
 CHICKENSIZE1 = (30, 30)

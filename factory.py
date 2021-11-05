@@ -28,12 +28,3 @@ class ChickenFactory:
         ball = Coin(self.imageDict, x, y, SPEED * random.choice([1, -1, 0.5, -0.5]),
                     SPEED * random.choice([0, -0, 0, -0]), direction)
         return ball
-
-
-class SignPostFactory:
-    def __init__(self):
-        self.imageDict = ImageSignPost().getFlyweightImages()
-
-    def createSignPost(self, x, y, sx, sy):
-        signPost = SignPost(self.imageDict, x, y, sx, sy, 'left')
-        return signPost

@@ -28,22 +28,6 @@ class ImageFlyweight:
         return self.images
 
 
-class ImageSignPost:
-    def __init__(self):
-        # initialize all variables and do all the setup for a new game
-        game_folder = os.path.dirname(__file__)
-        img_folder = os.path.join(game_folder, '_img/signpost')
-        # Make Dictionary of Images
-        self.images = {}
-
-        for i in range(1, 2):
-            self.images['signpost'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'signpost'+str(i)+'.png')).convert_alpha(), (SIGNPOST))
-
-    def getFlyweightImages(self):
-        return self.images
-
-
 class Background(pg.sprite.Sprite):
     def __init__(self, bg, location):
         pg.sprite.Sprite.__init__(self)  # call Sprite initializer

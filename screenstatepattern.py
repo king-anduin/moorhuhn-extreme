@@ -3,6 +3,7 @@ from factory import *
 from settings import *
 from predator import *
 from background import *
+from signpost import *
 from loops.startloop import *
 from loops.gameloop import *
 from loops.endloop import *
@@ -73,7 +74,7 @@ class GameStartState(GameState):
 
     def start(self):
         print("Already in start screen, GameStartState")
-        if screenLoop(clock, screen) == True:
+        if screenLoop(clock, screen):
             game.loopGame()
         elif screenLoop(clock, screen) == False:
             game.bestGame()
@@ -89,7 +90,7 @@ class GameStartState(GameState):
 
     def enter(self):
         print("You enter start screen, GameStartState")
-        if screenLoop(clock, screen) == True:
+        if screenLoop(clock, screen):
             game.loopGame()
         elif screenLoop(clock, screen) == False:
             game.bestGame()
