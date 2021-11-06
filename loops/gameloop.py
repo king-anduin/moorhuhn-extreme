@@ -72,8 +72,12 @@ def gameLoop(gameloopList):
                     running = False
                 if event.key == pg.K_SPACE:
                     # Reset ammo count and play reload sound
-                    bullets_count = 10
-                    gameloopList[5].reload_sound.play()
+                    if bullets_count == 10:
+                        print("Is already fully loaded")
+                    else:
+                        # Reset ammo count and play reload sound
+                        bullets_count = 10
+                        gameloopList[5].reload_sound.play()
 
             elif event.type == pg.MOUSEMOTION:
                 # If the mouse is moved, set the center of the rect
