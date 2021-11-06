@@ -12,9 +12,6 @@ def screenLoop(startloopLoop):
     # GameLoop running?
     running = True
 
-    # Create Buttons Object
-    buttons = MenuButtons()
-
     # Endless sound loop
     startloopLoop[2].start_sound.play(-1)
 
@@ -41,16 +38,16 @@ def screenLoop(startloopLoop):
 
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
-                if buttons.objectsRect[0].collidepoint(event.pos):
+                if startloopLoop[4].objectsRectStart[0].collidepoint(event.pos):
                     running = False
                     startloopLoop[2].start_sound.stop()
                     return True
-                elif buttons.objectsRect[1].collidepoint(event.pos):
+                elif startloopLoop[4].objectsRectStart[1].collidepoint(event.pos):
                     startloopLoop[2].start_sound.stop()
                     running = False
 
                     return False
-                elif buttons.objectsRect[2].collidepoint(event.pos):
+                elif startloopLoop[4].objectsRectStart[2].collidepoint(event.pos):
                     startloopLoop[2].start_sound.stop()
                     running = False
 
@@ -59,10 +56,10 @@ def screenLoop(startloopLoop):
         startloopLoop[1].blit(startGameBG.image, startGameBG.rect)
 
         # Render text and rects for menu
-        buttons.drawRect(startloopLoop[1], 3, WHITE,
-                         WIDTH * 0.5 - 100, 100, 200, 50, 5)
-        buttons.drawText(startloopLoop[1], startloopLoop[3].font_text,
-                         LOCATION, TEXT, 3, BLACK)
+        startloopLoop[4].drawRectStart(startloopLoop[1], 3, WHITE,
+                                       WIDTH * 0.5 - 100, 100, 200, 50, 5)
+        startloopLoop[4].drawText(startloopLoop[1], startloopLoop[3].font_text,
+                                  LOCATION, TEXT, 3, BLACK)
 
         # Blit the image at the rect's topleft coords.
         startloopLoop[1].blit(CURSOR_IMG, cursor_rect)

@@ -12,9 +12,6 @@ def endloop(endloopList):
     # GameLoop running?
     running = True
 
-    # Create Buttons Object
-    buttons = MenuButtons()
-
     # Endless sound loop
     endloopList[2].ende_sound.play(-1)
 
@@ -42,12 +39,12 @@ def endloop(endloopList):
 
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
-                if buttons.objectsRect[0].collidepoint(event.pos):
+                if endloopList[4].objectsRectEnd[0].collidepoint(event.pos):
                     endloopList[2].ende_sound.stop()
                     running = False
 
                     return True
-                elif buttons.objectsRect[1].collidepoint(event.pos):
+                elif endloopList[4].objectsRectEnd[1].collidepoint(event.pos):
                     endloopList[2].ende_sound.stop()
                     running = False
 
@@ -56,10 +53,10 @@ def endloop(endloopList):
         endloopList[1].blit(endGameBG.image, endGameBG.rect)
 
         # Render text and rects for menu
-        buttons.drawRect(endloopList[1], 2, WHITE, WIDTH *
-                         0.5 - 100, 100, 200, 50, 5)
-        buttons.drawText(endloopList[1], endloopList[3].font_text,
-                         LOCATIONEND, TEXTEND, 2, BLACK)
+        endloopList[4].drawRectEnd(endloopList[1], 2, WHITE, WIDTH *
+                                   0.5 - 100, 100, 200, 50, 5)
+        endloopList[4].drawText(endloopList[1], endloopList[3].font_text,
+                                LOCATIONEND, TEXTEND, 2, BLACK)
 
         # Blit the image at the rect's topleft coords.
         endloopList[1].blit(CURSOR_IMG, cursor_rect)

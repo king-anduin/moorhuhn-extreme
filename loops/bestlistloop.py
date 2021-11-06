@@ -11,9 +11,6 @@ def bestlistloop(bestlistloopList):
     # GameLoop running?
     running = True
 
-    # Create Buttons Object
-    buttons = MenuButtons()
-
     # Endless Sound loop
     bestlistloopList[2].bestlist_sound.play(-1)
 
@@ -41,10 +38,9 @@ def bestlistloop(bestlistloopList):
 
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
-                if buttons.objectsRect[0].collidepoint(event.pos):
+                if bestlistloopList[4].objectsRectBest[0].collidepoint(event.pos):
                     bestlistloopList[2].bestlist_sound.stop()
                     running = False
-
                     return True
 
         # Render
@@ -52,10 +48,10 @@ def bestlistloop(bestlistloopList):
         bestlistloopList[1].blit(bestListBG.image, bestListBG.rect)
 
         # Render text and rects for menu
-        buttons.drawRect(bestlistloopList[1], 2, WHITE,
-                         WIDTH * 0.5 - 100, 100, 200, 50, 5)
-        buttons.drawText(bestlistloopList[1], bestlistloopList[3].font_text,
-                         LOCATIONBEST, TEXTBEST, 2, BLACK)
+        bestlistloopList[4].drawRectBest(bestlistloopList[1], 2, WHITE,
+                                         WIDTH * 0.5 - 100, 100, 200, 50, 5)
+        bestlistloopList[4].drawText(bestlistloopList[1], bestlistloopList[3].font_text,
+                                     LOCATIONBEST, TEXTBEST, 2, BLACK)
 
         # Blit the image at the rect's topleft coords.
         bestlistloopList[1].blit(CURSOR_IMG, cursor_rect)

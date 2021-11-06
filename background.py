@@ -1,6 +1,23 @@
 import pygame as pg
-from flyweight import *
+from settings import *
 import os
+
+
+class Background(pg.sprite.Sprite):
+    def __init__(self, bg, location):
+        pg.sprite.Sprite.__init__(self)  # call Sprite initializer
+        self.image = bg
+        self.rect = self.image.get_rect()
+        self.rect.left, self.rect.top = location
+
+
+class BackgroundScreens(pg.sprite.Sprite):
+    def __init__(self, bg, location):
+        pg.sprite.Sprite.__init__(self)  # call Sprite initializer
+        self.image = bg
+        self.rect = self.image.get_rect()
+        self.rect.center = location
+
 
 # Folders where all pictures are
 game_folder = os.path.dirname(__file__)

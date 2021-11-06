@@ -8,6 +8,7 @@ from signpost import *
 from sounds import *
 from chickenforeground import *
 from fonts import *
+from menus import *
 
 from loops.startloop import *
 from loops.gameloop import *
@@ -33,17 +34,20 @@ ChickenForegroundFactory = ChickenForegroundFactory()
 Sounds = Sounds()
 
 # create font object
-Fonts = Fonts(24)
+Fonts = Fonts()
+
+# Create Buttons Object
+MenuButtons = MenuButtons()
 
 # pg Clock
 clock = pg.time.Clock()
 
 # List for handing over to loops
-startloopList = [clock, screen, Sounds, Fonts]
+startloopList = [clock, screen, Sounds, Fonts, MenuButtons]
 gameloopList = [clock, screen, ChickenFactory, SignPostFactory,
-                ChickenForegroundFactory, Sounds, Fonts]
-endloopList = [clock, screen, Sounds, Fonts]
-bestlistloopList = [clock, screen, Sounds, Fonts]
+                ChickenForegroundFactory, Sounds, Fonts, MenuButtons]
+endloopList = [clock, screen, Sounds, Fonts, MenuButtons]
+bestlistloopList = [clock, screen, Sounds, Fonts, MenuButtons]
 
 
 class GameState:

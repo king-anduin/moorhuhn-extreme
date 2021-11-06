@@ -7,7 +7,7 @@ from predator import *
 from background import *
 from signpost import *
 
-# gameloop = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory, Sounds, Fonts]
+# gameloopList = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory, Sounds, Fonts, MenuButtons]
 
 
 def gameLoop(gameloopList):
@@ -35,9 +35,6 @@ def gameLoop(gameloopList):
 
     # Sprite List for ChickenForeground
     chickenForeground = []
-
-    # Create Buttons Object
-    buttons = MenuButtons()
 
     # Create SignPost Object
     signPost = SignPost()
@@ -124,6 +121,7 @@ def gameLoop(gameloopList):
                             # post = signPost.startState()
                             post = True
 
+                # Checks for hitting the ChickenForeground
                 for spriteChickenForeground in chickenForeground:
                     if spriteChickenForeground.checkHitChicken(mousex, mousey) and not TrunkBG.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
                         # print(sprite.getPos())
@@ -194,9 +192,10 @@ def gameLoop(gameloopList):
 
         #<--------------- Render MenuBar --------------->#
         # render top menu bar
-        buttons.drawRect(gameloopList[1], 1, BLACK, 0, 0, WIDTH, 30, 0)
-        buttons.drawText(gameloopList[1], gameloopList[6].font_text,
-                         LOCATIONGAME, TEXTGAME, 1, WHITE)
+        gameloopList[7].drawRectGame(
+            gameloopList[1], 1, BLACK, 0, 0, WIDTH, 30, 0)
+        gameloopList[7].drawText(gameloopList[1], gameloopList[6].font_text,
+                                 LOCATIONGAME, TEXTGAME, 1, WHITE)
 
         # initiate the timer
         timerinitialiser = timerinitialiser + 1
