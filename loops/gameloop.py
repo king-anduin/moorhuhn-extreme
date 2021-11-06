@@ -6,10 +6,11 @@ from settings import *
 from predator import *
 from background import *
 from signpost import *
-from fonts import *
+
+# gameloop = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory, Sounds, Fonts]
 
 
-def gameLoop(clock, ChickenFactory, screen, SignPostFactory, ChickenForegroundFactory):
+def gameLoop(gameloopList):
 
     # starting timer
     # starting_timer = 0
@@ -20,8 +21,8 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory, ChickenForegroundFa
     world = [background1, background2]
 
     # Cache screen size
-    screen_width = screen.get_width()
-    screen_height = screen.get_height()
+    screen_width = gameloopList[1].get_width()
+    screen_height = gameloopList[1].get_height()
 
     # Current ammo count
     bullets_count = 10
@@ -41,21 +42,8 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory, ChickenForegroundFa
     # Create SignPost Object
     signPost = SignPost()
 
-    # create font object
-    fonts = Fonts(24)
-
-    # Render
-
-    font_text = fonts.font_text
-
-    # Ambient sound
-    background_sound = pg.mixer.Sound("sounds/background.mp3")
-    background_sound.play(-1)
-
-    # Gun sounds
-    shot_sound = pg.mixer.Sound("sounds/schiessen.mp3")
-    empty_sound = pg.mixer.Sound("sounds/empty.mp3")
-    reload_sound = pg.mixer.Sound("sounds/reload.mp3")
+    # Ambient sound endless loop
+    gameloopList[5].background_sound.play(-1)
 
     # Boolean values for stopping appending list objects
     spritesSignPostAppend = True
@@ -72,23 +60,23 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory, ChickenForegroundFa
 
     while running:
         # Delta Time
-        dt = clock.tick(FPS)
+        dt = gameloopList[0].tick(FPS)
 
         # Events
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                background_sound.stop()
+                gameloopList[5].background_sound.stop()
                 running = False
 
             # Ends the game on ESC
             if event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
-                    background_sound.stop()
+                    gameloopList[5].background_sound.stop()
                     running = False
                 if event.key == pg.K_SPACE:
                     # Reset ammo count and play reload sound
                     bullets_count = 10
-                    reload_sound.play()
+                    gameloopList[5].reload_sound.play()
 
             elif event.type == pg.MOUSEMOTION:
                 # If the mouse is moved, set the center of the rect
@@ -100,17 +88,17 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory, ChickenForegroundFa
             elif event.type == pg.MOUSEBUTTONDOWN and event.button == RIGHT:
                 # Reset ammo count and play reload sound
                 bullets_count = 10
-                reload_sound.play()
+                gameloopList[5].reload_sound.play()
 
             # If a chicken got hit by mouse it will be removed
             elif event.type == pg.MOUSEBUTTONDOWN and event.button == LEFT:
                 # Play shot sound
                 if bullets_count >= 1:
-                    shot_sound.play()
+                    gameloopList[5].shot_sound.play()
                     shoot = True
                 # Play shot sound if enough ammo or empty sound
                 else:
-                    empty_sound.play()
+                    gameloopList[5].empty_sound.play()
                     shoot = False
 
                 # minus one bullet
@@ -147,12 +135,12 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory, ChickenForegroundFa
         # create a chicken every spawners iteration on right side of screen
         randomizer = random.randrange(1, SPAWNER, 1)
         if randomizer == 1:
-            sprites.append(ChickenFactory.createCoinAtPosition(
+            sprites.append(gameloopList[2].createCoinAtPosition(
                 (1.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Left"))
 
         # create a chicken every spawners iteration on right side of screen
         if randomizer == 2:
-            sprites.append(ChickenFactory.createCoinAtPosition(
+            sprites.append(gameloopList[2].createCoinAtPosition(
                 (-0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Right"))
 
         # Update chicken sprites
@@ -163,7 +151,7 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory, ChickenForegroundFa
         # Append SignPost Sprites to the list
         if spritesChickenForegroundAppend:
             chickenForeground.append(
-                ChickenForegroundFactory.createChickenForeground(WIDTH * 0.3, HEIGHT - 360))
+                gameloopList[4].createChickenForeground(WIDTH * 0.3, HEIGHT - 360))
             spritesChickenForegroundAppend = False
 
         # Update chickenForeground sprites
@@ -174,7 +162,7 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory, ChickenForegroundFa
         # Append SignPost Sprites to the list
         if spritesSignPostAppend:
             spritesSignPost.append(
-                SignPostFactory.createSignPost(50, HEIGHT - 310))
+                gameloopList[3].createSignPost(50, HEIGHT - 310))
             spritesSignPostAppend = False
 
         # # Update signpost
@@ -183,31 +171,32 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory, ChickenForegroundFa
 
         #<--------------- Background --------------->#
         # Render background image and color
-        screen.fill((SKYBLUE))
-        screen.blit(world[int].image, world[int].rect)
+        gameloopList[1].fill((SKYBLUE))
+        gameloopList[1].blit(world[int].image, world[int].rect)
 
         #<--------------- Render Chicken --------------->#
         # Render chickens to the screen
         for sprite in sprites:
-            screen.blit(sprite.getImage(), sprite.getRect())
+            gameloopList[1].blit(sprite.getImage(), sprite.getRect())
 
         #<--------------- Render ChickenForeground --------------->#
         for spriteChickenForeground in chickenForeground:
-            screen.blit(spriteChickenForeground.getImage(),
-                        spriteChickenForeground.getRect())
+            gameloopList[1].blit(spriteChickenForeground.getImage(),
+                                 spriteChickenForeground.getRect())
 
         #<--------------- Render SignPost --------------->#
         # loops through the signPost list and render it
-        screen.blit(spritePost.getImage(),
-                    spritePost.getRect())
+        gameloopList[1].blit(spritePost.getImage(),
+                             spritePost.getRect())
 
         #<--------------- Render Trunk --------------->#
-        screen.blit(TrunkBG.image, TrunkBG.rect)
+        gameloopList[1].blit(TrunkBG.image, TrunkBG.rect)
 
         #<--------------- Render MenuBar --------------->#
         # render top menu bar
-        buttons.drawRect(screen, 1, BLACK, 0, 0, WIDTH, 30, 0)
-        buttons.drawText(screen, font_text, LOCATIONGAME, TEXTGAME, 1, WHITE)
+        buttons.drawRect(gameloopList[1], 1, BLACK, 0, 0, WIDTH, 30, 0)
+        buttons.drawText(gameloopList[1], gameloopList[6].font_text,
+                         LOCATIONGAME, TEXTGAME, 1, WHITE)
 
         # initiate the timer
         timerinitialiser = timerinitialiser + 1
@@ -217,10 +206,10 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory, ChickenForegroundFa
         # get gametime and display in top right corner
         game_timer = round((time.time()-before))
         time_string = (str(120-game_timer)+" time left")
-        text = fonts.renderFont(time_string)
-        screen.blit(text, (WIDTH * 0.8, 0))
-        if game_timer == 25:
-            background_sound.stop()
+        text = gameloopList[6].renderFont(time_string)
+        gameloopList[1].blit(text, (WIDTH * 0.8, 0))
+        if game_timer == 20:
+            gameloopList[5].background_sound.stop()
             running = False
             return True
 
@@ -229,11 +218,11 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory, ChickenForegroundFa
         shell_y = screen_height - shell_rect.height * 0.5
         for i in range(bullets_count):
             shell_rect.center = (shell_x - i * shell_rect.width, shell_y)
-            screen.blit(SHELL_IMG, shell_rect)
+            gameloopList[1].blit(SHELL_IMG, shell_rect)
 
         #<--------------- Render Cursor --------------->#
         # Blit the image at the rect's topleft coords.
-        screen.blit(CURSOR_IMG, cursor_rect)
+        gameloopList[1].blit(CURSOR_IMG, cursor_rect)
 
         # Double Buffering
         pg.display.flip()

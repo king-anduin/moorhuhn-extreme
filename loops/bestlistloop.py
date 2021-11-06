@@ -4,28 +4,27 @@ from settings import *
 from predator import *
 from background import *
 
+# bestlistloop = [clock, screen, Sounds, Fonts]
 
-def bestlistloop(clock, screen):
+
+def bestlistloop(bestlistloopList):
     # GameLoop running?
     running = True
 
     # Create Buttons Object
     buttons = MenuButtons()
 
-    # Render
-    font_text = pg.font.Font("freesansbold.ttf", 24)
-    # Sounds
-    bestlist_sound = pg.mixer.Sound("sounds/bestlist.mp3")
-    bestlist_sound.play(-1)
+    # Endless Sound loop
+    bestlistloopList[2].bestlist_sound.play(-1)
 
     while running:
         # Delta Time
-        dt = clock.tick(FPS)
+        dt = bestlistloopList[0].tick(FPS)
 
         # Events
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                bestlist_sound.stop()
+                bestlistloopList[2].bestlist_sound.stop()
                 running = False
 
             elif event.type == pg.MOUSEMOTION:
@@ -37,27 +36,29 @@ def bestlistloop(clock, screen):
             # Ends the game on ESC
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
-                    bestlist_sound.stop()
+                    bestlistloopList[2].bestlist_sound.stop()
                     running = False
 
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
                 if buttons.objectsRect[0].collidepoint(event.pos):
-                    bestlist_sound.stop()
+                    bestlistloopList[2].bestlist_sound.stop()
                     running = False
 
                     return True
 
         # Render
-        screen.fill((WHITE))
-        screen.blit(bestListBG.image, bestListBG.rect)
+        bestlistloopList[1].fill((WHITE))
+        bestlistloopList[1].blit(bestListBG.image, bestListBG.rect)
 
         # Render text and rects for menu
-        buttons.drawRect(screen, 2, WHITE, WIDTH * 0.5 - 100, 100, 200, 50, 5)
-        buttons.drawText(screen, font_text, LOCATIONBEST, TEXTBEST, 2, BLACK)
+        buttons.drawRect(bestlistloopList[1], 2, WHITE,
+                         WIDTH * 0.5 - 100, 100, 200, 50, 5)
+        buttons.drawText(bestlistloopList[1], bestlistloopList[3].font_text,
+                         LOCATIONBEST, TEXTBEST, 2, BLACK)
 
         # Blit the image at the rect's topleft coords.
-        screen.blit(CURSOR_IMG, cursor_rect)
+        bestlistloopList[1].blit(CURSOR_IMG, cursor_rect)
 
         # Double Buffering
         pg.display.flip()
