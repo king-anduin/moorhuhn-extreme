@@ -1,19 +1,4 @@
-import pygame as pg
-
-from factory import *
-from settings import *
-from predator import *
-from background import *
-from signpost import *
-from sounds import *
-from chickenforeground import *
-from fonts import *
-from menus import *
-
-from loops.startloop import *
-from loops.gameloop import *
-from loops.endloop import *
-from loops.bestlistloop import *
+from importmodules import *
 
 # Initialization
 pg.init()
@@ -26,6 +11,9 @@ ChickenFactory = ChickenFactory()
 
 # Create Object
 SignPostFactory = SignPostFactory()
+
+# Create Object
+TreeFactory = TreeFactory()
 
 # Create Object
 ChickenForegroundFactory = ChickenForegroundFactory()
@@ -45,7 +33,7 @@ clock = pg.time.Clock()
 # List for handing over to loops
 startloopList = [clock, screen, Sounds, Fonts, MenuButtons]
 gameloopList = [clock, screen, ChickenFactory, SignPostFactory,
-                ChickenForegroundFactory, Sounds, Fonts, MenuButtons]
+                ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory]
 endloopList = [clock, screen, Sounds, Fonts, MenuButtons]
 bestlistloopList = [clock, screen, Sounds, Fonts, MenuButtons]
 

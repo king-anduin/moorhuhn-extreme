@@ -40,11 +40,13 @@ def endloop(endloopList):
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
                 if endloopList[4].objectsRectEnd[0].collidepoint(event.pos):
+                    endloopList[2].button.play()
                     endloopList[2].ende_sound.stop()
                     running = False
-
                     return True
+
                 elif endloopList[4].objectsRectEnd[1].collidepoint(event.pos):
+                    endloopList[2].button.play()
                     endloopList[2].ende_sound.stop()
                     running = False
 
