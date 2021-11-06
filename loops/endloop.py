@@ -4,31 +4,26 @@ from settings import *
 from predator import *
 from background import *
 
+# endloop = [clock, screen, Sounds, Fonts]
 
-def endloop(clock, screen):
+
+def endloop(endloopList):
 
     # GameLoop running?
     running = True
 
-    # Create Buttons Object
-    buttons = MenuButtons()
-
-    # Render
-    font_text = pg.font.Font("freesansbold.ttf", 24)
-
-    # Sounds
-    ende_sound = pg.mixer.Sound("sounds/ende.mp3")
-    ende_sound.play(-1)
+    # Endless sound loop
+    endloopList[2].ende_sound.play(-1)
 
     while running:
 
         # Delta Time
-        dt = clock.tick(FPS)
+        dt = endloopList[0].tick(FPS)
 
         # Events
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                ende_sound.stop()
+                endloopList[2].ende_sound.stop()
                 running = False
             elif event.type == pg.MOUSEMOTION:
                 # If the mouse is moved, set the center of the rect
@@ -39,30 +34,32 @@ def endloop(clock, screen):
             # Ends the game on ESC
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
-                    ende_sound.stop()
+                    endloopList[2].ende_sound.stop()
                     running = False
 
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
-                if buttons.objectsRect[0].collidepoint(event.pos):
-                    ende_sound.stop()
+                if endloopList[4].objectsRectEnd[0].collidepoint(event.pos):
+                    endloopList[2].ende_sound.stop()
                     running = False
 
                     return True
-                elif buttons.objectsRect[1].collidepoint(event.pos):
-                    ende_sound.stop()
+                elif endloopList[4].objectsRectEnd[1].collidepoint(event.pos):
+                    endloopList[2].ende_sound.stop()
                     running = False
 
         # Render
-        screen.fill((WHITE))
-        screen.blit(endGameBG.image, endGameBG.rect)
+        endloopList[1].fill((WHITE))
+        endloopList[1].blit(endGameBG.image, endGameBG.rect)
 
         # Render text and rects for menu
-        buttons.drawRect(screen, 2, WHITE, WIDTH * 0.5 - 100, 100, 200, 50, 5)
-        buttons.drawText(screen, font_text, LOCATIONEND, TEXTEND, 2, BLACK)
+        endloopList[4].drawRectEnd(endloopList[1], 2, WHITE, WIDTH *
+                                   0.5 - 100, 100, 200, 50, 5)
+        endloopList[4].drawText(endloopList[1], endloopList[3].font_text,
+                                LOCATIONEND, TEXTEND, 2, BLACK)
 
         # Blit the image at the rect's topleft coords.
-        screen.blit(CURSOR_IMG, cursor_rect)
+        endloopList[1].blit(CURSOR_IMG, cursor_rect)
 
         # Double Buffering
         pg.display.flip()
