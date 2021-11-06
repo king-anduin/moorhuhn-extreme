@@ -83,9 +83,12 @@ def gameLoop(gameloopList):
 
             # Else Check for ending the game
             elif event.type == pg.MOUSEBUTTONDOWN and event.button == RIGHT:
-                # Reset ammo count and play reload sound
-                bullets_count = 10
-                gameloopList[5].reload_sound.play()
+                if bullets_count == 10:
+                    print("Is already fully loaded")
+                else:
+                    # Reset ammo count and play reload sound
+                    bullets_count = 10
+                    gameloopList[5].reload_sound.play()
 
             # If a chicken got hit by mouse it will be removed
             elif event.type == pg.MOUSEBUTTONDOWN and event.button == LEFT:
