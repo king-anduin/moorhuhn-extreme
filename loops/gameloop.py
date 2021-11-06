@@ -9,7 +9,7 @@ from signpost import *
 from fonts import *
 
 
-def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
+def gameLoop(clock, ChickenFactory, screen, SignPostFactory, ChickenForegroundFactory):
 
     # starting timer
     # starting_timer = 0
@@ -31,6 +31,9 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
 
     # Sprite List for SignPost
     spritesSignPost = []
+
+    # Sprite List for ChickenForeground
+    chickenForeground = []
 
     # Create Buttons Object
     buttons = MenuButtons()
@@ -54,7 +57,9 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
     empty_sound = pg.mixer.Sound("sounds/empty.mp3")
     reload_sound = pg.mixer.Sound("sounds/reload.mp3")
 
+    # Boolean values for stopping appending list objects
     spritesSignPostAppend = True
+    spritesChickenForegroundAppend = True
 
     # GameLoop running?
     running = True
@@ -131,6 +136,14 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
                             # post = signPost.startState()
                             post = True
 
+                for spriteChickenForeground in chickenForeground:
+                    if spriteChickenForeground.checkHitChicken(mousex, mousey) and not TrunkBG.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                        # print(sprite.getPos())
+                        # sprite.deadchicken()
+                        # sprites.remove(sprite)
+                        pass
+
+        #<--------------- Chicken --------------->#
         # create a chicken every spawners iteration on right side of screen
         randomizer = random.randrange(1, SPAWNER, 1)
         if randomizer == 1:
@@ -146,6 +159,19 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         for sprite in sprites:
             sprite.update()
 
+        #<--------------- ChickenForeground --------------->#
+        # Append SignPost Sprites to the list
+        if spritesChickenForegroundAppend:
+            chickenForeground.append(
+                ChickenForegroundFactory.createChickenForeground(WIDTH * 0.3, HEIGHT - 360))
+            spritesChickenForegroundAppend = False
+
+        # Update chickenForeground sprites
+        for spriteChickenForeground in chickenForeground:
+            spriteChickenForeground.updateChicken()
+
+        #<--------------- SignPost --------------->#
+        # Append SignPost Sprites to the list
         if spritesSignPostAppend:
             spritesSignPost.append(
                 SignPostFactory.createSignPost(50, HEIGHT - 310))
@@ -155,20 +181,30 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
         for spritePost in spritesSignPost:
             spritePost.updateSign(post)
 
+        #<--------------- Background --------------->#
         # Render background image and color
         screen.fill((SKYBLUE))
         screen.blit(world[int].image, world[int].rect)
 
+        #<--------------- Render Chicken --------------->#
         # Render chickens to the screen
         for sprite in sprites:
             screen.blit(sprite.getImage(), sprite.getRect())
 
+        #<--------------- Render ChickenForeground --------------->#
+        for spriteChickenForeground in chickenForeground:
+            screen.blit(spriteChickenForeground.getImage(),
+                        spriteChickenForeground.getRect())
+
+        #<--------------- Render SignPost --------------->#
         # loops through the signPost list and render it
         screen.blit(spritePost.getImage(),
                     spritePost.getRect())
 
+        #<--------------- Render Trunk --------------->#
         screen.blit(TrunkBG.image, TrunkBG.rect)
 
+        #<--------------- Render MenuBar --------------->#
         # render top menu bar
         buttons.drawRect(screen, 1, BLACK, 0, 0, WIDTH, 30, 0)
         buttons.drawText(screen, font_text, LOCATIONGAME, TEXTGAME, 1, WHITE)
@@ -195,6 +231,7 @@ def gameLoop(clock, ChickenFactory, screen, SignPostFactory):
             shell_rect.center = (shell_x - i * shell_rect.width, shell_y)
             screen.blit(SHELL_IMG, shell_rect)
 
+        #<--------------- Render Cursor --------------->#
         # Blit the image at the rect's topleft coords.
         screen.blit(CURSOR_IMG, cursor_rect)
 

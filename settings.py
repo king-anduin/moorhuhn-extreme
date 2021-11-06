@@ -6,6 +6,7 @@ FPS = 60
 # Sprite
 SPEED = 160 / FPS
 COINSPEED = int(FPS / 8)
+CHICKENFOREGROUNDSPEED = int(FPS / 7)
 
 # Colors
 WHITE = (255, 255, 255)

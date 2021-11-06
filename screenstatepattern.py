@@ -4,6 +4,7 @@ from settings import *
 from predator import *
 from background import *
 from signpost import *
+from chickenforeground import *
 from loops.startloop import *
 from loops.gameloop import *
 from loops.endloop import *
@@ -20,6 +21,9 @@ ChickenFactory = ChickenFactory()
 
 # Create Object
 SignPostFactory = SignPostFactory()
+
+# Create Object
+ChickenForegroundFactory = ChickenForegroundFactory()
 
 # pg Clock
 clock = pg.time.Clock()
@@ -117,7 +121,7 @@ class GameLoopState(GameState):
 
     def enter(self):
         print("You enter game loop, GameLoopState")
-        if gameLoop(clock, ChickenFactory, screen, SignPostFactory):
+        if gameLoop(clock, ChickenFactory, screen, SignPostFactory, ChickenForegroundFactory):
             game.endGame()
 
     def exit(self):
@@ -178,7 +182,7 @@ class GameBestList(GameState):
 game = Game()
 
 # Starts the game
-game.startGame()
+game.loopGame()
 
 # Done! Time to quit.
 pg.quit()
