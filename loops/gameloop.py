@@ -44,6 +44,9 @@ def gameLoop(gameloopList):
     spritesTrunk = []
     spritesTrunkAppend = True
 
+    # Sprite List for Trunks and boolean
+    spritesPlane = []
+
     # Create SignPost Object
     signPost = SignPost()
 
@@ -59,6 +62,7 @@ def gameLoop(gameloopList):
 
     # check for pumpkin shoot and sprite list
     pumpkinAppend = True
+    pumpkinMove = False
     spritesPumpkin = []
 
     # Can predator shoot
@@ -117,15 +121,20 @@ def gameLoop(gameloopList):
                 # Mouse position
                 mousex, mousey = event.pos
 
-                # print("Maus-Pos", mousex, mousey)
+                # checks for hitting pumpkin
                 for spritePumpkin in spritesPumpkin:
                     if spritePumpkin.checkHitPumpkin(mousex, mousey) and shoot:
                         gameloopList[5].scarecrowHit.play()
-                        # print(sprite.getPos())
-                        # sprite.deadchicken()
+                        pumpkinMove = True
                         # sprites.remove(sprite)
 
-                # print("Maus-Pos", mousex, mousey)
+                # checks for hitting planes
+                for spritePlane in spritesPlane:
+                    if spritePlane.checkHitPlane(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                        gameloopList[5].airplaneCrash.play()
+                        spritesPlane.remove(spritePlane)
+
+                # checks for hitting chickens
                 for sprite in sprites:
                     if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
                         gameloopList[5].chickenDeadSound(chickenSound).play()
@@ -158,15 +167,32 @@ def gameLoop(gameloopList):
                         gameloopList[5].treeHit.play()
 
         #<--------------- Pumpkin --------------->#
-        # Append SignPost Sprites to the list
+        # Append Pumpkin Sprites to the list
         if pumpkinAppend:
             spritesPumpkin.append(
-                gameloopList[9].createPumpkin(WIDTH * 0.5, HEIGHT * 0.5))
+                gameloopList[9].createPumpkin(WIDTH * 0.7, HEIGHT * 0.5))
             pumpkinAppend = False
 
-        # Update signpost
-        for spritePumpkin in spritesPumpkin:
-            spritePumpkin.updatePumpkin()
+        # Update Pumpkin
+        if pumpkinMove:
+            for spritePumpkin in spritesPumpkin:
+                spritePumpkin.updatePumpkin()
+
+        #<--------------- Plane --------------->#
+        # create a plane every spawners iteration on right side of screen
+        randomizerPlane = random.randrange(1, SPAWNERPLANE, 1)
+        if randomizerPlane == 1:
+            spritesPlane.append(gameloopList[10].createPlane(
+                (1.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Left"))
+
+        # create a plane every spawners iteration on right side of screen
+        if randomizerPlane == 2:
+            spritesPlane.append(gameloopList[10].createPlane(
+                (-0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Right"))
+
+        # Update plane
+        for spritePlane in spritesPlane:
+            spritePlane.updatePlane()
 
         #<--------------- Chicken --------------->#
         # create a chicken every spawners iteration on right side of screen
@@ -185,7 +211,7 @@ def gameLoop(gameloopList):
             sprite.update()
 
         #<--------------- ChickenForeground --------------->#
-        # Append SignPost Sprites to the list
+        # Append chickenForeground Sprites to the list
         if spritesChickenForegroundAppend:
             SpritesChickenForeground.append(
                 gameloopList[4].createChickenForeground(WIDTH * 0.3, HEIGHT - 360))
@@ -207,10 +233,10 @@ def gameLoop(gameloopList):
             spritePost.updateSign(post)
 
         #<--------------- Trunks --------------->#
-        # Append SignPost Sprites to the list
+        # Append Trunks Sprites to the list
         if spritesTrunkAppend:
             spritesTrunk.append(
-                gameloopList[8].createTree(WIDTH * 0.7, 0))
+                gameloopList[8].createTree(WIDTH * 0.8, 0))
             spritesTrunkAppend = False
 
         # Update Trunk
@@ -227,6 +253,12 @@ def gameLoop(gameloopList):
         for spritePumpkin in spritesPumpkin:
             gameloopList[1].blit(spritePumpkin.getImage(),
                                  spritePumpkin.getRect())
+
+        #<--------------- Render Plane --------------->#
+        # Render pumpkin to the screen
+        for spritePlane in spritesPlane:
+            gameloopList[1].blit(spritePlane.getImage(),
+                                 spritePlane.getRect())
 
         #<--------------- Render Chicken --------------->#
         # Render chickens to the screen
@@ -249,12 +281,12 @@ def gameLoop(gameloopList):
                              spriteTrunk.getRect())
 
         # Move camera
-        if cursor_rect.center[0] < 50 or left == True:
+        if cursor_rect.center[0] < 50 or left:
             if startX >= backgroundCombined.rect[0]:
                 startX += 0
             else:
                 startX += 5
-        if WIDTH - cursor_rect.center[0] < 50 or right == True:
+        if WIDTH - cursor_rect.center[0] < 50 or right:
             if startX - WIDTH <= -backgroundCombined.rect[2] + 50:
                 startX -= 0
             else:

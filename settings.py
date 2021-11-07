@@ -18,6 +18,7 @@ SKYBLUE = (135, 206, 235, 1)
 # as lower as more chickens will spawn
 # Maybe usefull for dificulties
 SPAWNER = 70
+SPAWNERPLANE = 120
 
 # flyweight.py
 CHICKEN_SIZE = (70, 70)

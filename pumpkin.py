@@ -5,6 +5,11 @@ from settings import *
 # Flyweight
 
 
+class Image:
+    def __init__(self, image):
+        self.image = pg.image.load(image).convert_alpha()
+
+
 class ImagePumpkin:
     def __init__(self):
         # initialize all variables and do all the setup for a new game
@@ -141,7 +146,6 @@ class PumpkinList(Pumpkin):
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
 
-        self.direction = True
         self.size = (100, 100)
         self.maxtimer = COINSPEED
         self.timer = 0
@@ -168,12 +172,11 @@ class PumpkinList(Pumpkin):
 
     # iterates over all .png to animate the signPost
     def rotate(self):
-        if (self.direction == True):
-            self.timer += 1
-            if self.timer == self.maxtimer:
-                self.timer = 0
-                self.imageIndex += 1
-                if (self.imageIndex == 8):
-                    self.imageIndex = 1
-                self.image = pg.transform.flip(
-                    pg.transform.scale(self.flyweightImages['pumpkin' + str(self.imageIndex)], self.size), True, False)
+        self.timer += 1
+        if self.timer == self.maxtimer:
+            self.timer = 0
+            self.imageIndex += 1
+            if (self.imageIndex == 8):
+                self.imageIndex = 1
+            self.image = pg.transform.scale(
+                self.flyweightImages['pumpkin' + str(self.imageIndex)], self.size)
