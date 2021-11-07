@@ -12,6 +12,13 @@ from signpost import *
 
 def gameLoop(gameloopList):
 
+    # Starting coordinates for map
+    startX,startY=0,100 
+
+    # Key scroll parameters
+    right = False
+    left = False
+    keypressed = pg.key.get_pressed()
     # starting timer
     # starting_timer = 0
     timerinitialiser = 0
@@ -194,9 +201,9 @@ def gameLoop(gameloopList):
             spriteTrunk.updateTrunk()
 
         #<--------------- Background --------------->#
-        # Render background image and color
+
         gameloopList[1].fill((SKYBLUE))
-        gameloopList[1].blit(world[int].image, world[int].rect)
+        gameloopList[1].blit(world[int].image, (startX, startY))
 
         #<--------------- Render Chicken --------------->#
         # Render chickens to the screen
@@ -217,6 +224,18 @@ def gameLoop(gameloopList):
         # loops through the signPost list and render it
         gameloopList[1].blit(spriteTrunk.getImage(),
                              spriteTrunk.getRect())
+
+        # Move camera
+        if cursor_rect.center[0]<50 or left == True :
+            if startX >= world[int].rect[0]:
+                startX += 0
+            else:
+                startX += 5
+        if WIDTH - cursor_rect.center[0]<50 or right == True:
+            if startX - WIDTH <= -world[int].rect[2] + 50:
+                startX -= 0
+            else:
+                startX -= 5
 
         #<--------------- Render MenuBar --------------->#
         # render top menu bar
