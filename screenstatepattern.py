@@ -24,6 +24,9 @@ PumpkinFactory = PumpkinFactory()
 # Create Object
 PlaneFactory = PlaneFactory()
 
+# Create Object
+LeavesFactory = LeavesFactory()
+
 # Create Sounds Object
 Sounds = Sounds()
 
@@ -39,7 +42,8 @@ clock = pg.time.Clock()
 # List for handing over to loops
 startloopList = [clock, screen, Sounds, Fonts, MenuButtons]
 gameloopList = [clock, screen, ChickenFactory, SignPostFactory,
-                ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory, PumpkinFactory, PlaneFactory]
+                ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory,
+                PumpkinFactory, PlaneFactory, LeavesFactory]
 endloopList = [clock, screen, Sounds, Fonts, MenuButtons]
 bestlistloopList = [clock, screen, Sounds, Fonts, MenuButtons]
 
@@ -197,7 +201,7 @@ class GameBestList(GameState):
 game = Game()
 
 # Starts the game
-game.startGame()
+game.loopGame()
 
 # Done! Time to quit.
 pg.quit()
