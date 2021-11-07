@@ -45,8 +45,3 @@ endGameBG = BackgroundScreens(bgEndGame, [WIDTH * 0.5, HEIGHT * 0.5])
 bgBestList = (
     (pg.image.load(os.path.join(img_folder, 'backgrounds/backgroundtarget2.png'))))
 bestListBG = BackgroundScreens(bgBestList, [WIDTH * 0.5, HEIGHT * 0.5])
-
-# Adding Trunk to the world
-bgTrunk = (
-    (pg.image.load(os.path.join(img_folder, 'world/trunk2.png'))))
-TrunkBG = BackgroundScreens(bgTrunk, [700, HEIGHT * 0.5])

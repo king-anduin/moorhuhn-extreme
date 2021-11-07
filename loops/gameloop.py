@@ -7,7 +7,7 @@ from predator import *
 from background import *
 from signpost import *
 
-# gameloopList = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory, Sounds, Fonts, MenuButtons]
+# gameloopList = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory]
 
 
 def gameLoop(gameloopList):
@@ -34,7 +34,11 @@ def gameLoop(gameloopList):
     spritesSignPost = []
 
     # Sprite List for ChickenForeground
-    chickenForeground = []
+    SpritesChickenForeground = []
+
+    # Sprite List for Trunks
+    spritesTrunk = []
+    spritesTrunkAppend = True
 
     # Create SignPost Object
     signPost = SignPost()
@@ -59,6 +63,8 @@ def gameLoop(gameloopList):
         # Delta Time
         dt = gameloopList[0].tick(FPS)
 
+        chickenSound = random.randint(0, 2)
+
         # Events
         for event in pg.event.get():
             if event.type == pg.QUIT:
@@ -71,10 +77,7 @@ def gameLoop(gameloopList):
                     gameloopList[5].background_sound.stop()
                     running = False
                 if event.key == pg.K_SPACE:
-                    # Reset ammo count and play reload sound
-                    if bullets_count == 10:
-                        print("Is already fully loaded")
-                    else:
+                    if bullets_count < 10:
                         # Reset ammo count and play reload sound
                         bullets_count = 10
                         gameloopList[5].reload_sound.play()
@@ -87,9 +90,7 @@ def gameLoop(gameloopList):
 
             # Else Check for ending the game
             elif event.type == pg.MOUSEBUTTONDOWN and event.button == RIGHT:
-                if bullets_count == 10:
-                    print("Is already fully loaded")
-                else:
+                if bullets_count < 10:
                     # Reset ammo count and play reload sound
                     bullets_count = 10
                     gameloopList[5].reload_sound.play()
@@ -113,7 +114,8 @@ def gameLoop(gameloopList):
 
                 # print("Maus-Pos", mousex, mousey)
                 for sprite in sprites:
-                    if sprite.checkHit(mousex, mousey) and not TrunkBG.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                    if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                        gameloopList[5].chickenDeadSound(chickenSound).play()
                         # print(sprite.getPos())
                         sprite.deadchicken()
                         # sprites.remove(sprite)
@@ -121,6 +123,7 @@ def gameLoop(gameloopList):
                 # checks for hitting sign post and uses state pattern to change
                 for spritePost in spritesSignPost:
                     if spritePost.checkHitSign(mousex, mousey) and shoot:
+                        gameloopList[5].treeHit.play()
                         if post:
                             # post = signPost.endState()
                             post = False
@@ -129,12 +132,17 @@ def gameLoop(gameloopList):
                             post = True
 
                 # Checks for hitting the ChickenForeground
-                for spriteChickenForeground in chickenForeground:
-                    if spriteChickenForeground.checkHitChicken(mousex, mousey) and not TrunkBG.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
-                        # print(sprite.getPos())
-                        # sprite.deadchicken()
-                        # sprites.remove(sprite)
-                        pass
+                for spriteChickenForeground in SpritesChickenForeground:
+                    if spriteChickenForeground.checkHitChicken(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                        # chickenForeground.remove(spriteChickenForeground)
+                        gameloopList[5].chickenDeadSound(chickenSound).play()
+                        spriteChickenForeground.deadchicken()
+
+                # Checks for hitting the Trunks
+                for spriteTrunk in spritesTrunk:
+                    if spriteTrunk.checkHitTrunk(mousex, mousey) and shoot:
+                        # chickenForeground.remove(spriteChickenForeground)
+                        gameloopList[5].treeHit.play()
 
         #<--------------- Chicken --------------->#
         # create a chicken every spawners iteration on right side of screen
@@ -155,12 +163,12 @@ def gameLoop(gameloopList):
         #<--------------- ChickenForeground --------------->#
         # Append SignPost Sprites to the list
         if spritesChickenForegroundAppend:
-            chickenForeground.append(
+            SpritesChickenForeground.append(
                 gameloopList[4].createChickenForeground(WIDTH * 0.3, HEIGHT - 360))
             spritesChickenForegroundAppend = False
 
         # Update chickenForeground sprites
-        for spriteChickenForeground in chickenForeground:
+        for spriteChickenForeground in SpritesChickenForeground:
             spriteChickenForeground.updateChicken()
 
         #<--------------- SignPost --------------->#
@@ -170,9 +178,20 @@ def gameLoop(gameloopList):
                 gameloopList[3].createSignPost(50, HEIGHT - 310))
             spritesSignPostAppend = False
 
-        # # Update signpost
+        # Update signpost
         for spritePost in spritesSignPost:
             spritePost.updateSign(post)
+
+        #<--------------- Trunks --------------->#
+        # Append SignPost Sprites to the list
+        if spritesTrunkAppend:
+            spritesTrunk.append(
+                gameloopList[8].createTree(WIDTH * 0.7, 0))
+            spritesTrunkAppend = False
+
+        # Update Trunk
+        for spriteTrunk in spritesTrunk:
+            spriteTrunk.updateTrunk()
 
         #<--------------- Background --------------->#
         # Render background image and color
@@ -185,7 +204,7 @@ def gameLoop(gameloopList):
             gameloopList[1].blit(sprite.getImage(), sprite.getRect())
 
         #<--------------- Render ChickenForeground --------------->#
-        for spriteChickenForeground in chickenForeground:
+        for spriteChickenForeground in SpritesChickenForeground:
             gameloopList[1].blit(spriteChickenForeground.getImage(),
                                  spriteChickenForeground.getRect())
 
@@ -195,7 +214,9 @@ def gameLoop(gameloopList):
                              spritePost.getRect())
 
         #<--------------- Render Trunk --------------->#
-        gameloopList[1].blit(TrunkBG.image, TrunkBG.rect)
+        # loops through the signPost list and render it
+        gameloopList[1].blit(spriteTrunk.getImage(),
+                             spriteTrunk.getRect())
 
         #<--------------- Render MenuBar --------------->#
         # render top menu bar

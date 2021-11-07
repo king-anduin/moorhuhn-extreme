@@ -40,14 +40,17 @@ def screenLoop(startloopLoop):
             elif event.type == pg.MOUSEBUTTONDOWN:
                 if startloopLoop[4].objectsRectStart[0].collidepoint(event.pos):
                     running = False
+                    startloopLoop[2].button.play()
                     startloopLoop[2].start_sound.stop()
                     return True
                 elif startloopLoop[4].objectsRectStart[1].collidepoint(event.pos):
+                    startloopLoop[2].button.play()
                     startloopLoop[2].start_sound.stop()
                     running = False
 
                     return False
                 elif startloopLoop[4].objectsRectStart[2].collidepoint(event.pos):
+                    startloopLoop[2].button.play()
                     startloopLoop[2].start_sound.stop()
                     running = False
 

@@ -39,6 +39,7 @@ def bestlistloop(bestlistloopList):
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
                 if bestlistloopList[4].objectsRectBest[0].collidepoint(event.pos):
+                    bestlistloopList[2].button.play()
                     bestlistloopList[2].bestlist_sound.stop()
                     running = False
                     return True
