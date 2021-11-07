@@ -4,11 +4,16 @@ import pygame as pg
 class Sounds():
     def __init__(self):
         # Ambient sound
-        self.background_sound = pg.mixer.Sound("sounds/background.mp3")
-        self.background_sound.play(-1)
+        self.background_sound = pg.mixer.Sound("sounds/ambientloop.ogg")
 
         # Pumpkin sounds
         self.scarecrowHit = pg.mixer.Sound("sounds/scarecrow-hit.ogg")
+
+        # Plane sounds
+        self.airplaneLoop3 = pg.mixer.Sound("sounds/airplane_loop3.ogg")
+        self.airplaneCrash = pg.mixer.Sound("sounds/airplanecrash.ogg")
+        self.airplaneMotorFailure = pg.mixer.Sound(
+            "sounds/airplanemotorfailure.ogg")
 
         # Gun sounds
         self.shot_sound = pg.mixer.Sound("sounds/gunblast.ogg")

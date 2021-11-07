@@ -1,5 +1,7 @@
 import os
 import pygame as pg
+import random
+
 from settings import *
 
 # Flyweight
@@ -10,17 +12,17 @@ class Image:
         self.image = pg.image.load(image).convert_alpha()
 
 
-class ImagePumpkin:
+class ImagePlane:
     def __init__(self):
         # initialize all variables and do all the setup for a new game
         game_folder = os.path.dirname(__file__)
-        img_folder = os.path.join(game_folder, '_img/pumpkin')
+        img_folder = os.path.join(game_folder, '_img/plane')
         # Make Dictionary of Images
         self.images = {}
 
-        for i in range(1, 9):
-            self.images['pumpkin'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'pumpkin'+str(i)+'.png')).convert_alpha(), (100, 100))
+        for i in range(1, 21):
+            self.images['plane'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'plane'+str(i)+'.png')).convert_alpha(), (45, 36))
 
     def getFlyweightImages(self):
         return self.images
@@ -28,23 +30,26 @@ class ImagePumpkin:
 # Factory
 
 
-class PumpkinFactory:
+class PlaneFactory:
     def __init__(self):
-        self.imageDict = ImagePumpkin().getFlyweightImages()
+        self.imageDict = ImagePlane().getFlyweightImages()
 
-    def createPumpkin(self, x, y):
-        pumpkin = PumpkinList(self.imageDict, x, y)
-        return pumpkin
+    def createPlane(self, x, y, direction: str):
+        plane = PlaneList(self.imageDict, x, y, SPEED * random.choice([1, -1, 0.5, -0.5]),
+                          SPEED * random.choice([0, -0, 0, -0]), direction)
+        return plane
+
 # Sprites
 
 
 class Sprite:
-    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
+    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str, direction: str):
         self.x = x
         self.y = y
         self.image = flyweightImages[imagename]
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
+        self.direction = ""
 
     def update(self):
         raise NotImplementedError
@@ -56,19 +61,26 @@ class Sprite:
         return self.rect
 
 
-class Pumpkin(Sprite):
-    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
+class Plane(Sprite):
+    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, imagename: str, direction: str):
         Sprite.__init__(self, x, y, imagename)
+        self.sx = sx
+        self.sy = sy
 
     def update(self):
-        self.x = self.x
-        self.y = self.y
+        self.x = self.x + self.sx
+        self.y = self.y + self.sy
         self.rect.topleft = (self.x, self.y)
 
+        if (self.rect.bottom >= HEIGHT):
+            self.sy = self.sy * -1
+
+        if (self.rect.top <= 0):
+            self.sy = self.sy * -1
 # State Pattern
 
 
-class PumpkinState:
+class PlaneState:
     def alive(self):
         raise NotImplementedError
 
@@ -82,33 +94,33 @@ class PumpkinState:
         raise NotImplementedError
 
 
-class ChickenForeground:
+class PlaneChange:
     def __init__(self):
-        self.chickenState = PumpkinNormal(self)
+        self.planeState = PlaneNormal(self)
 
-    def changeState(self, newState: Pumpkin):
-        if self.chickenState != None:
-            self.chickenState.exit()
-        self.chickenState = newState
-        self.chickenState.enter()
+    def changeState(self, newState: PlaneState):
+        if self.planeState != None:
+            self.planeState.exit()
+        self.planeState = newState
+        self.planeState.enter()
 
     def aliveState(self):
-        self.chickenState.alive()
+        self.planeState.alive()
 
     def deadState(self):
-        self.chickenState.dead()
+        self.planeState.dead()
 
 
-class PumpkinNormal(Pumpkin):
-    def __init__(self, chickenForeground: ChickenForeground):
-        self.chickenForeground = chickenForeground
+class PlaneNormal(PlaneState):
+    def __init__(self, planeChange: PlaneChange):
+        self.plane = planeChange
 
     def alive(self):
         print("Sign is already in start state, SignPostStartState")
 
     def dead(self):
-        self.chickenForeground.changeState(
-            PumpkinShot(self.chickenForeground))
+        self.plane.changeState(
+            PlaneFly(self.planeChange))
 
     def enter(self):
         print("Sign is in start state, SignPostStartState")
@@ -117,13 +129,13 @@ class PumpkinNormal(Pumpkin):
         pass
 
 
-class PumpkinShot(Pumpkin):
-    def __init__(self, chickenForeground: ChickenForeground):
-        self.chickenForeground = chickenForeground
+class PlaneFly(PlaneState):
+    def __init__(self, planeChange: PlaneChange):
+        self.chickenForeground = planeChange
 
     def alive(self):
         self.chickenForeground.changeState(
-            PumpkinNormal(self.chickenForeground))
+            PlaneNormal(self.chickenForeground))
 
     def dead(self):
         print("Sign is already in end state, SignPostEndState")
@@ -133,52 +145,64 @@ class PumpkinShot(Pumpkin):
 
     def exit(self):
         pass
+
 # Sprites
 
 
-class PumpkinList(Pumpkin):
-    def __init__(self, flyweightImages: dict, x: int, y: int):
+class PlaneList(Plane):
+    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, direction: str):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.image = self.flyweightImages['pumpkin1']
+        self.image = self.flyweightImages['plane1']
         self.imageIndex = 1
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
+        self.sx = sx
+        self.sy = sy
+        self.direction = direction
+        self.size = (45, 36)
 
-        self.direction = False
-        self.size = (100, 100)
+        # Coin Speed
         self.maxtimer = COINSPEED
         self.timer = 0
-        self.alive = True
 
     # update function
-    def updatePumpkin(self):
+    def updatePlane(self):
         self.rotate()
-        Pumpkin.update(self)
+        Plane.update(self)
 
     # get position of the mouse
     def getPos(self):
         return self.x, self.y
 
     # Checks that the hit is inside rect of signPost borders
-    def checkHitPumpkin(self, x, y):
+    def checkHitPlane(self, x, y):
         # print("Sign", self.rect.left, self.rect.right,
         #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
-            print("HIT pumpkin")
+            print("HIT plane")
             return True
         else:
             return False
 
     # iterates over all .png to animate the signPost
     def rotate(self):
-        if (self.direction == True):
+        if (self.direction == "Right"):
             self.timer += 1
             if self.timer == self.maxtimer:
                 self.timer = 0
                 self.imageIndex += 1
-                if (self.imageIndex == 8):
+                if (self.imageIndex == 20):
                     self.imageIndex = 1
                 self.image = pg.transform.flip(
-                    pg.transform.scale(self.flyweightImages['pumpkin' + str(self.imageIndex)], self.size), True, False)
+                    pg.transform.scale(self.flyweightImages['plane'+str(self.imageIndex)], self.size), True, False)
+        else:
+            self.timer += 1
+            if self.timer == self.maxtimer:
+                self.timer = 0
+                self.imageIndex += 1
+                if (self.imageIndex == 20):
+                    self.imageIndex = 1
+                self.image = pg.transform.scale(
+                    self.flyweightImages['plane' + str(self.imageIndex)], self.size)
