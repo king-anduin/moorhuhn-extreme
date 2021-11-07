@@ -18,6 +18,9 @@ TreeFactory = TreeFactory()
 # Create Object
 ChickenForegroundFactory = ChickenForegroundFactory()
 
+# Create Object
+PumpkinFactory = PumpkinFactory()
+
 # Create Sounds Object
 Sounds = Sounds()
 
@@ -33,7 +36,7 @@ clock = pg.time.Clock()
 # List for handing over to loops
 startloopList = [clock, screen, Sounds, Fonts, MenuButtons]
 gameloopList = [clock, screen, ChickenFactory, SignPostFactory,
-                ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory]
+                ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory, PumpkinFactory]
 endloopList = [clock, screen, Sounds, Fonts, MenuButtons]
 bestlistloopList = [clock, screen, Sounds, Fonts, MenuButtons]
 

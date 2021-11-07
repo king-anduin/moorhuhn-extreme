@@ -11,6 +11,7 @@ from fonts import *
 from menus import *
 from chickenforeground import *
 from trunk import *
+from pumpkin import *
 
 from loops.startloop import *
 from loops.gameloop import *

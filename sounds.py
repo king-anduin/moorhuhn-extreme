@@ -7,6 +7,9 @@ class Sounds():
         self.background_sound = pg.mixer.Sound("sounds/background.mp3")
         self.background_sound.play(-1)
 
+        # Pumpkin sounds
+        self.scarecrowHit = pg.mixer.Sound("sounds/scarecrow-hit.ogg")
+
         # Gun sounds
         self.shot_sound = pg.mixer.Sound("sounds/gunblast.ogg")
         self.empty_sound = pg.mixer.Sound("sounds/empty magazine.ogg")

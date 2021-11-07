@@ -30,13 +30,14 @@ def gameLoop(gameloopList):
     # Sprite list for chicken
     sprites = []
 
-    # Sprite List for SignPost
+    # Sprite List for SignPost and boolean
     spritesSignPost = []
+    post = True
 
     # Sprite List for ChickenForeground
     SpritesChickenForeground = []
 
-    # Sprite List for Trunks
+    # Sprite List for Trunks and boolean
     spritesTrunk = []
     spritesTrunkAppend = True
 
@@ -53,8 +54,9 @@ def gameLoop(gameloopList):
     # GameLoop running?
     running = True
 
-    # check signPost when shooting
-    post = True
+    # check for pumpkin shoot and sprite list
+    pumpkinAppend = True
+    spritesPumpkin = []
 
     # Can predator shoot
     shoot = True
@@ -113,6 +115,14 @@ def gameLoop(gameloopList):
                 mousex, mousey = event.pos
 
                 # print("Maus-Pos", mousex, mousey)
+                for spritePumpkin in spritesPumpkin:
+                    if spritePumpkin.checkHitPumpkin(mousex, mousey) and shoot:
+                        gameloopList[5].scarecrowHit.play()
+                        # print(sprite.getPos())
+                        # sprite.deadchicken()
+                        # sprites.remove(sprite)
+
+                # print("Maus-Pos", mousex, mousey)
                 for sprite in sprites:
                     if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
                         gameloopList[5].chickenDeadSound(chickenSound).play()
@@ -143,6 +153,17 @@ def gameLoop(gameloopList):
                     if spriteTrunk.checkHitTrunk(mousex, mousey) and shoot:
                         # chickenForeground.remove(spriteChickenForeground)
                         gameloopList[5].treeHit.play()
+
+        #<--------------- Pumpkin --------------->#
+        # Append SignPost Sprites to the list
+        if pumpkinAppend:
+            spritesPumpkin.append(
+                gameloopList[9].createPumpkin(WIDTH * 0.5, HEIGHT * 0.5))
+            pumpkinAppend = False
+
+        # Update signpost
+        for spritePumpkin in spritesPumpkin:
+            spritePumpkin.updatePumpkin()
 
         #<--------------- Chicken --------------->#
         # create a chicken every spawners iteration on right side of screen
@@ -196,7 +217,18 @@ def gameLoop(gameloopList):
         #<--------------- Background --------------->#
         # Render background image and color
         gameloopList[1].fill((SKYBLUE))
-        gameloopList[1].blit(world[int].image, world[int].rect)
+        gameloopList[1].blit(background1.image, background1.rect)
+
+        #<--------------- Background --------------->#
+        # Render background image and color
+        gameloopList[1].fill((SKYBLUE))
+        gameloopList[1].blit(background2.image, background2.rect)
+
+        #<--------------- Render Pumpkin --------------->#
+        # Render pumpkin to the screen
+        for spritePumpkin in spritesPumpkin:
+            gameloopList[1].blit(spritePumpkin.getImage(),
+                                 spritePumpkin.getRect())
 
         #<--------------- Render Chicken --------------->#
         # Render chickens to the screen
