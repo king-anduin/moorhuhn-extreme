@@ -62,6 +62,7 @@ def gameLoop(gameloopList):
 
     # check for pumpkin shoot and sprite list
     pumpkinAppend = True
+    pumpkinMove = False
     spritesPumpkin = []
 
     # Can predator shoot
@@ -122,8 +123,9 @@ def gameLoop(gameloopList):
 
                 # checks for hitting pumpkin
                 for spritePumpkin in spritesPumpkin:
-                    if spritePumpkin.checkHitPumpkin(mousex, mousey) and not sprite.rect.collidepoint(event.pos) and shoot:
+                    if spritePumpkin.checkHitPumpkin(mousex, mousey) and shoot:
                         gameloopList[5].scarecrowHit.play()
+                        pumpkinMove = True
                         # sprites.remove(sprite)
 
                 # checks for hitting planes
@@ -165,29 +167,30 @@ def gameLoop(gameloopList):
                         gameloopList[5].treeHit.play()
 
         #<--------------- Pumpkin --------------->#
-        # Append SignPost Sprites to the list
+        # Append Pumpkin Sprites to the list
         if pumpkinAppend:
             spritesPumpkin.append(
-                gameloopList[9].createPumpkin(WIDTH * 0.5, HEIGHT * 0.5))
+                gameloopList[9].createPumpkin(WIDTH * 0.7, HEIGHT * 0.5))
             pumpkinAppend = False
 
-        # Update signpost
-        for spritePumpkin in spritesPumpkin:
-            spritePumpkin.updatePumpkin()
+        # Update Pumpkin
+        if pumpkinMove:
+            for spritePumpkin in spritesPumpkin:
+                spritePumpkin.updatePumpkin()
 
         #<--------------- Plane --------------->#
         # create a plane every spawners iteration on right side of screen
-        randomizerPlane = random.randrange(1, 120, 1)
+        randomizerPlane = random.randrange(1, SPAWNERPLANE, 1)
         if randomizerPlane == 1:
             spritesPlane.append(gameloopList[10].createPlane(
                 (1.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Left"))
 
-        # create a chicken every spawners iteration on right side of screen
+        # create a plane every spawners iteration on right side of screen
         if randomizerPlane == 2:
             spritesPlane.append(gameloopList[10].createPlane(
                 (-0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Right"))
 
-        # Update signpost
+        # Update plane
         for spritePlane in spritesPlane:
             spritePlane.updatePlane()
 
@@ -208,7 +211,7 @@ def gameLoop(gameloopList):
             sprite.update()
 
         #<--------------- ChickenForeground --------------->#
-        # Append SignPost Sprites to the list
+        # Append chickenForeground Sprites to the list
         if spritesChickenForegroundAppend:
             SpritesChickenForeground.append(
                 gameloopList[4].createChickenForeground(WIDTH * 0.3, HEIGHT - 360))
@@ -230,10 +233,10 @@ def gameLoop(gameloopList):
             spritePost.updateSign(post)
 
         #<--------------- Trunks --------------->#
-        # Append SignPost Sprites to the list
+        # Append Trunks Sprites to the list
         if spritesTrunkAppend:
             spritesTrunk.append(
-                gameloopList[8].createTree(WIDTH * 0.7, 0))
+                gameloopList[8].createTree(WIDTH * 0.8, 0))
             spritesTrunkAppend = False
 
         # Update Trunk
