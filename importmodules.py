@@ -1,5 +1,6 @@
 import pygame as pg
 
+from ammo import *
 from factory import *
 from settings import *
 from predator import *
