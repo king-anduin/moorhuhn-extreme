@@ -1,6 +1,23 @@
 import pygame as pg
-from flyweight import *
+from settings import *
 import os
+
+
+class Background(pg.sprite.Sprite):
+    def __init__(self, bg, location):
+        pg.sprite.Sprite.__init__(self)  # call Sprite initializer
+        self.image = bg
+        self.rect = self.image.get_rect()
+        self.rect.left, self.rect.top = location
+
+
+class BackgroundScreens(pg.sprite.Sprite):
+    def __init__(self, bg, location):
+        pg.sprite.Sprite.__init__(self)  # call Sprite initializer
+        self.image = bg
+        self.rect = self.image.get_rect()
+        self.rect.center = location
+
 
 # Folders where all pictures are
 game_folder = os.path.dirname(__file__)
@@ -28,8 +45,3 @@ endGameBG = BackgroundScreens(bgEndGame, [WIDTH * 0.5, HEIGHT * 0.5])
 bgBestList = (
     (pg.image.load(os.path.join(img_folder, 'backgrounds/backgroundtarget2.png'))))
 bestListBG = BackgroundScreens(bgBestList, [WIDTH * 0.5, HEIGHT * 0.5])
-
-# Adding Trunk to the world
-bgTrunk = (
-    (pg.image.load(os.path.join(img_folder, 'world/trunk2.png'))))
-TrunkBG = BackgroundScreens(bgTrunk, [700, HEIGHT * 0.5])

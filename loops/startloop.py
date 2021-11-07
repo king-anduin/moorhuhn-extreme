@@ -3,33 +3,26 @@ from factory import *
 from settings import *
 from predator import *
 from background import *
+from fonts import *
+
+# startloop = [clock, screen, Sounds, Fonts]
 
 
-def screenLoop(clock, screen):
+def screenLoop(startloopLoop):
     # GameLoop running?
     running = True
 
-    # Create Buttons Object
-    buttons = MenuButtons()
-
-    # Sprite list for signpost
-    sprites = []
-
-    # Render
-    font_text = pg.font.Font("freesansbold.ttf", 24)
-
-    # Sounds
-    start_sound = pg.mixer.Sound("sounds/start.mp3")
-    start_sound.play(-1)
+    # Endless sound loop
+    startloopLoop[2].start_sound.play(-1)
 
     while running:
         # Delta Time
-        dt = clock.tick(FPS)
+        dt = startloopLoop[0].tick(FPS)
 
         # Events
         for event in pg.event.get():
             if event.type == pg.QUIT:
-                start_sound.stop()
+                startloopLoop[2].start_sound.stop()
                 running = False
             elif event.type == pg.MOUSEMOTION:
                 # If the mouse is moved, set the center of the rect
@@ -40,34 +33,39 @@ def screenLoop(clock, screen):
             # Ends the game on ESC
             elif event.type == pg.KEYDOWN:
                 if event.key == pg.K_ESCAPE:
-                    start_sound.stop()
+                    startloopLoop[2].start_sound.stop()
                     running = False
 
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
-                if buttons.objectsRect[0].collidepoint(event.pos):
+                if startloopLoop[4].objectsRectStart[0].collidepoint(event.pos):
                     running = False
-                    start_sound.stop()
+                    startloopLoop[2].button.play()
+                    startloopLoop[2].start_sound.stop()
                     return True
-                elif buttons.objectsRect[1].collidepoint(event.pos):
-                    start_sound.stop()
+                elif startloopLoop[4].objectsRectStart[1].collidepoint(event.pos):
+                    startloopLoop[2].button.play()
+                    startloopLoop[2].start_sound.stop()
                     running = False
 
                     return False
-                elif buttons.objectsRect[2].collidepoint(event.pos):
-                    start_sound.stop()
+                elif startloopLoop[4].objectsRectStart[2].collidepoint(event.pos):
+                    startloopLoop[2].button.play()
+                    startloopLoop[2].start_sound.stop()
                     running = False
 
         # Render
-        screen.fill((WHITE))
-        screen.blit(startGameBG.image, startGameBG.rect)
+        startloopLoop[1].fill((WHITE))
+        startloopLoop[1].blit(startGameBG.image, startGameBG.rect)
 
         # Render text and rects for menu
-        buttons.drawRect(screen, 3, WHITE, WIDTH * 0.5 - 100, 100, 200, 50, 5)
-        buttons.drawText(screen, font_text, LOCATION, TEXT, 3, BLACK)
+        startloopLoop[4].drawRectStart(startloopLoop[1], 3, WHITE,
+                                       WIDTH * 0.5 - 100, 100, 200, 50, 5)
+        startloopLoop[4].drawText(startloopLoop[1], startloopLoop[3].font_text,
+                                  LOCATION, TEXT, 3, BLACK)
 
         # Blit the image at the rect's topleft coords.
-        screen.blit(CURSOR_IMG, cursor_rect)
+        startloopLoop[1].blit(CURSOR_IMG, cursor_rect)
 
         # Double Buffering
         pg.display.flip()

@@ -1,13 +1,4 @@
-import pygame as pg
-from factory import *
-from settings import *
-from predator import *
-from background import *
-from signpost import *
-from loops.startloop import *
-from loops.gameloop import *
-from loops.endloop import *
-from loops.bestlistloop import *
+from importmodules import *
 
 # Initialization
 pg.init()
@@ -21,8 +12,30 @@ ChickenFactory = ChickenFactory()
 # Create Object
 SignPostFactory = SignPostFactory()
 
+# Create Object
+TreeFactory = TreeFactory()
+
+# Create Object
+ChickenForegroundFactory = ChickenForegroundFactory()
+
+# Create Sounds Object
+Sounds = Sounds()
+
+# create font object
+Fonts = Fonts()
+
+# Create Buttons Object
+MenuButtons = MenuButtons()
+
 # pg Clock
 clock = pg.time.Clock()
+
+# List for handing over to loops
+startloopList = [clock, screen, Sounds, Fonts, MenuButtons]
+gameloopList = [clock, screen, ChickenFactory, SignPostFactory,
+                ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory]
+endloopList = [clock, screen, Sounds, Fonts, MenuButtons]
+bestlistloopList = [clock, screen, Sounds, Fonts, MenuButtons]
 
 
 class GameState:
@@ -74,9 +87,9 @@ class GameStartState(GameState):
 
     def start(self):
         print("Already in start screen, GameStartState")
-        if screenLoop(clock, screen):
+        if screenLoop(startloopList):
             game.loopGame()
-        elif screenLoop(clock, screen) == False:
+        elif screenLoop(startloopList) == False:
             game.bestGame()
 
     def loop(self):
@@ -90,9 +103,9 @@ class GameStartState(GameState):
 
     def enter(self):
         print("You enter start screen, GameStartState")
-        if screenLoop(clock, screen):
+        if screenLoop(startloopList):
             game.loopGame()
-        elif screenLoop(clock, screen) == False:
+        elif screenLoop(startloopList) == False:
             game.bestGame()
 
     def exit(self):
@@ -117,7 +130,7 @@ class GameLoopState(GameState):
 
     def enter(self):
         print("You enter game loop, GameLoopState")
-        if gameLoop(clock, ChickenFactory, screen, SignPostFactory):
+        if gameLoop(gameloopList):
             game.endGame()
 
     def exit(self):
@@ -142,7 +155,7 @@ class GameEndState(GameState):
 
     def enter(self):
         print("You enter end game, GameEndState")
-        if endloop(clock, screen):
+        if endloop(endloopList):
             game.startGame()
 
     def exit(self):
@@ -167,7 +180,7 @@ class GameBestList(GameState):
 
     def enter(self):
         print("You enter best list, GameEndState")
-        if bestlistloop(clock, screen):
+        if bestlistloop(bestlistloopList):
             game.startGame()
 
     def exit(self):

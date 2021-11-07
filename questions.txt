@@ -1,3 +1,4 @@
 Peter:
 - click two times in main menu
 - SignPost pattern?!
+- Chickens remove instead of transparent
