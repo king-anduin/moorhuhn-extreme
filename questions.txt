@@ -1,4 +1,14 @@
-Peter:
+Team:
 - click two times in main menu
-- SignPost pattern?!
+- General usage of pattern?!
 - Chickens remove instead of transparent
+- SignPost Picture transparent
+- Sprites aren't suppose to move during map scrolling
+
+look into:
+- Endless loop sounds?
+
+Awsome:
+- Toller timer
+- Tolles Produkt für eine Woche :D
+- Gute Aufgabenumsetzung
