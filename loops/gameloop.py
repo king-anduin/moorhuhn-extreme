@@ -7,7 +7,9 @@ from predator import *
 from background import *
 from signpost import *
 
-# gameloopList = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory]
+# gameloopList = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory,
+#                  Sounds, Fonts, MenuButtons, TreeFactory, PumpkinFactory, PlaneFactory,
+#                   LeavesFactory]
 
 
 def gameLoop(gameloopList):
@@ -64,6 +66,11 @@ def gameLoop(gameloopList):
     pumpkinAppend = True
     pumpkinMove = False
     spritesPumpkin = []
+
+    # check for leaves shoot and sprite list
+    spritesLeavesAppend = 5
+    spritesFalling = False
+    spritesLeaves = []
 
     # Can predator shoot
     shoot = True
@@ -136,7 +143,7 @@ def gameLoop(gameloopList):
 
                 # checks for hitting chickens
                 for sprite in sprites:
-                    if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                    if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         # print(sprite.getPos())
                         sprite.deadchicken()
@@ -155,7 +162,7 @@ def gameLoop(gameloopList):
 
                 # Checks for hitting the ChickenForeground
                 for spriteChickenForeground in SpritesChickenForeground:
-                    if spriteChickenForeground.checkHitChicken(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                    if spriteChickenForeground.checkHitChicken(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
                         # chickenForeground.remove(spriteChickenForeground)
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         spriteChickenForeground.deadchicken()
@@ -165,6 +172,14 @@ def gameLoop(gameloopList):
                     if spriteTrunk.checkHitTrunk(mousex, mousey) and shoot:
                         # chickenForeground.remove(spriteChickenForeground)
                         gameloopList[5].treeHit.play()
+                        spritesFalling = True
+
+                # Checks for hitting the leaves
+                for spriteLeaves in spritesLeaves:
+                    if spriteLeaves.checkHitLeaves(mousex, mousey) and shoot:
+                        # chickenForeground.remove(spriteChickenForeground)
+                        gameloopList[5].leafHit.play()
+                        spritesFalling = True
 
         #<--------------- Pumpkin --------------->#
         # Append Pumpkin Sprites to the list
@@ -243,6 +258,18 @@ def gameLoop(gameloopList):
         for spriteTrunk in spritesTrunk:
             spriteTrunk.updateTrunk()
 
+        #<--------------- Leaves --------------->#
+        # Append Leaves Sprites to the list
+        randomizerPlane = random.randrange(1, SPAWNERLEAVES, 1)
+        if randomizerPlane == 1:
+            spritesLeaves.append(gameloopList[11].createLeaves(
+                (WIDTH * random.uniform(0.4, 0.6)), 0, "Down"))
+
+        # Update Leaves
+        if spritesFalling:
+            for spriteLeaves in spritesLeaves:
+                spriteLeaves.updateLeaves()
+
         # #<--------------- Background --------------->#
         # # Render background image and color
         gameloopList[1].fill((SKYBLUE))
@@ -280,6 +307,13 @@ def gameLoop(gameloopList):
         gameloopList[1].blit(spriteTrunk.getImage(),
                              spriteTrunk.getRect())
 
+        #<--------------- Render Leaves --------------->#
+        # Render chickens to the screen
+        for spriteLeaves in spritesLeaves:
+            gameloopList[1].blit(spriteLeaves.getImage(),
+                                 spriteLeaves.getRect())
+
+        #<--------------- Map scroll --------------->#
         # Move camera
         if cursor_rect.center[0] < 50 or left:
             if startX >= backgroundCombined.rect[0]:

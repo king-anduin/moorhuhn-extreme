@@ -9,6 +9,9 @@ class Sounds():
         # Pumpkin sounds
         self.scarecrowHit = pg.mixer.Sound("sounds/scarecrow-hit.ogg")
 
+        # Leave sounds
+        self.leafHit = pg.mixer.Sound("sounds/leaf-hit.ogg")
+
         # Plane sounds
         self.airplaneLoop3 = pg.mixer.Sound("sounds/airplane_loop3.ogg")
         self.airplaneCrash = pg.mixer.Sound("sounds/airplanecrash.ogg")

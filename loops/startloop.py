@@ -5,7 +5,7 @@ from predator import *
 from background import *
 from fonts import *
 
-# startloop = [clock, screen, Sounds, Fonts]
+# startloop = [clock, screen, Sounds, Fonts, MenuButtons]
 
 
 def screenLoop(startloopLoop):

@@ -4,7 +4,7 @@ from settings import *
 from predator import *
 from background import *
 
-# endloop = [clock, screen, Sounds, Fonts]
+# endloop = [clock, screen, Sounds, Fonts, MenuButtons]
 
 
 def endloop(endloopList):

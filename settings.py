@@ -19,6 +19,7 @@ SKYBLUE = (135, 206, 235, 1)
 # Maybe usefull for dificulties
 SPAWNER = 70
 SPAWNERPLANE = 120
+SPAWNERLEAVES = 100
 
 # flyweight.py
 CHICKEN_SIZE = (70, 70)
@@ -53,3 +54,9 @@ LEFT = 1
 CHICKENSIZE1 = (30, 30)
 CHICKENSIZE2 = (50, 50)
 CHICKENSIZE3 = (70, 70)
+
+# leaves.py
+LEAVESIZE = (50, 60)
+
+# planes.py
+PLANESIZE = (45, 36)

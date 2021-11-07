@@ -1,7 +1,6 @@
 import os
-import pygame as pg
 import random
-
+import pygame as pg
 from settings import *
 
 # Flyweight
@@ -12,17 +11,17 @@ class Image:
         self.image = pg.image.load(image).convert_alpha()
 
 
-class ImagePlane:
+class ImageLeave:
     def __init__(self):
         # initialize all variables and do all the setup for a new game
         game_folder = os.path.dirname(__file__)
-        img_folder = os.path.join(game_folder, '_img/plane')
+        img_folder = os.path.join(game_folder, '_img/fallingleaf')
         # Make Dictionary of Images
         self.images = {}
 
         for i in range(1, 21):
-            self.images['plane'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'plane'+str(i)+'.png')).convert_alpha(), PLANESIZE)
+            self.images['leaves'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'leaves'+str(i)+'.png')).convert_alpha(), (LEAVESIZE))
 
     def getFlyweightImages(self):
         return self.images
@@ -30,20 +29,19 @@ class ImagePlane:
 # Factory
 
 
-class PlaneFactory:
+class LeavesFactory:
     def __init__(self):
-        self.imageDict = ImagePlane().getFlyweightImages()
+        self.imageDict = ImageLeave().getFlyweightImages()
 
-    def createPlane(self, x, y, direction: str):
-        plane = PlaneList(self.imageDict, x, y, SPEED * random.choice([1, -1, 0.5, -0.5]),
-                          SPEED * random.choice([0, -0, 0, -0]), direction)
-        return plane
-
+    def createLeaves(self, x, y, direction: str):
+        leaves = LeavesList(self.imageDict, x, y, SPEED * random.choice([0, -0, 0, -0]),
+                            SPEED * random.choice([1, 1, 0.5, 0.5]), direction)
+        return leaves
 # Sprites
 
 
 class Sprite:
-    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str, direction: str):
+    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, imagename: str, direction: str):
         self.x = x
         self.y = y
         self.image = flyweightImages[imagename]
@@ -66,7 +64,7 @@ class Sprite:
         return self.rect
 
 
-class Plane(Sprite):
+class Leaves(Sprite):
     def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, imagename: str, direction: str):
         Sprite.__init__(self, x, y, imagename)
         self.sx = sx
@@ -80,7 +78,7 @@ class Plane(Sprite):
 # State Pattern
 
 
-class PlaneState:
+class LeavesStates:
     def alive(self):
         raise NotImplementedError
 
@@ -94,33 +92,33 @@ class PlaneState:
         raise NotImplementedError
 
 
-class PlaneChange:
+class LeaveChange:
     def __init__(self):
-        self.planeState = PlaneNormal(self)
+        self.chickenState = LeavesNormal(self)
 
-    def changeState(self, newState: PlaneState):
-        if self.planeState != None:
-            self.planeState.exit()
-        self.planeState = newState
-        self.planeState.enter()
+    def changeState(self, newState: LeavesStates):
+        if self.chickenState != None:
+            self.chickenState.exit()
+        self.chickenState = newState
+        self.chickenState.enter()
 
     def aliveState(self):
-        self.planeState.alive()
+        self.chickenState.alive()
 
     def deadState(self):
-        self.planeState.dead()
+        self.chickenState.dead()
 
 
-class PlaneNormal(PlaneState):
-    def __init__(self, planeChange: PlaneChange):
-        self.plane = planeChange
+class LeavesNormal(LeavesStates):
+    def __init__(self, chickenForeground: LeaveChange):
+        self.chickenForeground = chickenForeground
 
     def alive(self):
         print("Sign is already in start state, SignPostStartState")
 
     def dead(self):
-        self.plane.changeState(
-            PlaneFly(self.planeChange))
+        self.chickenForeground.changeState(
+            LeavesFalling(self.chickenForeground))
 
     def enter(self):
         print("Sign is in start state, SignPostStartState")
@@ -129,13 +127,13 @@ class PlaneNormal(PlaneState):
         pass
 
 
-class PlaneFly(PlaneState):
-    def __init__(self, planeChange: PlaneChange):
-        self.chickenForeground = planeChange
+class LeavesFalling(LeavesStates):
+    def __init__(self, chickenForeground: LeaveChange):
+        self.chickenForeground = chickenForeground
 
     def alive(self):
         self.chickenForeground.changeState(
-            PlaneNormal(self.chickenForeground))
+            LeavesNormal(self.chickenForeground))
 
     def dead(self):
         print("Sign is already in end state, SignPostEndState")
@@ -145,16 +143,15 @@ class PlaneFly(PlaneState):
 
     def exit(self):
         pass
-
 # Sprites
 
 
-class PlaneList(Plane):
+class LeavesList(Leaves):
     def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, direction: str):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.image = self.flyweightImages['plane1']
+        self.image = self.flyweightImages['leaves1']
         self.imageIndex = 1
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
@@ -162,41 +159,29 @@ class PlaneList(Plane):
         self.sy = sy
         self.direction = direction
 
-        # Coin Speed
         self.maxtimer = COINSPEED
         self.timer = 0
 
     # update function
-    def updatePlane(self):
-        self.rotate()
-        Plane.update(self)
+    def updateLeaves(self):
+        self.fallingLeaves()
+        Leaves.update(self)
 
     # get position of the mouse
     def getPos(self):
         return self.x, self.y
 
     # Checks that the hit is inside rect of signPost borders
-    def checkHitPlane(self, x, y):
-        # print("Sign", self.rect.left, self.rect.right,
-        #       self.rect.top, self.rect.bottom)
+    def checkHitLeaves(self, x, y):
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
-            print("HIT plane")
+            print("HIT leaves")
             return True
         else:
             return False
 
     # iterates over all .png to animate the signPost
-    def rotate(self):
-        if (self.direction == "Right"):
-            self.timer += 1
-            if self.timer == self.maxtimer:
-                self.timer = 0
-                self.imageIndex += 1
-                if (self.imageIndex == 20):
-                    self.imageIndex = 1
-                self.image = pg.transform.flip(
-                    pg.transform.scale(self.flyweightImages['plane'+str(self.imageIndex)], PLANESIZE), True, False)
-        else:
+    def fallingLeaves(self):
+        if (self.direction == "Down"):
             self.timer += 1
             if self.timer == self.maxtimer:
                 self.timer = 0
@@ -204,4 +189,4 @@ class PlaneList(Plane):
                 if (self.imageIndex == 20):
                     self.imageIndex = 1
                 self.image = pg.transform.scale(
-                    self.flyweightImages['plane' + str(self.imageIndex)], PLANESIZE)
+                    self.flyweightImages['leaves' + str(self.imageIndex)], LEAVESIZE)
