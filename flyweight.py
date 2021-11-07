@@ -16,7 +16,7 @@ class ImageFlyweight:
         # Make Dictionary of Images
         self.images = {}
 
-        for i in range(1, 12):
+        for i in range(1, 13):
             self.images['chicken'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
                 img_folder, 'chicken'+str(i)+'.png')).convert_alpha(), (CHICKEN_SIZE))
 

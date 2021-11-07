@@ -23,10 +23,6 @@ def gameLoop(gameloopList):
     # starting_timer = 0
     timerinitialiser = 0
 
-    # Choose random map
-    int = random.randint(0, 1)
-    world = [background1, background2]
-
     # Cache screen size
     screen_width = gameloopList[1].get_width()
     screen_height = gameloopList[1].get_height()
@@ -221,22 +217,16 @@ def gameLoop(gameloopList):
         for spriteTrunk in spritesTrunk:
             spriteTrunk.updateTrunk()
 
-        #<--------------- Background --------------->#
-
-        gameloopList[1].fill((SKYBLUE))
-        # gameloopList[1].blit(background1.image, background1.rect)
-
         # #<--------------- Background --------------->#
         # # Render background image and color
-        # gameloopList[1].fill((SKYBLUE))
-        # gameloopList[1].blit(background2.image, background2.rect)
+        gameloopList[1].fill((SKYBLUE))
+        gameloopList[1].blit(backgroundCombined.image, (startX, startY))
 
         #<--------------- Render Pumpkin --------------->#
         # Render pumpkin to the screen
         for spritePumpkin in spritesPumpkin:
             gameloopList[1].blit(spritePumpkin.getImage(),
                                  spritePumpkin.getRect())
-        gameloopList[1].blit(world[int].image, (startX, startY))
 
         #<--------------- Render Chicken --------------->#
         # Render chickens to the screen
@@ -260,12 +250,12 @@ def gameLoop(gameloopList):
 
         # Move camera
         if cursor_rect.center[0] < 50 or left == True:
-            if startX >= world[int].rect[0]:
+            if startX >= backgroundCombined.rect[0]:
                 startX += 0
             else:
                 startX += 5
         if WIDTH - cursor_rect.center[0] < 50 or right == True:
-            if startX - WIDTH <= -world[int].rect[2] + 50:
+            if startX - WIDTH <= -backgroundCombined.rect[2] + 50:
                 startX -= 0
             else:
                 startX -= 5
