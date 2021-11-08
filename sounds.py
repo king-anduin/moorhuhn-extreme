@@ -12,12 +12,6 @@ class Sounds():
         # Leave sounds
         self.leafHit = pg.mixer.Sound("sounds/leaf-hit.ogg")
 
-        # Plane sounds
-        self.airplaneLoop3 = pg.mixer.Sound("sounds/airplane_loop3.ogg")
-        self.airplaneCrash = pg.mixer.Sound("sounds/airplanecrash.ogg")
-        self.airplaneMotorFailure = pg.mixer.Sound(
-            "sounds/airplanemotorfailure.ogg")
-
         # Gun sounds
         self.shot_sound = pg.mixer.Sound("sounds/gunblast.ogg")
         self.empty_sound = pg.mixer.Sound("sounds/empty magazine.ogg")
@@ -31,6 +25,14 @@ class Sounds():
 
         # Button sound
         self.button = pg.mixer.Sound("sounds/button1.ogg")
+
+    def planeCrash(self, sound: int):
+        self.chick_hit1 = pg.mixer.Sound("sounds/airplane_loop3.ogg")
+        self.chick_hit2 = pg.mixer.Sound("sounds/airplanecrash.ogg")
+        self.chick_hit3 = pg.mixer.Sound(
+            "sounds/airplanemotorfailure.ogg")
+        self.list = [self.chick_hit1, self.chick_hit2, self.chick_hit3]
+        return self.list[sound]
 
     def chickenDeadSound(self, sound: int):
         self.chick_hit1 = pg.mixer.Sound("sounds/chick_hit1.ogg")

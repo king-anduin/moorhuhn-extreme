@@ -9,7 +9,7 @@ from signpost import *
 
 # gameloopList = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory,
 #                  Sounds, Fonts, MenuButtons, TreeFactory, PumpkinFactory, PlaneFactory,
-#                   LeavesFactory]
+#                   LeavesFactory, ChickenHoleFactory]
 
 
 def gameLoop(gameloopList):
@@ -68,9 +68,13 @@ def gameLoop(gameloopList):
     spritesPumpkin = []
 
     # check for leaves shoot and sprite list
-    spritesLeavesAppend = 5
     spritesFalling = False
     spritesLeaves = []
+
+    # check for chcikenhole shoot and sprite list
+    spritesOut = False
+    spritesChickenHole = []
+    spritesCreated = True
 
     # Can predator shoot
     shoot = True
@@ -80,6 +84,7 @@ def gameLoop(gameloopList):
         dt = gameloopList[0].tick(FPS)
 
         chickenSound = random.randint(0, 2)
+        planeSound = random.randint(1, 2)
 
         # Events
         for event in pg.event.get():
@@ -128,6 +133,15 @@ def gameLoop(gameloopList):
                 # Mouse position
                 mousex, mousey = event.pos
 
+                # checks for hitting chickenhole
+                for spriteChickenHole in spritesChickenHole:
+                    if spriteChickenHole.checkHitChickenHole(mousex, mousey) and shoot:
+                        gameloopList[5].chickenDeadSound(chickenSound).play()
+                        # spritesOut = False
+                        # print(sprite.getPos())
+                        # sprite.deadchicken()
+                        spritesChickenHole.remove(spriteChickenHole)
+
                 # checks for hitting pumpkin
                 for spritePumpkin in spritesPumpkin:
                     if spritePumpkin.checkHitPumpkin(mousex, mousey) and shoot:
@@ -138,7 +152,7 @@ def gameLoop(gameloopList):
                 # checks for hitting planes
                 for spritePlane in spritesPlane:
                     if spritePlane.checkHitPlane(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
-                        gameloopList[5].airplaneCrash.play()
+                        gameloopList[5].planeCrash(planeSound).play()
                         spritesPlane.remove(spritePlane)
 
                 # checks for hitting chickens
@@ -173,6 +187,7 @@ def gameLoop(gameloopList):
                         # chickenForeground.remove(spriteChickenForeground)
                         gameloopList[5].treeHit.play()
                         spritesFalling = True
+                        spritesOut = True
 
                 # Checks for hitting the leaves
                 for spriteLeaves in spritesLeaves:
@@ -270,6 +285,18 @@ def gameLoop(gameloopList):
             for spriteLeaves in spritesLeaves:
                 spriteLeaves.updateLeaves()
 
+        #<--------------- Chickenhole --------------->#
+        # Append Leaves Sprites to the list
+        if spritesCreated:
+            spritesChickenHole.append(gameloopList[12].createChickenHole(
+                (WIDTH * 0.9), 200, "Out"))
+            spritesCreated = False
+
+        # Update Leaves
+        if spritesOut:
+            for spriteChickenHole in spritesChickenHole:
+                spriteChickenHole.updateChickenHole()
+
         # #<--------------- Background --------------->#
         # # Render background image and color
         gameloopList[1].fill((SKYBLUE))
@@ -306,6 +333,12 @@ def gameLoop(gameloopList):
         # loops through the signPost list and render it
         gameloopList[1].blit(spriteTrunk.getImage(),
                              spriteTrunk.getRect())
+
+        #<--------------- Render Leaves --------------->#
+        # Render chickens to the screen
+        for spriteChickenHole in spritesChickenHole:
+            gameloopList[1].blit(spriteChickenHole.getImage(),
+                                 spriteChickenHole.getRect())
 
         #<--------------- Render Leaves --------------->#
         # Render chickens to the screen
