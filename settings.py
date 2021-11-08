@@ -17,9 +17,9 @@ SKYBLUE = (135, 206, 235, 1)
 # SPAWNER is the iteration Timer for spawning new chickens
 # as lower as more chickens will spawn
 # Maybe usefull for dificulties
-SPAWNER = 70
+SPAWNER = 100
 SPAWNERPLANE = 120
-SPAWNERLEAVES = 100
+SPAWNERLEAVES = 110
 
 # flyweight.py
 CHICKEN_SIZE = (70, 70)
