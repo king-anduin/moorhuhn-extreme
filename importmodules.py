@@ -9,11 +9,11 @@ from sounds import *
 from chickenforeground import *
 from fonts import *
 from menus import *
-from chickenforeground import *
 from trunk import *
 from pumpkin import *
 from plane import *
 from leaves import *
+from chickenhole import *
 
 from loops.startloop import *
 from loops.gameloop import *
