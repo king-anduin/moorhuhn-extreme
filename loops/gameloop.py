@@ -260,10 +260,10 @@ def gameLoop(gameloopList):
 
         #<--------------- Leaves --------------->#
         # Append Leaves Sprites to the list
-        randomizerPlane = random.randrange(1, SPAWNERLEAVES, 1)
-        if randomizerPlane == 1:
+        randomizerLeaves = random.randrange(1, SPAWNERLEAVES, 1)
+        if randomizerLeaves == 1:
             spritesLeaves.append(gameloopList[11].createLeaves(
-                (WIDTH * random.uniform(0.4, 0.6)), 0, "Down"))
+                (WIDTH * random.uniform(0.4, 0.9)), 0, "Down"))
 
         # Update Leaves
         if spritesFalling:
