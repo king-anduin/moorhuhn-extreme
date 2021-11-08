@@ -67,7 +67,7 @@ class Coin(Ball):
         self.sy = sy
         self.direction = direction
         self.isDead = False
-        self.fullDead = False
+        #self.fullDead = False
 
         # Coin Speed
         self.maxtimer = COINSPEED
@@ -130,7 +130,7 @@ class Coin(Ball):
                     self.flyweightImages['chickendead' + str(self.imageIndexDead)], self.size)
             else:
                 self.image.fill(transparent)
-                # self.fullDead = True
+                #self.fullDead = True
                 # return True
 
     # def isFullDead(self):

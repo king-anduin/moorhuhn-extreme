@@ -13,7 +13,7 @@ class ImageAmmo:
         # Make Dictionary of Images
         self.images = {}
 
-        for i in range(1, 3):
+        for i in range(1, 18):
             self.images['Ammo'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
                 img_folder, 'Ammo'+str(i)+'.png')).convert_alpha(), (AMMOSIZE))
 
@@ -144,14 +144,15 @@ class AmmoList(Ammo):
 
         self.direction = True
         self.size = (300, 360)
-        self.maxtimer = CHICKENFOREGROUNDSPEED
+        self.maxtimer = AMMOSPEED
         self.timer = 0
         self.alive = True
+        self.fullDead = False
 
     # update function
     def updateAmmo(self):
         if self.alive:
-            self.rotate()
+            # self.rotate()
             Ammo.update(self)
         else:
             self.deadAmmo()
@@ -160,28 +161,6 @@ class AmmoList(Ammo):
     def getPos(self):
         return self.x, self.y
 
-    # Checks that the hit is inside rect of signPost borders
-    def checkHitAmmo(self, x, y):
-        # print("Sign", self.rect.left, self.rect.right,
-        #       self.rect.top, self.rect.bottom)
-        if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
-            print("HIT chickenforeground")
-            return True
-        else:
-            return False
-
-    # iterates over all .png to animate the signPost
-    def rotate(self):
-        if (self.direction == True):
-            self.timer += 1
-            if self.timer == self.maxtimer:
-                self.timer = 0
-                self.imageIndex += 1
-                if (self.imageIndex == 19):
-                    self.imageIndex = 1
-                self.image = pg.transform.flip(
-                    pg.transform.scale(self.flyweightImages['Ammo' + str(self.imageIndex)], self.size), True, False)
-
     def deadAmmo(self):
         transparent = (0, 0, 0, 0)
         self.alive = False
@@ -189,8 +168,12 @@ class AmmoList(Ammo):
         if self.timer == self.maxtimer:
             self.timer = 0
             self.imageIndexDead += 1
-            if (self.imageIndexDead < 6):
-                self.image = pg.transform.scale(
-                    self.flyweightImages['Ammo' + str(self.imageIndexDead)], self.size)
+            if (self.imageIndexDead < 18):
+                self.image = self.flyweightImages['Ammo' +
+                                                  str(self.imageIndexDead)]
             else:
                 self.image.fill(transparent)
+                self.fullDead = True
+
+    def isFullDead(self):
+        return self.fullDead

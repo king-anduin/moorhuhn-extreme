@@ -14,6 +14,6 @@ CURSOR_IMG = ((pg.image.load(os.path.join(img_folder, 'cursor/cursor.png'))))
 cursor_rect = CURSOR_IMG.get_rect()
 
 # Create ammo image
-SHELL_IMG = ((pg.image.load(os.path.join(img_folder, 'munition/shell.png'))))
+#SHELL_IMG = ((pg.image.load(os.path.join(img_folder, 'munition/shell.png'))))
 # Get the rect of the ammo image
-shell_rect = SHELL_IMG.get_rect()
+#shell_rect = SHELL_IMG.get_rect()

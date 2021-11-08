@@ -29,8 +29,9 @@ CURSOR_MID = (40, 40)
 
 
 # ammo.py
-
 AMMOSIZE = (48, 80)
+AMMOSPEED = int(FPS / 16)
+
 # startloop.py
 BORDERRADIUS = 5
 LOCATION = [(WIDTH * 0.5, 125), (WIDTH * 0.5, 225), (WIDTH * 0.5, 325)]

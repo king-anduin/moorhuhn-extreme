@@ -30,6 +30,7 @@ def gameLoop(gameloopList):
     # Current ammo count
     ammo_count = 10
     ammos = []
+    deadAmmos = []
     for i in range(1, ammo_count+1):
         ammo_x = screen_width - AMMOSIZE[0] * i
         ammo_y = screen_height - AMMOSIZE[1]
@@ -119,7 +120,8 @@ def gameLoop(gameloopList):
                 if len(ammos) >= 1:
                     ammo = ammos[-1]
                     ammo.deadAmmo()
-                    # ammos.remove(ammo)
+                    ammos.remove(ammo)
+                    deadAmmos.append(ammo)
                     gameloopList[5].shot_sound.play()
                     shoot = True
                 # Play shot sound if enough ammo or empty sound
@@ -198,6 +200,15 @@ def gameLoop(gameloopList):
             sprite.update()
             # if sprite.isFullDead():
             #    sprites.remove(sprite)
+
+        #   Remove all dead ammo
+        for ammo in deadAmmos:
+            ammo.updateAmmo()
+            if ammo.isFullDead():
+                try:
+                    ammos.remove(ammo)
+                except:
+                    pass
 
         #<--------------- ChickenForeground --------------->#
         # Append SignPost Sprites to the list
@@ -299,6 +310,9 @@ def gameLoop(gameloopList):
 
         # render the current ammo
         for ammo in ammos:
+            gameloopList[1].blit(ammo.getImage(), ammo.getRect())
+
+        for ammo in deadAmmos:
             gameloopList[1].blit(ammo.getImage(), ammo.getRect())
 
         #<--------------- Render Cursor --------------->#
