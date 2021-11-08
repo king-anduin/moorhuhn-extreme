@@ -1,6 +1,5 @@
 import pygame as pg
 
-from factory import *
 from settings.settings import *
 from objects.predator import *
 from settings.background import *
@@ -14,6 +13,7 @@ from objects.pumpkin import *
 from objects.plane import *
 from objects.leaves import *
 from objects.chickenhole import *
+from objects.chicken import *
 
 from loops.startloop import *
 from loops.gameloop import *

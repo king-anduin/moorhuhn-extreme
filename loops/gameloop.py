@@ -234,12 +234,12 @@ def gameLoop(gameloopList):
         # create a chicken every spawners iteration on right side of screen
         randomizer = random.randrange(1, SPAWNER, 1)
         if randomizer == 1:
-            sprites.append(gameloopList[2].createCoinAtPosition(
+            sprites.append(gameloopList[2].createChicken(
                 (1.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Left"))
 
         # create a chicken every spawners iteration on right side of screen
         if randomizer == 2:
-            sprites.append(gameloopList[2].createCoinAtPosition(
+            sprites.append(gameloopList[2].createChicken(
                 (-0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Right"))
 
         # Update chicken sprites

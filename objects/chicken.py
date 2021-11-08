@@ -1,6 +1,46 @@
-import pygame as pg
+import os
 import random
+import pygame as pg
 from settings.settings import *
+
+
+class Image:
+    def __init__(self, image):
+        self.image = pg.image.load(image).convert_alpha()
+
+
+class ImageChicken:
+    def __init__(self):
+        # initialize all variables and do all the setup for a new game
+        game_folder = os.path.dirname(__file__)
+        img_folder = os.path.join(game_folder, '../_img/chicken')
+        # Make Dictionary of Images
+        self.images = {}
+
+        for i in range(1, 13):
+            self.images['chicken'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'chicken'+str(i)+'.png')).convert_alpha(), (CHICKEN_SIZE))
+
+        for i in range(1, 9):
+            self.images['chickendead'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'chickendead'+str(i)+'.png')).convert_alpha(), (CHICKEN_SIZE))
+
+    def getFlyweightImages(self):
+        return self.images
+
+# Factory
+
+
+class ChickenFactory:
+    def __init__(self):
+        self.imageDict = ImageChicken().getFlyweightImages()
+
+    def createChicken(self, x, y, direction: str):
+        chicken = ChickenList(self.imageDict, x, y, SPEED * random.choice([1, -1, 0.5, -0.5]),
+                              SPEED * random.choice([0, -0, 0, -0]), direction)
+        return chicken
+
+# Sprites
 
 
 class Sprite:
@@ -22,7 +62,7 @@ class Sprite:
         return self.rect
 
 
-class Ball(Sprite):
+class Chicken(Sprite):
     def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, imagename: str, direction: str):
         Sprite.__init__(self, x, y, imagename)
         self.sx = sx
@@ -36,21 +76,81 @@ class Ball(Sprite):
         if (self.rect.bottom >= HEIGHT):
             self.sy = self.sy * -1
 
-        # if (self.rect.right >= WIDTH):
-        #     self.sx = self.sx * -1
-        #     # direction is needed for flipping the chicken
-        #     self.direction = "Left"
-
-        # if (self.rect.left <= 0):
-        #     self.sx = self.sx * -1
-        #     # direction is needed for flipping the chicken
-        #     self.direction = "Right"
-
         if (self.rect.top <= 0):
             self.sy = self.sy * -1
 
+# State Pattern
 
-class Coin(Ball):
+
+class ChickenForegroundState:
+    def alive(self):
+        raise NotImplementedError
+
+    def dead(self):
+        raise NotImplementedError
+
+    def enter(self):
+        raise NotImplementedError
+
+    def exit(self):
+        raise NotImplementedError
+
+
+class ChickenNormal:
+    def __init__(self):
+        self.chickenState = ChickenAliveState(self)
+
+    def changeState(self, newState: ChickenForegroundState):
+        if self.chickenState != None:
+            self.chickenState.exit()
+        self.chickenState = newState
+        self.chickenState.enter()
+
+    def aliveState(self, test):
+        self.chickenState.alive()
+
+    def deadState(self):
+        self.chickenState.dead()
+
+
+class ChickenAliveState(ChickenForegroundState):
+    def __init__(self, chickenForeground: ChickenNormal):
+        self.chickenForeground = chickenForeground
+
+    def alive(self):
+        print("Sign is already in start state, SignPostStartState")
+
+    def dead(self):
+        self.chickenForeground.changeState(
+            ChickenDeadState(self.chickenForeground))
+
+    def enter(self):
+        print("Sign is in start state, SignPostStartState")
+
+    def exit(self):
+        pass
+
+
+class ChickenDeadState(ChickenForegroundState):
+    def __init__(self, chickenForeground: ChickenNormal):
+        self.chickenForeground = chickenForeground
+
+    def alive(self):
+        self.chickenForeground.changeState(
+            ChickenAliveState(self.chickenForeground))
+
+    def dead(self):
+        print("Sign is already in end state, SignPostEndState")
+
+    def enter(self):
+        print("sign is now in end state, SignPostEndState")
+
+    def exit(self):
+        pass
+# Sprites
+
+
+class ChickenList(Chicken):
     def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, direction: str):
         self.x = x
         self.y = y
@@ -76,7 +176,7 @@ class Coin(Ball):
     def update(self):
         if self.isDead == False:
             self.rotate()
-            Ball.update(self)
+            Chicken.update(self)
         else:
             self.deadchicken()
 

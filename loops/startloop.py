@@ -1,5 +1,4 @@
 import pygame as pg
-from factory import *
 from settings.settings import *
 from settings.background import *
 from settings.fonts import *
