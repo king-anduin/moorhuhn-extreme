@@ -1,5 +1,5 @@
 import pygame as pg
-from settings import *
+from settings.settings import *
 import os
 
 
@@ -21,7 +21,7 @@ class BackgroundScreens(pg.sprite.Sprite):
 
 # Folders where all pictures are
 game_folder = os.path.dirname(__file__)
-img_folder = os.path.join(game_folder, '_img')
+img_folder = os.path.join(game_folder, '../_img')
 
 # Adding Backround random world 1
 bg = ((pg.image.load(os.path.join(img_folder, 'world/background1.png'))))

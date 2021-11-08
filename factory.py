@@ -1,4 +1,4 @@
-from settings import *
+from settings.settings import *
 from sprites import *
 from flyweight import *
 import random

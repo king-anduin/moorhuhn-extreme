@@ -1,25 +1,26 @@
 import os
 import pygame as pg
-from settings import *
+from settings.settings import *
 
 # Flyweight
 
 
-class ImageChickenForeground:
+class Image:
+    def __init__(self, image):
+        self.image = pg.image.load(image).convert_alpha()
+
+
+class ImagePumpkin:
     def __init__(self):
         # initialize all variables and do all the setup for a new game
         game_folder = os.path.dirname(__file__)
-        img_folder = os.path.join(game_folder, '_img/chickenforeground')
+        img_folder = os.path.join(game_folder, '../_img/pumpkin')
         # Make Dictionary of Images
         self.images = {}
 
-        for i in range(1, 20):
-            self.images['chickenforeground'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'chickenforeground'+str(i)+'.png')).convert_alpha(), (SIGNPOSTSIZE))
-
-        for i in range(1, 6):
-            self.images['chickenforegroundead'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'chickenforegroundead'+str(i)+'.png')).convert_alpha(), (SIGNPOSTSIZE))
+        for i in range(1, 9):
+            self.images['pumpkin'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'pumpkin'+str(i)+'.png')).convert_alpha(), (100, 100))
 
     def getFlyweightImages(self):
         return self.images
@@ -27,13 +28,13 @@ class ImageChickenForeground:
 # Factory
 
 
-class ChickenForegroundFactory:
+class PumpkinFactory:
     def __init__(self):
-        self.imageDict = ImageChickenForeground().getFlyweightImages()
+        self.imageDict = ImagePumpkin().getFlyweightImages()
 
-    def createChickenForeground(self, x, y):
-        chickenForeground = ChickenList(self.imageDict, x, y)
-        return chickenForeground
+    def createPumpkin(self, x, y):
+        pumpkin = PumpkinList(self.imageDict, x, y)
+        return pumpkin
 # Sprites
 
 
@@ -55,7 +56,7 @@ class Sprite:
         return self.rect
 
 
-class Chicken(Sprite):
+class Pumpkin(Sprite):
     def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
         Sprite.__init__(self, x, y, imagename)
 
@@ -67,7 +68,7 @@ class Chicken(Sprite):
 # State Pattern
 
 
-class ChickenForegroundState:
+class PumpkinState:
     def alive(self):
         raise NotImplementedError
 
@@ -83,9 +84,9 @@ class ChickenForegroundState:
 
 class ChickenForeground:
     def __init__(self):
-        self.chickenState = ChickenForegroundAliveState(self)
+        self.chickenState = PumpkinNormal(self)
 
-    def changeState(self, newState: ChickenForegroundState):
+    def changeState(self, newState: Pumpkin):
         if self.chickenState != None:
             self.chickenState.exit()
         self.chickenState = newState
@@ -98,7 +99,7 @@ class ChickenForeground:
         self.chickenState.dead()
 
 
-class ChickenForegroundAliveState(ChickenForegroundState):
+class PumpkinNormal(Pumpkin):
     def __init__(self, chickenForeground: ChickenForeground):
         self.chickenForeground = chickenForeground
 
@@ -107,7 +108,7 @@ class ChickenForegroundAliveState(ChickenForegroundState):
 
     def dead(self):
         self.chickenForeground.changeState(
-            ChickenForegroundDeadState(self.chickenForeground))
+            PumpkinShot(self.chickenForeground))
 
     def enter(self):
         print("Sign is in start state, SignPostStartState")
@@ -116,13 +117,13 @@ class ChickenForegroundAliveState(ChickenForegroundState):
         pass
 
 
-class ChickenForegroundDeadState(ChickenForegroundState):
+class PumpkinShot(Pumpkin):
     def __init__(self, chickenForeground: ChickenForeground):
         self.chickenForeground = chickenForeground
 
     def alive(self):
         self.chickenForeground.changeState(
-            ChickenForegroundAliveState(self.chickenForeground))
+            PumpkinNormal(self.chickenForeground))
 
     def dead(self):
         print("Sign is already in end state, SignPostEndState")
@@ -135,66 +136,47 @@ class ChickenForegroundDeadState(ChickenForegroundState):
 # Sprites
 
 
-class ChickenList(Chicken):
+class PumpkinList(Pumpkin):
     def __init__(self, flyweightImages: dict, x: int, y: int):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.image = self.flyweightImages['chickenforeground1']
+        self.image = self.flyweightImages['pumpkin1']
         self.imageIndex = 1
-        self.imageIndexDead = 1
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
 
-        self.direction = True
-        self.size = (300, 360)
-        self.maxtimer = CHICKENFOREGROUNDSPEED
+        self.size = (100, 100)
+        self.maxtimer = COINSPEED
         self.timer = 0
         self.alive = True
 
     # update function
-    def updateChicken(self):
-        if self.alive:
-            self.rotate()
-            Chicken.update(self)
-        else:
-            self.deadchicken()
+    def updatePumpkin(self):
+        self.rotate()
+        Pumpkin.update(self)
 
     # get position of the mouse
     def getPos(self):
         return self.x, self.y
 
     # Checks that the hit is inside rect of signPost borders
-    def checkHitChicken(self, x, y):
+    def checkHitPumpkin(self, x, y):
         # print("Sign", self.rect.left, self.rect.right,
         #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
-            print("HIT chickenforeground")
+            print("HIT pumpkin")
             return True
         else:
             return False
 
     # iterates over all .png to animate the signPost
     def rotate(self):
-        if (self.direction == True):
-            self.timer += 1
-            if self.timer == self.maxtimer:
-                self.timer = 0
-                self.imageIndex += 1
-                if (self.imageIndex == 19):
-                    self.imageIndex = 1
-                self.image = pg.transform.flip(
-                    pg.transform.scale(self.flyweightImages['chickenforeground' + str(self.imageIndex)], self.size), True, False)
-
-    def deadchicken(self):
-        transparent = (0, 0, 0, 0)
-        self.alive = False
         self.timer += 1
         if self.timer == self.maxtimer:
             self.timer = 0
-            self.imageIndexDead += 1
-            if (self.imageIndexDead < 6):
-                self.image = pg.transform.scale(
-                    self.flyweightImages['chickenforegroundead' + str(self.imageIndexDead)], self.size)
-            else:
-                self.image.fill(transparent)
+            self.imageIndex += 1
+            if (self.imageIndex == 8):
+                self.imageIndex = 1
+            self.image = pg.transform.scale(
+                self.flyweightImages['pumpkin' + str(self.imageIndex)], self.size)

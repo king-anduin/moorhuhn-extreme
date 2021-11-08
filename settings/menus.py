@@ -1,5 +1,5 @@
 import pygame as pg
-from settings import *
+from settings.settings import *
 
 
 class MenuButtons():

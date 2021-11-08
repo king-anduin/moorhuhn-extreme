@@ -1,6 +1,6 @@
 import pygame as pg
 import random
-from settings import *
+from settings.settings import *
 
 
 class Sprite:

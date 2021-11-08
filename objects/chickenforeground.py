@@ -1,25 +1,25 @@
 import os
 import pygame as pg
-from settings import *
+from settings.settings import *
 
 # Flyweight
 
 
-class ImageTree:
+class ImageChickenForeground:
     def __init__(self):
         # initialize all variables and do all the setup for a new game
         game_folder = os.path.dirname(__file__)
-        img_folder = os.path.join(game_folder, '_img/world')
+        img_folder = os.path.join(game_folder, '../_img/chickenforeground')
         # Make Dictionary of Images
         self.images = {}
 
-        for i in range(1, 2):
-            self.images['trunkSmall'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'trunkSmall'+str(i)+'.png')).convert_alpha(), (100, HEIGHT))
+        for i in range(1, 20):
+            self.images['chickenforeground'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'chickenforeground'+str(i)+'.png')).convert_alpha(), (SIGNPOSTSIZE))
 
-        for i in range(1, 2):
-            self.images['trunkBig'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'trunkBig'+str(i)+'.png')).convert_alpha(), (200, HEIGHT))
+        for i in range(1, 6):
+            self.images['chickenforegroundead'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'chickenforegroundead'+str(i)+'.png')).convert_alpha(), (SIGNPOSTSIZE))
 
     def getFlyweightImages(self):
         return self.images
@@ -27,13 +27,13 @@ class ImageTree:
 # Factory
 
 
-class TreeFactory:
+class ChickenForegroundFactory:
     def __init__(self):
-        self.imageDict = ImageTree().getFlyweightImages()
+        self.imageDict = ImageChickenForeground().getFlyweightImages()
 
-    def createTree(self, x, y, imagename: str):
-        tree = TreeList(self.imageDict, x, y, imagename)
-        return tree
+    def createChickenForeground(self, x, y):
+        chickenForeground = ChickenList(self.imageDict, x, y)
+        return chickenForeground
 # Sprites
 
 
@@ -55,7 +55,7 @@ class Sprite:
         return self.rect
 
 
-class Tree(Sprite):
+class Chicken(Sprite):
     def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
         Sprite.__init__(self, x, y, imagename)
 
@@ -67,7 +67,7 @@ class Tree(Sprite):
 # State Pattern
 
 
-class TreeState:
+class ChickenForegroundState:
     def alive(self):
         raise NotImplementedError
 
@@ -83,22 +83,22 @@ class TreeState:
 
 class ChickenForeground:
     def __init__(self):
-        self.chickenState = TreeNormal(self)
+        self.chickenState = ChickenForegroundAliveState(self)
 
-    def changeState(self, newState: TreeState):
+    def changeState(self, newState: ChickenForegroundState):
         if self.chickenState != None:
             self.chickenState.exit()
         self.chickenState = newState
         self.chickenState.enter()
 
-    def aliveState(self):
+    def aliveState(self, test):
         self.chickenState.alive()
 
     def deadState(self):
         self.chickenState.dead()
 
 
-class TreeNormal(TreeState):
+class ChickenForegroundAliveState(ChickenForegroundState):
     def __init__(self, chickenForeground: ChickenForeground):
         self.chickenForeground = chickenForeground
 
@@ -107,7 +107,7 @@ class TreeNormal(TreeState):
 
     def dead(self):
         self.chickenForeground.changeState(
-            TreeAction(self.chickenForeground))
+            ChickenForegroundDeadState(self.chickenForeground))
 
     def enter(self):
         print("Sign is in start state, SignPostStartState")
@@ -116,13 +116,13 @@ class TreeNormal(TreeState):
         pass
 
 
-class TreeAction(TreeState):
+class ChickenForegroundDeadState(ChickenForegroundState):
     def __init__(self, chickenForeground: ChickenForeground):
         self.chickenForeground = chickenForeground
 
     def alive(self):
         self.chickenForeground.changeState(
-            TreeNormal(self.chickenForeground))
+            ChickenForegroundAliveState(self.chickenForeground))
 
     def dead(self):
         print("Sign is already in end state, SignPostEndState")
@@ -135,35 +135,66 @@ class TreeAction(TreeState):
 # Sprites
 
 
-class TreeList(Tree):
-    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
+class ChickenList(Chicken):
+    def __init__(self, flyweightImages: dict, x: int, y: int):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.image = self.flyweightImages[imagename]
+        self.image = self.flyweightImages['chickenforeground1']
         self.imageIndex = 1
         self.imageIndexDead = 1
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
 
+        self.direction = True
+        self.size = (300, 360)
+        self.maxtimer = CHICKENFOREGROUNDSPEED
+        self.timer = 0
+        self.alive = True
+
     # update function
-    def updateTrunk(self):
-        Tree.update(self)
+    def updateChicken(self):
+        if self.alive:
+            self.rotate()
+            Chicken.update(self)
+        else:
+            self.deadchicken()
 
     # get position of the mouse
     def getPos(self):
         return self.x, self.y
 
     # Checks that the hit is inside rect of signPost borders
-    def checkHitTrunk(self, x, y):
+    def checkHitChicken(self, x, y):
         # print("Sign", self.rect.left, self.rect.right,
         #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
-            print("HIT tree")
+            print("HIT chickenforeground")
             return True
         else:
             return False
 
     # iterates over all .png to animate the signPost
     def rotate(self):
-        self.image = self.flyweightImages['trunkBig1']
+        if (self.direction == True):
+            self.timer += 1
+            if self.timer == self.maxtimer:
+                self.timer = 0
+                self.imageIndex += 1
+                if (self.imageIndex == 19):
+                    self.imageIndex = 1
+                self.image = pg.transform.flip(
+                    pg.transform.scale(self.flyweightImages['chickenforeground' + str(self.imageIndex)], self.size), True, False)
+
+    def deadchicken(self):
+        transparent = (0, 0, 0, 0)
+        self.alive = False
+        self.timer += 1
+        if self.timer == self.maxtimer:
+            self.timer = 0
+            self.imageIndexDead += 1
+            if (self.imageIndexDead < 6):
+                self.image = pg.transform.scale(
+                    self.flyweightImages['chickenforegroundead' + str(self.imageIndexDead)], self.size)
+            else:
+                self.image.fill(transparent)

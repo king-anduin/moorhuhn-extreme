@@ -1,26 +1,21 @@
 import os
 import pygame as pg
-from settings import *
+from settings.settings import *
 
 # Flyweight
 
 
-class Image:
-    def __init__(self, image):
-        self.image = pg.image.load(image).convert_alpha()
-
-
-class ImagePumpkin:
+class ImageSignPost:
     def __init__(self):
         # initialize all variables and do all the setup for a new game
         game_folder = os.path.dirname(__file__)
-        img_folder = os.path.join(game_folder, '_img/pumpkin')
+        img_folder = os.path.join(game_folder, '../_img/signpost')
         # Make Dictionary of Images
         self.images = {}
 
-        for i in range(1, 9):
-            self.images['pumpkin'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'pumpkin'+str(i)+'.png')).convert_alpha(), (100, 100))
+        for i in range(1, 3):
+            self.images['signpost'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'signpost'+str(i)+'.png')).convert_alpha(), (SIGNPOSTSIZE))
 
     def getFlyweightImages(self):
         return self.images
@@ -28,13 +23,13 @@ class ImagePumpkin:
 # Factory
 
 
-class PumpkinFactory:
+class SignPostFactory:
     def __init__(self):
-        self.imageDict = ImagePumpkin().getFlyweightImages()
+        self.imageDict = ImageSignPost().getFlyweightImages()
 
-    def createPumpkin(self, x, y):
-        pumpkin = PumpkinList(self.imageDict, x, y)
-        return pumpkin
+    def createSignPost(self, x, y):
+        signPost = SignPostList(self.imageDict, x, y)
+        return signPost
 # Sprites
 
 
@@ -56,7 +51,7 @@ class Sprite:
         return self.rect
 
 
-class Pumpkin(Sprite):
+class Post(Sprite):
     def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
         Sprite.__init__(self, x, y, imagename)
 
@@ -68,11 +63,11 @@ class Pumpkin(Sprite):
 # State Pattern
 
 
-class PumpkinState:
-    def alive(self):
+class SignPostState:
+    def start(self):
         raise NotImplementedError
 
-    def dead(self):
+    def end(self):
         raise NotImplementedError
 
     def enter(self):
@@ -82,33 +77,32 @@ class PumpkinState:
         raise NotImplementedError
 
 
-class ChickenForeground:
+class SignPost:
     def __init__(self):
-        self.chickenState = PumpkinNormal(self)
+        self.signPostState = SignPostStartState(self)
 
-    def changeState(self, newState: Pumpkin):
-        if self.chickenState != None:
-            self.chickenState.exit()
-        self.chickenState = newState
-        self.chickenState.enter()
+    def changeState(self, newState: SignPostState):
+        if self.signPostState != None:
+            self.signPostState.exit()
+        self.signPostState = newState
+        self.signPostState.enter()
 
-    def aliveState(self):
-        self.chickenState.alive()
+    def startState(self):
+        self.signPostState.start()
 
-    def deadState(self):
-        self.chickenState.dead()
+    def endState(self):
+        self.signPostState.end()
 
 
-class PumpkinNormal(Pumpkin):
-    def __init__(self, chickenForeground: ChickenForeground):
-        self.chickenForeground = chickenForeground
+class SignPostStartState(SignPostState):
+    def __init__(self, signPost: SignPost):
+        self.signPost = signPost
 
-    def alive(self):
+    def start(self):
         print("Sign is already in start state, SignPostStartState")
 
-    def dead(self):
-        self.chickenForeground.changeState(
-            PumpkinShot(self.chickenForeground))
+    def end(self):
+        self.signPost.changeState(SignPostEndState(self.signPost))
 
     def enter(self):
         print("Sign is in start state, SignPostStartState")
@@ -117,15 +111,14 @@ class PumpkinNormal(Pumpkin):
         pass
 
 
-class PumpkinShot(Pumpkin):
-    def __init__(self, chickenForeground: ChickenForeground):
-        self.chickenForeground = chickenForeground
+class SignPostEndState(SignPostState):
+    def __init__(self, signPost: SignPost):
+        self.signPost = signPost
 
-    def alive(self):
-        self.chickenForeground.changeState(
-            PumpkinNormal(self.chickenForeground))
+    def start(self):
+        self.signPost.changeState(SignPostStartState(self.signPost))
 
-    def dead(self):
+    def end(self):
         print("Sign is already in end state, SignPostEndState")
 
     def enter(self):
@@ -136,47 +129,38 @@ class PumpkinShot(Pumpkin):
 # Sprites
 
 
-class PumpkinList(Pumpkin):
+class SignPostList(Post):
     def __init__(self, flyweightImages: dict, x: int, y: int):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.image = self.flyweightImages['pumpkin1']
-        self.imageIndex = 1
+        self.image = self.flyweightImages['signpost1']
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
 
-        self.size = (100, 100)
-        self.maxtimer = COINSPEED
-        self.timer = 0
-        self.alive = True
-
     # update function
-    def updatePumpkin(self):
-        self.rotate()
-        Pumpkin.update(self)
+    def updateSign(self, start: bool):
+        self.rotate(start)
+        Post.update(self)
 
     # get position of the mouse
     def getPos(self):
         return self.x, self.y
 
     # Checks that the hit is inside rect of signPost borders
-    def checkHitPumpkin(self, x, y):
+    def checkHitSign(self, x, y):
         # print("Sign", self.rect.left, self.rect.right,
         #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
-            print("HIT pumpkin")
+            print("HIT signpost")
             return True
         else:
             return False
 
     # iterates over all .png to animate the signPost
-    def rotate(self):
-        self.timer += 1
-        if self.timer == self.maxtimer:
-            self.timer = 0
-            self.imageIndex += 1
-            if (self.imageIndex == 8):
-                self.imageIndex = 1
-            self.image = pg.transform.scale(
-                self.flyweightImages['pumpkin' + str(self.imageIndex)], self.size)
+    def rotate(self, start: bool):
+        self.start = start
+        if self.start:
+            self.image = self.flyweightImages['signpost1']
+        else:
+            self.image = self.flyweightImages['signpost2']

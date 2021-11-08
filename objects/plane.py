@@ -1,7 +1,7 @@
 import os
-import random
 import pygame as pg
-from settings import *
+import random
+from settings.settings import *
 
 # Flyweight
 
@@ -11,17 +11,17 @@ class Image:
         self.image = pg.image.load(image).convert_alpha()
 
 
-class ImageChickenHole:
+class ImagePlane:
     def __init__(self):
         # initialize all variables and do all the setup for a new game
         game_folder = os.path.dirname(__file__)
-        img_folder = os.path.join(game_folder, '_img/chickenhole')
+        img_folder = os.path.join(game_folder, '../_img/plane')
         # Make Dictionary of Images
         self.images = {}
 
-        for i in range(1, 15):
-            self.images['chickenhole'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'chickenhole'+str(i)+'.png')).convert_alpha(), (CHICKENHOLESIZE))
+        for i in range(1, 21):
+            self.images['plane'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'plane'+str(i)+'.png')).convert_alpha(), PLANESIZE)
 
     def getFlyweightImages(self):
         return self.images
@@ -29,13 +29,15 @@ class ImageChickenHole:
 # Factory
 
 
-class ChickenHoleFactory:
+class PlaneFactory:
     def __init__(self):
-        self.imageDict = ImageChickenHole().getFlyweightImages()
+        self.imageDict = ImagePlane().getFlyweightImages()
 
-    def createChickenHole(self, x, y, direction: str):
-        chickenHole = ChickenHoleList(self.imageDict, x, y, direction)
-        return chickenHole
+    def createPlane(self, x, y, direction: str):
+        plane = PlaneList(self.imageDict, x, y, SPEED * random.choice([1, -1, 0.5, -0.5]),
+                          SPEED * random.choice([0, -0, 0, -0]), direction)
+        return plane
+
 # Sprites
 
 
@@ -49,8 +51,8 @@ class Sprite:
         self.direction = ""
 
     def update(self):
-        self.x = self.x
-        self.y = self.y
+        self.x = self.x + self.sx
+        self.y = self.y + self.sy
         self.rect.topleft = (self.x, self.y)
 
     def update(self):
@@ -63,19 +65,21 @@ class Sprite:
         return self.rect
 
 
-class ChickenHole(Sprite):
-    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str, direction: str):
+class Plane(Sprite):
+    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, imagename: str, direction: str):
         Sprite.__init__(self, x, y, imagename)
+        self.sx = sx
+        self.sy = sy
 
     def update(self):
-        self.x = self.x
-        self.y = self.y
+        self.x = self.x + self.sx
+        self.y = self.y + self.sy
         self.rect.topleft = (self.x, self.y)
 
 # State Pattern
 
 
-class ChickenHoleStates:
+class PlaneState:
     def alive(self):
         raise NotImplementedError
 
@@ -89,33 +93,33 @@ class ChickenHoleStates:
         raise NotImplementedError
 
 
-class LeaveChange:
+class PlaneChange:
     def __init__(self):
-        self.chickenState = ChickenHoleNormal(self)
+        self.planeState = PlaneNormal(self)
 
-    def changeState(self, newState: ChickenHoleStates):
-        if self.chickenState != None:
-            self.chickenState.exit()
-        self.chickenState = newState
-        self.chickenState.enter()
+    def changeState(self, newState: PlaneState):
+        if self.planeState != None:
+            self.planeState.exit()
+        self.planeState = newState
+        self.planeState.enter()
 
     def aliveState(self):
-        self.chickenState.alive()
+        self.planeState.alive()
 
     def deadState(self):
-        self.chickenState.dead()
+        self.planeState.dead()
 
 
-class ChickenHoleNormal(ChickenHoleStates):
-    def __init__(self, chickenForeground: LeaveChange):
-        self.chickenForeground = chickenForeground
+class PlaneNormal(PlaneState):
+    def __init__(self, planeChange: PlaneChange):
+        self.plane = planeChange
 
     def alive(self):
         print("Sign is already in start state, SignPostStartState")
 
     def dead(self):
-        self.chickenForeground.changeState(
-            ChickenHoleOut(self.chickenForeground))
+        self.plane.changeState(
+            PlaneFly(self.planeChange))
 
     def enter(self):
         print("Sign is in start state, SignPostStartState")
@@ -124,13 +128,13 @@ class ChickenHoleNormal(ChickenHoleStates):
         pass
 
 
-class ChickenHoleOut(ChickenHoleStates):
-    def __init__(self, chickenForeground: LeaveChange):
-        self.chickenForeground = chickenForeground
+class PlaneFly(PlaneState):
+    def __init__(self, planeChange: PlaneChange):
+        self.chickenForeground = planeChange
 
     def alive(self):
         self.chickenForeground.changeState(
-            ChickenHoleNormal(self.chickenForeground))
+            PlaneNormal(self.chickenForeground))
 
     def dead(self):
         print("Sign is already in end state, SignPostEndState")
@@ -140,48 +144,63 @@ class ChickenHoleOut(ChickenHoleStates):
 
     def exit(self):
         pass
+
 # Sprites
 
 
-class ChickenHoleList(ChickenHole):
-    def __init__(self, flyweightImages: dict, x: int, y: int, direction: str):
+class PlaneList(Plane):
+    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, direction: str):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.image = self.flyweightImages['chickenhole1']
+        self.image = self.flyweightImages['plane1']
         self.imageIndex = 1
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
+        self.sx = sx
+        self.sy = sy
         self.direction = direction
 
-        self.maxtimer = CHICKENHOLESPEED
+        # Coin Speed
+        self.maxtimer = COINSPEED
         self.timer = 0
 
     # update function
-    def updateChickenHole(self):
+    def updatePlane(self):
         self.rotate()
-        ChickenHole.update(self)
+        Plane.update(self)
 
     # get position of the mouse
     def getPos(self):
         return self.x, self.y
 
     # Checks that the hit is inside rect of signPost borders
-    def checkHitChickenHole(self, x, y):
+    def checkHitPlane(self, x, y):
+        # print("Sign", self.rect.left, self.rect.right,
+        #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
-            print("HIT chickenhole")
+            print("HIT plane")
             return True
         else:
             return False
 
     # iterates over all .png to animate the signPost
     def rotate(self):
-        if (self.direction == "Out"):
+        if (self.direction == "Right"):
             self.timer += 1
             if self.timer == self.maxtimer:
                 self.timer = 0
                 self.imageIndex += 1
-                if (self.imageIndex == 14):
+                if (self.imageIndex == 20):
+                    self.imageIndex = 1
+                self.image = pg.transform.flip(
+                    pg.transform.scale(self.flyweightImages['plane'+str(self.imageIndex)], PLANESIZE), True, False)
+        else:
+            self.timer += 1
+            if self.timer == self.maxtimer:
+                self.timer = 0
+                self.imageIndex += 1
+                if (self.imageIndex == 20):
                     self.imageIndex = 1
                 self.image = pg.transform.scale(
-                    self.flyweightImages['chickenhole' + str(self.imageIndex)], CHICKENHOLESIZE)
+                    self.flyweightImages['plane' + str(self.imageIndex)], PLANESIZE)

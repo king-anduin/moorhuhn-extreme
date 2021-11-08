@@ -1,16 +1,13 @@
 import pygame as pg
 import random
 import time
-from chickenhole import ChickenHoleOut
 
-from settings import *
-from predator import *
-from background import *
-from signpost import *
+from settings.settings import *
+from settings.background import *
 
 # gameloopList = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory,
 #                  Sounds, Fonts, MenuButtons, TreeFactory, PumpkinFactory, PlaneFactory,
-#                   LeavesFactory, ChickenHoleFactory]
+#                   LeavesFactory, ChickenHoleFactory, Predator]
 
 
 def gameLoop(gameloopList):
@@ -51,9 +48,6 @@ def gameLoop(gameloopList):
 
     # Sprite List for Trunks and boolean
     spritesPlane = []
-
-    # Create SignPost Object
-    signPost = SignPost()
 
     # Ambient sound endless loop
     gameloopList[5].background_sound.play(-1)
@@ -110,7 +104,7 @@ def gameLoop(gameloopList):
                 # If the mouse is moved, set the center of the rect
                 # to the mouse pos. You can also use pg.mouse.get_pos()
                 # if you're not in the event loop.
-                cursor_rect.center = event.pos
+                gameloopList[13].cursor_rect.center = event.pos
 
             # Else Check for ending the game
             elif event.type == pg.MOUSEBUTTONDOWN and event.button == RIGHT:
@@ -183,6 +177,7 @@ def gameLoop(gameloopList):
                         # chickenForeground.remove(spriteChickenForeground)
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         spriteChickenForeground.deadchicken()
+                        # gameloopList[13].aliveState("huhu")
 
                 # Checks for hitting the TrunkBig
                 for spriteTrunk in spritesTrunk:
@@ -377,12 +372,12 @@ def gameLoop(gameloopList):
 
         #<--------------- Map scroll --------------->#
         # Move camera
-        if cursor_rect.center[0] < 50 or left:
+        if gameloopList[13].cursor_rect.center[0] < 50 or left:
             if startX >= backgroundCombined.rect[0]:
                 startX += 0
             else:
                 startX += 5
-        if WIDTH - cursor_rect.center[0] < 50 or right:
+        if WIDTH - gameloopList[13].cursor_rect.center[0] < 50 or right:
             if startX - WIDTH <= -backgroundCombined.rect[2] + 50:
                 startX -= 0
             else:
@@ -411,15 +406,18 @@ def gameLoop(gameloopList):
             return True
 
         # render the current ammo
-        shell_x = screen_width - shell_rect.width * 0.5
-        shell_y = screen_height - shell_rect.height * 0.5
+        shell_x = screen_width - gameloopList[13].shell_rect.width * 0.5
+        shell_y = screen_height - gameloopList[13].shell_rect.height * 0.5
         for i in range(bullets_count):
-            shell_rect.center = (shell_x - i * shell_rect.width, shell_y)
-            gameloopList[1].blit(SHELL_IMG, shell_rect)
+            gameloopList[13].shell_rect.center = (
+                shell_x - i * gameloopList[13].shell_rect.width, shell_y)
+            gameloopList[1].blit(gameloopList[13].SHELL_IMG,
+                                 gameloopList[13].shell_rect)
 
         #<--------------- Render Cursor --------------->#
         # Blit the image at the rect's topleft coords.
-        gameloopList[1].blit(CURSOR_IMG, cursor_rect)
+        gameloopList[1].blit(gameloopList[13].CURSOR_IMG,
+                             gameloopList[13].cursor_rect)
 
         # Double Buffering
         pg.display.flip()

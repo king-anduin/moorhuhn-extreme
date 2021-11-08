@@ -1,27 +1,25 @@
 import os
-import random
 import pygame as pg
-from settings import *
+from settings.settings import *
 
 # Flyweight
 
 
-class Image:
-    def __init__(self, image):
-        self.image = pg.image.load(image).convert_alpha()
-
-
-class ImageLeave:
+class ImageTree:
     def __init__(self):
         # initialize all variables and do all the setup for a new game
         game_folder = os.path.dirname(__file__)
-        img_folder = os.path.join(game_folder, '_img/fallingleaf')
+        img_folder = os.path.join(game_folder, '../_img/world')
         # Make Dictionary of Images
         self.images = {}
 
-        for i in range(1, 21):
-            self.images['leaves'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'leaves'+str(i)+'.png')).convert_alpha(), (LEAVESIZE))
+        for i in range(1, 2):
+            self.images['trunkSmall'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'trunkSmall'+str(i)+'.png')).convert_alpha(), (100, HEIGHT))
+
+        for i in range(1, 2):
+            self.images['trunkBig'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'trunkBig'+str(i)+'.png')).convert_alpha(), (200, HEIGHT))
 
     def getFlyweightImages(self):
         return self.images
@@ -29,29 +27,22 @@ class ImageLeave:
 # Factory
 
 
-class LeavesFactory:
+class TreeFactory:
     def __init__(self):
-        self.imageDict = ImageLeave().getFlyweightImages()
+        self.imageDict = ImageTree().getFlyweightImages()
 
-    def createLeaves(self, x, y, direction: str):
-        leaves = LeavesList(self.imageDict, x, y, SPEED * random.choice([0, -0, 0, -0]),
-                            SPEED * random.choice([1, 1, 0.5, 0.5]), direction)
-        return leaves
+    def createTree(self, x, y, imagename: str):
+        tree = TreeList(self.imageDict, x, y, imagename)
+        return tree
 # Sprites
 
 
 class Sprite:
-    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, imagename: str, direction: str):
+    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
         self.x = x
         self.y = y
         self.image = flyweightImages[imagename]
         self.rect = self.image.get_rect()
-        self.rect.topleft = (self.x, self.y)
-        self.direction = ""
-
-    def update(self):
-        self.x = self.x + self.sx
-        self.y = self.y + self.sy
         self.rect.topleft = (self.x, self.y)
 
     def update(self):
@@ -64,21 +55,19 @@ class Sprite:
         return self.rect
 
 
-class Leaves(Sprite):
-    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, imagename: str, direction: str):
+class Tree(Sprite):
+    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
         Sprite.__init__(self, x, y, imagename)
-        self.sx = sx
-        self.sy = sy
 
     def update(self):
-        self.x = self.x + self.sx
-        self.y = self.y + self.sy
+        self.x = self.x
+        self.y = self.y
         self.rect.topleft = (self.x, self.y)
 
 # State Pattern
 
 
-class LeavesStates:
+class TreeState:
     def alive(self):
         raise NotImplementedError
 
@@ -92,11 +81,11 @@ class LeavesStates:
         raise NotImplementedError
 
 
-class LeaveChange:
+class ChickenForeground:
     def __init__(self):
-        self.chickenState = LeavesNormal(self)
+        self.chickenState = TreeNormal(self)
 
-    def changeState(self, newState: LeavesStates):
+    def changeState(self, newState: TreeState):
         if self.chickenState != None:
             self.chickenState.exit()
         self.chickenState = newState
@@ -109,8 +98,8 @@ class LeaveChange:
         self.chickenState.dead()
 
 
-class LeavesNormal(LeavesStates):
-    def __init__(self, chickenForeground: LeaveChange):
+class TreeNormal(TreeState):
+    def __init__(self, chickenForeground: ChickenForeground):
         self.chickenForeground = chickenForeground
 
     def alive(self):
@@ -118,7 +107,7 @@ class LeavesNormal(LeavesStates):
 
     def dead(self):
         self.chickenForeground.changeState(
-            LeavesFalling(self.chickenForeground))
+            TreeAction(self.chickenForeground))
 
     def enter(self):
         print("Sign is in start state, SignPostStartState")
@@ -127,13 +116,13 @@ class LeavesNormal(LeavesStates):
         pass
 
 
-class LeavesFalling(LeavesStates):
-    def __init__(self, chickenForeground: LeaveChange):
+class TreeAction(TreeState):
+    def __init__(self, chickenForeground: ChickenForeground):
         self.chickenForeground = chickenForeground
 
     def alive(self):
         self.chickenForeground.changeState(
-            LeavesNormal(self.chickenForeground))
+            TreeNormal(self.chickenForeground))
 
     def dead(self):
         print("Sign is already in end state, SignPostEndState")
@@ -146,47 +135,35 @@ class LeavesFalling(LeavesStates):
 # Sprites
 
 
-class LeavesList(Leaves):
-    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, direction: str):
+class TreeList(Tree):
+    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.image = self.flyweightImages['leaves1']
+        self.image = self.flyweightImages[imagename]
         self.imageIndex = 1
+        self.imageIndexDead = 1
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
-        self.sx = sx
-        self.sy = sy
-        self.direction = direction
-
-        self.maxtimer = COINSPEED
-        self.timer = 0
 
     # update function
-    def updateLeaves(self):
-        self.fallingLeaves()
-        Leaves.update(self)
+    def updateTrunk(self):
+        Tree.update(self)
 
     # get position of the mouse
     def getPos(self):
         return self.x, self.y
 
     # Checks that the hit is inside rect of signPost borders
-    def checkHitLeaves(self, x, y):
+    def checkHitTrunk(self, x, y):
+        # print("Sign", self.rect.left, self.rect.right,
+        #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
-            print("HIT leaves")
+            print("HIT tree")
             return True
         else:
             return False
 
     # iterates over all .png to animate the signPost
-    def fallingLeaves(self):
-        if (self.direction == "Down"):
-            self.timer += 1
-            if self.timer == self.maxtimer:
-                self.timer = 0
-                self.imageIndex += 1
-                if (self.imageIndex == 20):
-                    self.imageIndex = 1
-                self.image = pg.transform.scale(
-                    self.flyweightImages['leaves' + str(self.imageIndex)], LEAVESIZE)
+    def rotate(self):
+        self.image = self.flyweightImages['trunkBig1']

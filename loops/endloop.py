@@ -1,10 +1,9 @@
 import pygame as pg
 from factory import *
-from settings import *
-from predator import *
-from background import *
+from settings.settings import *
+from settings.background import *
 
-# endloop = [clock, screen, Sounds, Fonts, MenuButtons]
+# endloop = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
 
 
 def endloop(endloopList):
@@ -29,7 +28,7 @@ def endloop(endloopList):
                 # If the mouse is moved, set the center of the rect
                 # to the mouse pos. You can also use pg.mouse.get_pos()
                 # if you're not in the event loop.
-                cursor_rect.center = event.pos
+                endloopList[5].cursor_rect.center = event.pos
 
             # Ends the game on ESC
             elif event.type == pg.KEYDOWN:
@@ -61,7 +60,8 @@ def endloop(endloopList):
                                 LOCATIONEND, TEXTEND, 2, BLACK)
 
         # Blit the image at the rect's topleft coords.
-        endloopList[1].blit(CURSOR_IMG, cursor_rect)
+        endloopList[1].blit(endloopList[5].CURSOR_IMG,
+                            endloopList[5].cursor_rect)
 
         # Double Buffering
         pg.display.flip()
