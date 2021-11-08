@@ -45,6 +45,7 @@ def gameLoop(gameloopList):
 
     # Sprite List for Trunks and boolean
     spritesTrunk = []
+    spritesTrunkSmall = []
     spritesTrunkAppend = True
     spritesTrunkAppendSmall = True
 
@@ -191,6 +192,14 @@ def gameLoop(gameloopList):
                         spritesFalling = True
                         spritesOut = True
 
+                # Checks for hitting the TrunkSmall
+                for spriteTrunk in spritesTrunkSmall:
+                    if spriteTrunk.checkHitTrunk(mousex, mousey) and shoot:
+                        # chickenForeground.remove(spriteChickenForeground)
+                        gameloopList[5].treeHit.play()
+                        # spritesFalling = True
+                        # spritesOut = True
+
                 # Checks for hitting the leaves
                 for spriteLeaves in spritesLeaves:
                     if spriteLeaves.checkHitLeaves(mousex, mousey) and shoot:
@@ -278,12 +287,12 @@ def gameLoop(gameloopList):
         #<--------------- TrunksSmall --------------->#
         # Append Trunks Sprites to the list
         if spritesTrunkAppendSmall:
-            spritesTrunk.append(
+            spritesTrunkSmall.append(
                 gameloopList[8].createTree(WIDTH * 0.1, 0, "trunkSmall1"))
             spritesTrunkAppendSmall = False
 
         # Update Trunk
-        for spriteTrunk in spritesTrunk:
+        for spriteTrunk in spritesTrunkSmall:
             spriteTrunk.updateTrunk()
 
         #<--------------- Leaves --------------->#
@@ -332,9 +341,15 @@ def gameLoop(gameloopList):
         for sprite in sprites:
             gameloopList[1].blit(sprite.getImage(), sprite.getRect())
 
-        #<--------------- Render Trunk --------------->#
+        #<--------------- Render TrunkBig --------------->#
         # loops through the signPost list and render it
         for spriteTrunk in spritesTrunk:
+            gameloopList[1].blit(spriteTrunk.getImage(),
+                                 spriteTrunk.getRect())
+
+        #<--------------- Render TrunkSmall --------------->#
+        # loops through the signPost list and render it
+        for spriteTrunk in spritesTrunkSmall:
             gameloopList[1].blit(spriteTrunk.getImage(),
                                  spriteTrunk.getRect())
 
