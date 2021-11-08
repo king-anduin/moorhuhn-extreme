@@ -204,7 +204,7 @@ class GameBestList(GameState):
 game = Game()
 
 # Starts the game
-game.loopGame()
+game.startGame()
 
 # Done! Time to quit.
 pg.quit()
