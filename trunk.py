@@ -31,8 +31,8 @@ class TreeFactory:
     def __init__(self):
         self.imageDict = ImageTree().getFlyweightImages()
 
-    def createTree(self, x, y):
-        tree = TreeList(self.imageDict, x, y)
+    def createTree(self, x, y, imagename: str):
+        tree = TreeList(self.imageDict, x, y, imagename)
         return tree
 # Sprites
 
@@ -136,11 +136,11 @@ class TreeAction(TreeState):
 
 
 class TreeList(Tree):
-    def __init__(self, flyweightImages: dict, x: int, y: int):
+    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.image = self.flyweightImages['trunkBig1']
+        self.image = self.flyweightImages[imagename]
         self.imageIndex = 1
         self.imageIndexDead = 1
         self.rect = self.image.get_rect()
