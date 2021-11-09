@@ -35,9 +35,9 @@ class ChickenFactory:
     def __init__(self):
         self.imageDict = ImageChicken().getFlyweightImages()
 
-    def createChicken(self, x, y, direction: str):
+    def createChicken(self, x, y, direction: str,points:int):
         chicken = ChickenList(self.imageDict, x, y, SPEED * random.choice([1, -1, 0.5, -0.5]),
-                              SPEED * random.choice([0, -0, 0, -0]), direction)
+                              SPEED * random.choice([0, -0, 0, -0]), direction,points)
         return chicken
 
 # Sprites
@@ -63,7 +63,7 @@ class Sprite:
 
 
 class Chicken(Sprite):
-    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, imagename: str, direction: str):
+    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, imagename: str, direction: str, points:int):
         Sprite.__init__(self, x, y, imagename)
         self.sx = sx
         self.sy = sy
@@ -151,13 +151,25 @@ class ChickenDeadState(ChickenForegroundState):
 
 
 class ChickenList(Chicken):
-    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, direction: str):
+    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, direction: str,points:int):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
         self.size = random.choice([CHICKENSIZE1, CHICKENSIZE2, CHICKENSIZE3])
         self.image = pg.transform.scale(
             self.flyweightImages['chicken1'], self.size)
+        #self.points = get_points(self.size)
+        if self.size[0] == 30:
+            print("chicken size 30")
+            self.points = 25
+        if self.size[0] == 50:
+            print("chicken size 50")
+            self.points = 15
+        if self.size[0] > 50:
+            print("chicken size 70")
+            self.points = 10
+
+        
         self.imageIndex = 1
         self.imageIndexDead = 1
         # print(id(self.flyweightImages))
@@ -171,6 +183,15 @@ class ChickenList(Chicken):
         # Coin Speed
         self.maxtimer = COINSPEED
         self.timer = 0
+    
+    def get_points(self):
+        if self.size == 30:
+            self.points = 25
+        if self.size == 50:
+            self.points = 15
+        if self.size == 70:
+            self.points == 10
+        return self.points
 
 # update function
     def update(self):
@@ -190,6 +211,7 @@ class ChickenList(Chicken):
         #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
             print("HIT chicken")
+            print("Points "+str(self.points))
             return True
         else:
             return False
