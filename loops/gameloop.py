@@ -13,6 +13,7 @@ from settings.background import *
 def gameLoop(gameloopList):
     #set score to 0
     score = 0
+    points = 0
 
     # Starting coordinates for map
     startX, startY = 0, 100
@@ -193,6 +194,7 @@ def gameLoop(gameloopList):
                         # chickenForeground.remove(spriteChickenForeground)
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         spriteChickenForeground.deadchicken()
+                        points = points.erhoehePunkte(spriteChickenForeground.points)
                         # gameloopList[13].aliveState("huhu")
 
                 # Checks for hitting the TrunkBig
@@ -431,6 +433,7 @@ def gameLoop(gameloopList):
             running = False
             return True
 
+        
         # render points
         gameloopList[1].blit(points, (WIDTH * 0.1, 0))
 
