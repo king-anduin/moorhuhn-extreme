@@ -194,7 +194,7 @@ def gameLoop(gameloopList):
                         # chickenForeground.remove(spriteChickenForeground)
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         spriteChickenForeground.deadchicken()
-                        points = points.erhoehePunkte(spriteChickenForeground.points)
+                        score = gameloopList[13].erhoehePunkte(sprite.points)
                         # gameloopList[13].aliveState("huhu")
 
                 # Checks for hitting the TrunkBig
