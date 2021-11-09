@@ -15,11 +15,11 @@ class ImageTree:
 
         for i in range(1, 2):
             self.images['trunkSmall'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'trunkSmall'+str(i)+'.png')).convert_alpha(), (100, HEIGHT))
+                img_folder, 'trunkSmall'+str(i)+'.png')).convert_alpha(), (100, int(HEIGHT)))
 
         for i in range(1, 2):
             self.images['trunkBig'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'trunkBig'+str(i)+'.png')).convert_alpha(), (200, HEIGHT))
+                img_folder, 'trunkBig'+str(i)+'.png')).convert_alpha(), (200, int(HEIGHT)))
 
     def getFlyweightImages(self):
         return self.images

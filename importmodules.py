@@ -1,5 +1,7 @@
 import pygame as pg
 
+
+from objects.ammo import *
 from settings.settings import *
 from objects.predator import *
 from settings.background import *

@@ -7,7 +7,7 @@ from settings.background import *
 
 # gameloopList = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory,
 #                  Sounds, Fonts, MenuButtons, TreeFactory, PumpkinFactory, PlaneFactory,
-#                   LeavesFactory, ChickenHoleFactory, Predator]
+#                   LeavesFactory, ChickenHoleFactory, Predator, ammoFactory]
 
 
 def gameLoop(gameloopList):
@@ -28,7 +28,13 @@ def gameLoop(gameloopList):
     screen_height = gameloopList[1].get_height()
 
     # Current ammo count
-    bullets_count = 10
+    ammo_count = 10
+    ammos = []
+    deadAmmos = []
+    for i in range(1, ammo_count+1):
+        ammo_x = screen_width - AMMOSIZE[0] * i
+        ammo_y = screen_height - AMMOSIZE[1]
+        ammos.append(gameloopList[14].createAmmo(ammo_x, ammo_y))
 
     # Sprite list for chicken
     sprites = []
@@ -95,10 +101,14 @@ def gameLoop(gameloopList):
                     gameloopList[5].background_sound.stop()
                     running = False
                 if event.key == pg.K_SPACE:
-                    if bullets_count < 10:
-                        # Reset ammo count and play reload sound
-                        bullets_count = 10
+                    if len(ammos) < 10:
                         gameloopList[5].reload_sound.play()
+                        # Reset ammo count and play reload sound
+                        for i in range(len(ammos)+1, ammo_count+1):
+                            ammo_x = screen_width - AMMOSIZE[0] * i
+                            ammo_y = screen_height - AMMOSIZE[1]
+                            ammos.append(
+                                gameloopList[14].createAmmo(ammo_x, ammo_y))
 
             elif event.type == pg.MOUSEMOTION:
                 # If the mouse is moved, set the center of the rect
@@ -108,24 +118,28 @@ def gameLoop(gameloopList):
 
             # Else Check for ending the game
             elif event.type == pg.MOUSEBUTTONDOWN and event.button == RIGHT:
-                if bullets_count < 10:
-                    # Reset ammo count and play reload sound
-                    bullets_count = 10
-                    gameloopList[5].reload_sound.play()
+                gameloopList[5].reload_sound.play()
+                for i in range(len(ammos)+1, ammo_count+1):
+                    ammo_x = screen_width - AMMOSIZE[0] * i
+                    ammo_y = screen_height - AMMOSIZE[1]
+                    ammos.append(
+                        gameloopList[14].createAmmo(ammo_x, ammo_y))
+                # gameloopList[5].reload_sound.play()
 
             # If a chicken got hit by mouse it will be removed
             elif event.type == pg.MOUSEBUTTONDOWN and event.button == LEFT:
                 # Play shot sound
-                if bullets_count >= 1:
+                if len(ammos) >= 1:
+                    ammo = ammos[-1]
+                    ammo.deadAmmo()
+                    ammos.remove(ammo)
+                    deadAmmos.append(ammo)
                     gameloopList[5].shot_sound.play()
                     shoot = True
                 # Play shot sound if enough ammo or empty sound
                 else:
                     gameloopList[5].empty_sound.play()
                     shoot = False
-
-                # minus one bullet
-                bullets_count -= 1
 
                 # Mouse position
                 mousex, mousey = event.pos
@@ -154,7 +168,7 @@ def gameLoop(gameloopList):
 
                 # checks for hitting chickens
                 for sprite in sprites:
-                    if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
+                    if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         # print(sprite.getPos())
                         sprite.deadchicken()
@@ -245,6 +259,16 @@ def gameLoop(gameloopList):
         # Update chicken sprites
         for sprite in sprites:
             sprite.update()
+            # if sprite.isFullDead():
+            #    sprites.remove(sprite)
+
+        for ammo in deadAmmos:  # --------------------------------
+            ammo.updateAmmo()  # --------------------------------
+            if ammo.isFullDead():  # --------------------------------
+                try:  # --------------------------------
+                    ammos.remove(ammo)  # --------------------------------
+                except:  # --------------------------------
+                    pass  # --------------------------------
 
         #<--------------- ChickenForeground --------------->#
         # Append chickenForeground Sprites to the list
@@ -406,13 +430,10 @@ def gameLoop(gameloopList):
             return True
 
         # render the current ammo
-        shell_x = screen_width - gameloopList[13].shell_rect.width * 0.5
-        shell_y = screen_height - gameloopList[13].shell_rect.height * 0.5
-        for i in range(bullets_count):
-            gameloopList[13].shell_rect.center = (
-                shell_x - i * gameloopList[13].shell_rect.width, shell_y)
-            gameloopList[1].blit(gameloopList[13].SHELL_IMG,
-                                 gameloopList[13].shell_rect)
+        for ammo in ammos:
+            gameloopList[1].blit(ammo.getImage(), ammo.getRect())
+        for ammo in deadAmmos:
+            gameloopList[1].blit(ammo.getImage(), ammo.getRect())
 
         #<--------------- Render Cursor --------------->#
         # Blit the image at the rect's topleft coords.
