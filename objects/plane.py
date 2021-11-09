@@ -19,9 +19,13 @@ class ImagePlane:
         # Make Dictionary of Images
         self.images = {}
 
-        for i in range(1, 21):
+        for i in range(0, 21):
             self.images['plane'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
                 img_folder, 'plane'+str(i)+'.png')).convert_alpha(), PLANESIZE)
+
+        for i in range(0, 1):
+            self.images['planebanner'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'planebanner'+str(i)+'.png')).convert_alpha(), PLANESIZE)
 
     def getFlyweightImages(self):
         return self.images
@@ -33,9 +37,9 @@ class PlaneFactory:
     def __init__(self):
         self.imageDict = ImagePlane().getFlyweightImages()
 
-    def createPlane(self, x, y, direction: str):
-        plane = PlaneList(self.imageDict, x, y, SPEED * random.choice([1, -1, 0.5, -0.5]),
-                          SPEED * random.choice([0, -0, 0, -0]), direction)
+    def createPlane(self, x, y, direction: str, imagename: str, speed: int):
+        plane = PlaneList(self.imageDict, x, y, speed,
+                          0, direction, imagename)
         return plane
 
 # Sprites
@@ -149,11 +153,11 @@ class PlaneFly(PlaneState):
 
 
 class PlaneList(Plane):
-    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, direction: str):
+    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, direction: str, imagename: str):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.image = self.flyweightImages['plane1']
+        self.image = self.flyweightImages[imagename]
         self.imageIndex = 1
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
@@ -165,9 +169,14 @@ class PlaneList(Plane):
         self.maxtimer = COINSPEED
         self.timer = 0
 
-    # update function
+    # update function plane
     def updatePlane(self):
         self.rotate()
+        Plane.update(self)
+
+    # update function banner
+    def updateBanner(self):
+        self.planeBanner()
         Plane.update(self)
 
     # get position of the mouse
@@ -183,6 +192,9 @@ class PlaneList(Plane):
             return True
         else:
             return False
+
+    def planeBanner(self):
+        self.image = self.flyweightImages['planebanner0']
 
     # iterates over all .png to animate the signPost
     def rotate(self):

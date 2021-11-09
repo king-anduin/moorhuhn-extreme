@@ -1,5 +1,4 @@
 from importmodules import *
-from observer import ObserverSubject, Player
 
 # Initialization
 pg.init()
@@ -49,14 +48,15 @@ Fonts = Fonts()
 # Create Buttons Object
 MenuButtons = MenuButtons()
 
-# pg Clock
-clock = pg.time.Clock()
-
 # observer
 ObserverSubject = Player()
 
+# pg Clock
+clock = pg.time.Clock()
+
 # List for handing over to loops
-startloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
+startloopList = [clock, screen, Sounds,
+                 Fonts, MenuButtons, Predator, AmmoFactory, ChickenHoleFactory]
 gameloopList = [clock, screen, ChickenFactory, SignPostFactory,
                 ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory,
                 PumpkinFactory, PlaneFactory, LeavesFactory, ChickenHoleFactory, Predator, AmmoFactory, ObserverSubject, ChickenWindmilFactory]

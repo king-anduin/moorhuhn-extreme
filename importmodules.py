@@ -11,6 +11,7 @@ from objects.plane import *
 from objects.leaves import *
 from objects.chickenhole import *
 from objects.chicken import *
+from patterns.observer import *
 
 from settings.settings import *
 from settings.background import *

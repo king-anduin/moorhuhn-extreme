@@ -15,6 +15,7 @@ WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 BLACK = (0, 0, 0)
 SKYBLUE = (135, 206, 235, 1)
+TRANSPARENT = (0, 0, 0, 0)
 
 # SPAWNER is the iteration Timer for spawning new chickens
 # as lower as more chickens will spawn
@@ -35,6 +36,7 @@ CURSOR_MID = (40, 40)
 # ammo.py
 AMMOSIZE = (48, 80)
 AMMOSPEED = int(FPS/16)
+BULLETHOLESIZE = (35, 37)
 
 
 # startloop.py
@@ -70,7 +72,10 @@ LEAVESIZE = (50, 60)
 PLANESIZE = (45, 36)
 
 # chickenhole.py
-CHICKENHOLESIZE = (55, 55)
+CHICKENHOLESIZE = (60, 60)
 
 # chickenwindmil.py
 CHICKENWINDMILSIZE = (200, 200)
+
+# chickenforeground.py
+CHICKENFOREGROUND = (300, 350)

@@ -13,13 +13,13 @@ class ImageChickenForeground:
         # Make Dictionary of Images
         self.images = {}
 
-        for i in range(1, 20):
+        for i in range(1, 19):
             self.images['chickenforeground'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'chickenforeground'+str(i)+'.png')).convert_alpha(), (SIGNPOSTSIZE))
+                img_folder, 'chickenforeground'+str(i)+'.png')).convert_alpha(), (CHICKENFOREGROUND))
 
         for i in range(1, 6):
-            self.images['chickenforegroundead'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'chickenforegroundead'+str(i)+'.png')).convert_alpha(), (SIGNPOSTSIZE))
+            self.images['chickenforegrounddead'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'chickenforegrounddead'+str(i)+'.png')).convert_alpha(), (CHICKENFOREGROUND))
 
     def getFlyweightImages(self):
         return self.images
@@ -147,7 +147,6 @@ class ChickenList(Chicken):
         self.rect.topleft = (self.x, self.y)
 
         self.direction = True
-        self.size = (300, 360)
         self.maxtimer = CHICKENFOREGROUNDSPEED
         self.timer = 0
         self.alive = True
@@ -184,10 +183,9 @@ class ChickenList(Chicken):
                 if (self.imageIndex == 19):
                     self.imageIndex = 1
                 self.image = pg.transform.flip(
-                    pg.transform.scale(self.flyweightImages['chickenforeground' + str(self.imageIndex)], self.size), True, False)
+                    pg.transform.scale(self.flyweightImages['chickenforeground' + str(self.imageIndex)], CHICKENFOREGROUND), True, False)
 
     def deadchicken(self):
-        transparent = (0, 0, 0, 0)
         self.alive = False
         self.timer += 1
         if self.timer == self.maxtimer:
@@ -195,6 +193,6 @@ class ChickenList(Chicken):
             self.imageIndexDead += 1
             if (self.imageIndexDead < 6):
                 self.image = pg.transform.scale(
-                    self.flyweightImages['chickenforegroundead' + str(self.imageIndexDead)], self.size)
+                    self.flyweightImages['chickenforegrounddead' + str(self.imageIndexDead)], CHICKENFOREGROUND)
             else:
-                self.image.fill(transparent)
+                self.image.fill(TRANSPARENT)

@@ -10,12 +10,17 @@ class ImageAmmo:
         # initialize all variables and do all the setup for a new game
         game_folder = os.path.dirname(__file__)
         img_folder = os.path.join(game_folder, '../_img/ammo')
+        img_bullethole = os.path.join(game_folder, '../_img/bullethole')
         # Make Dictionary of Images
         self.images = {}
 
         for i in range(1, 18):
             self.images['Ammo'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
                 img_folder, 'Ammo'+str(i)+'.png')).convert_alpha(), (AMMOSIZE))
+
+        for i in range(1, 2):
+            self.images['bullethole'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_bullethole, 'bullethole'+str(i)+'.png')).convert_alpha(), (BULLETHOLESIZE))
 
     def getFlyweightImages(self):
         return self.images
@@ -27,8 +32,9 @@ class AmmoFactory:
     def __init__(self):
         self.imageDict = ImageAmmo().getFlyweightImages()
 
-    def createAmmo(self, x, y):
-        ammo = AmmoList(self.imageDict, x, y)
+    def createAmmo(self, coordinates, imagename: str):
+        ammo = AmmoList(
+            self.imageDict, coordinates[0], coordinates[1], imagename)
         return ammo
 # Sprites
 
@@ -132,11 +138,11 @@ class AmmoDeadState(AmmoState):
 
 
 class AmmoList(Ammo):
-    def __init__(self, flyweightImages: dict, x: int, y: int):
+    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.image = self.flyweightImages['Ammo1']
+        self.image = self.flyweightImages[imagename]
         self.imageIndex = 1
         self.imageIndexDead = 1
         self.rect = self.image.get_rect()

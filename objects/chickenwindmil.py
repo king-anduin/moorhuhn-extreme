@@ -36,14 +36,15 @@ class ChickenWindmilFactory:
     def __init__(self):
         self.imageDict = ImageChickenWindmil().getFlyweightImages()
 
-    def createChickenWindmil(self, x, y):
-        chickenWindmil = ChickenHoleList(self.imageDict, x, y)
+    def createChickenWindmil(self, x, y, imagename: str, index: int):
+        chickenWindmil = ChickenHoleList(
+            self.imageDict, x, y, imagename, index)
         return chickenWindmil
 # Sprites
 
 
 class Sprite:
-    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
+    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str, index: int):
         self.x = x
         self.y = y
         self.image = flyweightImages[imagename]
@@ -147,12 +148,12 @@ class ChickenHoleOut(ChickenHoleStates):
 
 
 class ChickenHoleList(ChickenHole):
-    def __init__(self, flyweightImages: dict, x: int, y: int):
+    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str, index: int):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.image = self.flyweightImages['chickenwindmil1']
-        self.imageIndex = 1
+        self.image = self.flyweightImages[imagename]
+        self.imageIndex = index
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
 
