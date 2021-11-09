@@ -53,16 +53,10 @@ clock = pg.time.Clock()
 # List for handing over to loops
 startloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
 gameloopList = [clock, screen, ChickenFactory, SignPostFactory,
-<<<<<<< HEAD
-                ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory, PumpkinFactory, AmmoFactory]
-endloopList = [clock, screen, Sounds, Fonts, MenuButtons]
-bestlistloopList = [clock, screen, Sounds, Fonts, MenuButtons]
-=======
                 ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory,
-                PumpkinFactory, PlaneFactory, LeavesFactory, ChickenHoleFactory, Predator]
+                PumpkinFactory, AmmoFactory, PlaneFactory, LeavesFactory, ChickenHoleFactory, Predator]
 endloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
 bestlistloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
->>>>>>> main
 
 
 class GameState:

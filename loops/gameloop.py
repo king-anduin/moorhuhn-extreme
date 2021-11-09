@@ -432,21 +432,12 @@ def gameLoop(gameloopList):
             return True
 
         # render the current ammo
-<<<<<<< HEAD
+
         for ammo in ammos:
             gameloopList[1].blit(ammo.getImage(), ammo.getRect())
 
         for ammo in deadAmmos:
             gameloopList[1].blit(ammo.getImage(), ammo.getRect())
-=======
-        shell_x = screen_width - gameloopList[13].shell_rect.width * 0.5
-        shell_y = screen_height - gameloopList[13].shell_rect.height * 0.5
-        for i in range(bullets_count):
-            gameloopList[13].shell_rect.center = (
-                shell_x - i * gameloopList[13].shell_rect.width, shell_y)
-            gameloopList[1].blit(gameloopList[13].SHELL_IMG,
-                                 gameloopList[13].shell_rect)
->>>>>>> main
 
         #<--------------- Render Cursor --------------->#
         # Blit the image at the rect's topleft coords.
