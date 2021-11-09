@@ -1,5 +1,6 @@
 import pygame as pg
 
+
 from ammo import *
 from factory import *
 from settings import *
@@ -13,7 +14,6 @@ from menus import *
 from chickenforeground import *
 from trunk import *
 from pumpkin import *
-
 from loops.startloop import *
 from loops.gameloop import *
 from loops.endloop import *

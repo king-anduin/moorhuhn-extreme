@@ -1,10 +1,8 @@
 import pygame as pg
-from factory import *
-from settings import *
-from predator import *
-from background import *
+from settings.settings import *
+from settings.background import *
 
-# bestlistloop = [clock, screen, Sounds, Fonts]
+# bestlistloop = [clock, screen, Sounds, Fonts, Predator]
 
 
 def bestlistloop(bestlistloopList):
@@ -28,7 +26,7 @@ def bestlistloop(bestlistloopList):
                 # If the mouse is moved, set the center of the rect
                 # to the mouse pos. You can also use pg.mouse.get_pos()
                 # if you're not in the event loop.
-                cursor_rect.center = event.pos
+                bestlistloopList[5].cursor_rect.center = event.pos
 
             # Ends the game on ESC
             elif event.type == pg.KEYDOWN:
@@ -55,7 +53,8 @@ def bestlistloop(bestlistloopList):
                                      LOCATIONBEST, TEXTBEST, 2, BLACK)
 
         # Blit the image at the rect's topleft coords.
-        bestlistloopList[1].blit(CURSOR_IMG, cursor_rect)
+        bestlistloopList[1].blit(
+            bestlistloopList[5].CURSOR_IMG, bestlistloopList[5].cursor_rect)
 
         # Double Buffering
         pg.display.flip()
