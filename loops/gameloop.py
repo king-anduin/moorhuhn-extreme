@@ -358,7 +358,7 @@ def gameLoop(gameloopList):
         #<--------------- chickenWindmil --------------->#
         # Append Leaves Sprites to the list
         if spritesWindmilCreate:
-            spritesWindmil.append(gameloopList[15].createChickenWindmil(
+            spritesWindmil.append(gameloopList[16].createChickenWindmil(
                 (WIDTH * 0.5), 100))
             spritesWindmilCreate = False
 
