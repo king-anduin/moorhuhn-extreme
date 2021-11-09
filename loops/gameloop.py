@@ -7,10 +7,12 @@ from settings.background import *
 
 # gameloopList = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory,
 #                  Sounds, Fonts, MenuButtons, TreeFactory, PumpkinFactory, PlaneFactory,
-#                   LeavesFactory, ChickenHoleFactory, Predator, AmmoFactory, ChickenWindmilFactory]
+#                   LeavesFactory, ChickenHoleFactory, Predator, ammoFactory ,ObserverSubject, ChickenWindmilFactory]
 
 
 def gameLoop(gameloopList):
+    # set score to 0
+    score = 0
 
     # Starting coordinates for map
     startX, startY = 0, 100
@@ -181,6 +183,7 @@ def gameLoop(gameloopList):
                 for sprite in sprites:
                     if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
                         gameloopList[5].chickenDeadSound(chickenSound).play()
+                        score = gameloopList[15].erhoehePunkte(sprite.points)
                         # print(sprite.getPos())
                         sprite.deadchicken()
                         # sprites.remove(sprite)
@@ -199,9 +202,11 @@ def gameLoop(gameloopList):
                 # Checks for hitting the ChickenForeground
                 for spriteChickenForeground in SpritesChickenForeground:
                     if spriteChickenForeground.checkHitChicken(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                        score = gameloopList[15].erhoehePunkte(sprite.points)
                         # chickenForeground.remove(spriteChickenForeground)
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         spriteChickenForeground.deadchicken()
+
                         # gameloopList[13].aliveState("huhu")
 
                 # Checks for hitting the TrunkBig
@@ -258,14 +263,15 @@ def gameLoop(gameloopList):
         #<--------------- Chicken --------------->#
         # create a chicken every spawners iteration on right side of screen
         randomizer = random.randrange(1, SPAWNER, 1)
+        points = gameloopList[6].renderFont(str(score))
         if randomizer == 1:
             sprites.append(gameloopList[2].createChicken(
-                (1.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Left"))
+                (1.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Left", points))
 
         # create a chicken every spawners iteration on right side of screen
         if randomizer == 2:
             sprites.append(gameloopList[2].createChicken(
-                (-0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Right"))
+                (-0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Right", points))
 
         # Update chicken sprites
         for sprite in sprites:
@@ -456,6 +462,9 @@ def gameLoop(gameloopList):
             gameloopList[5].background_sound.stop()
             running = False
             return True
+
+        # render points
+        gameloopList[1].blit(points, (WIDTH * 0.1, 0))
 
         # render the current ammo
         for ammo in ammos:
