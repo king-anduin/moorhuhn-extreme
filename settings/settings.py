@@ -8,6 +8,7 @@ SPEED = 160 / FPS
 COINSPEED = int(FPS / 8)
 CHICKENFOREGROUNDSPEED = int(FPS / 7)
 CHICKENHOLESPEED = int(FPS / 6)
+CHICKENWINDMILSPEED = int(FPS * 0.1)
 
 # Colors
 WHITE = (255, 255, 255)
@@ -68,4 +69,8 @@ LEAVESIZE = (50, 60)
 # planes.py
 PLANESIZE = (45, 36)
 
+# chickenhole.py
 CHICKENHOLESIZE = (55, 55)
+
+# chickenwindmil.py
+CHICKENWINDMILSIZE = (200, 200)

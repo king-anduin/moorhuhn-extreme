@@ -15,6 +15,8 @@ SignPostFactory = SignPostFactory()
 # Create Object
 AmmoFactory = AmmoFactory()
 
+# Create Object
+ChickenHoleFactory = ChickenHoleFactory()
 
 # Create Object
 TreeFactory = TreeFactory()
@@ -26,16 +28,13 @@ Predator = Predator()
 ChickenForegroundFactory = ChickenForegroundFactory()
 
 # Create Object
-# ChickenForeground = ChickenForeground()
-
-# Create Object
 PumpkinFactory = PumpkinFactory()
 
 # Create Object
 PlaneFactory = PlaneFactory()
 
 # Create Object
-ChickenHoleFactory = ChickenHoleFactory()
+ChickenWindmilFactory = ChickenWindmilFactory()
 
 # Create Object
 LeavesFactory = LeavesFactory()
@@ -56,7 +55,7 @@ clock = pg.time.Clock()
 startloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
 gameloopList = [clock, screen, ChickenFactory, SignPostFactory,
                 ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory,
-                PumpkinFactory, PlaneFactory, LeavesFactory, ChickenHoleFactory, Predator, AmmoFactory]
+                PumpkinFactory, PlaneFactory, LeavesFactory, ChickenHoleFactory, Predator, AmmoFactory, ChickenWindmilFactory]
 endloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
 bestlistloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
 

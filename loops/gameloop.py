@@ -7,7 +7,7 @@ from settings.background import *
 
 # gameloopList = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory,
 #                  Sounds, Fonts, MenuButtons, TreeFactory, PumpkinFactory, PlaneFactory,
-#                   LeavesFactory, ChickenHoleFactory, Predator, ammoFactory]
+#                   LeavesFactory, ChickenHoleFactory, Predator, AmmoFactory, ChickenWindmilFactory]
 
 
 def gameLoop(gameloopList):
@@ -73,6 +73,11 @@ def gameLoop(gameloopList):
     # check for leaves shoot and sprite list
     spritesFalling = False
     spritesLeaves = []
+
+    # check for chickenwindmil shoot and sprite list
+    spritesWindmilAlive = True
+    spritesWindmilCreate = True
+    spritesWindmil = []
 
     # check for chickenhole shoot and sprite list
     spritesOut = False
@@ -143,6 +148,12 @@ def gameLoop(gameloopList):
 
                 # Mouse position
                 mousex, mousey = event.pos
+
+                # checks for hitting chickenhole
+                for spriteWindmil in spritesWindmil:
+                    if spriteWindmil.checkHitWindmil(mousex, mousey) and shoot:
+                        gameloopList[5].chickenDeadSound(chickenSound).play()
+                        spritesWindmilAlive = False
 
                 # checks for hitting chickenhole
                 for spriteChickenHole in spritesChickenHole:
@@ -338,10 +349,27 @@ def gameLoop(gameloopList):
             for spriteChickenHole in spritesChickenHole:
                 spriteChickenHole.updateChickenHole()
 
+        #<--------------- chickenWindmil --------------->#
+        # Append Leaves Sprites to the list
+        if spritesWindmilCreate:
+            spritesWindmil.append(gameloopList[15].createChickenWindmil(
+                (WIDTH * 0.5), 100))
+            spritesWindmilCreate = False
+
+        # Update Leaves
+        for spriteWindmil in spritesWindmil:
+            spriteWindmil.updateChickenHole(spritesWindmilAlive)
+
         # #<--------------- Background --------------->#
         # # Render background image and color
         gameloopList[1].fill((SKYBLUE))
         gameloopList[1].blit(backgroundCombined.image, (startX, startY))
+
+        #<--------------- Render ChickenHole --------------->#
+        # Render chickens to the screen
+        for spriteWindmil in spritesWindmil:
+            gameloopList[1].blit(spriteWindmil.getImage(),
+                                 spriteWindmil.getRect())
 
         #<--------------- Render Pumpkin --------------->#
         # Render pumpkin to the screen

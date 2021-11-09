@@ -1,21 +1,22 @@
 import pygame as pg
 
-
+from objects.chickenwindmil import *
 from objects.ammo import *
-from settings.settings import *
 from objects.predator import *
-from settings.background import *
 from objects.signpost import *
-from settings.sounds import *
 from objects.chickenforeground import *
-from settings.fonts import *
-from settings.menus import *
 from objects.trunk import *
 from objects.pumpkin import *
 from objects.plane import *
 from objects.leaves import *
 from objects.chickenhole import *
 from objects.chicken import *
+
+from settings.settings import *
+from settings.background import *
+from settings.sounds import *
+from settings.fonts import *
+from settings.menus import *
 
 from loops.startloop import *
 from loops.gameloop import *
