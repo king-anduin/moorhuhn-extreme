@@ -118,13 +118,13 @@ def gameLoop(gameloopList):
 
             # Else Check for ending the game
             elif event.type == pg.MOUSEBUTTONDOWN and event.button == RIGHT:
-                gameloopList[5].reload_sound.play()
-                for i in range(len(ammos)+1, ammo_count+1):
-                    ammo_x = screen_width - AMMOSIZE[0] * i
-                    ammo_y = screen_height - AMMOSIZE[1]
-                    ammos.append(
-                        gameloopList[14].createAmmo(ammo_x, ammo_y))
-                # gameloopList[5].reload_sound.play()
+                if len(ammos) < 10:
+                    gameloopList[5].reload_sound.play()
+                    for i in range(len(ammos)+1, ammo_count+1):
+                        ammo_x = screen_width - AMMOSIZE[0] * i
+                        ammo_y = screen_height - AMMOSIZE[1]
+                        ammos.append(
+                            gameloopList[14].createAmmo(ammo_x, ammo_y))
 
             # If a chicken got hit by mouse it will be removed
             elif event.type == pg.MOUSEBUTTONDOWN and event.button == LEFT:
