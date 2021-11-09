@@ -13,7 +13,6 @@ from settings.background import *
 def gameLoop(gameloopList):
     #set score to 0
     score = 0
-    points = 0
 
     # Starting coordinates for map
     startX, startY = 0, 100

@@ -54,7 +54,8 @@ MenuButtons = MenuButtons()
 clock = pg.time.Clock()
 
 # observer
-points = ObserverSubject()
+ObserverSubject = ObserverSubject()
+points = 0
 
 # List for handing over to loops
 startloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
