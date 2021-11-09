@@ -431,6 +431,9 @@ def gameLoop(gameloopList):
             running = False
             return True
 
+        # render points
+        gameloopList[1].blit(points, (WIDTH * 0.1, 0))
+
         # render the current ammo
         for ammo in ammos:
             gameloopList[1].blit(ammo.getImage(), ammo.getRect())
