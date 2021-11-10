@@ -14,6 +14,7 @@ from objects.plane import *
 from objects.leaves import *
 from objects.chickenhole import *
 from objects.chicken import *
+from camera import *
 
 from loops.startloop import *
 from loops.gameloop import *

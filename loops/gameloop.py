@@ -4,6 +4,7 @@ import time
 
 from settings.settings import *
 from settings.background import *
+from camera import *
 
 # gameloopList = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory,
 #                  Sounds, Fonts, MenuButtons, TreeFactory, PumpkinFactory, PlaneFactory,
@@ -15,10 +16,9 @@ def gameLoop(gameloopList):
     # Starting coordinates for map
     startX, startY = 0, 100
 
-    # Key scroll parameters
-    right = False
-    left = False
-    keypressed = pg.key.get_pressed()
+    # Mouseposition
+    mouseposition = gameloopList[13].cursor_rect.center
+
     # starting timer
     # starting_timer = 0
     timerinitialiser = 0
@@ -105,6 +105,7 @@ def gameLoop(gameloopList):
                 # to the mouse pos. You can also use pg.mouse.get_pos()
                 # if you're not in the event loop.
                 gameloopList[13].cursor_rect.center = event.pos
+                mouseposition = gameloopList[13].cursor_rect.center
 
             # Else Check for ending the game
             elif event.type == pg.MOUSEBUTTONDOWN and event.button == RIGHT:
@@ -314,10 +315,14 @@ def gameLoop(gameloopList):
             for spriteChickenHole in spritesChickenHole:
                 spriteChickenHole.updateChickenHole()
 
+        # Camera Variables
+        camera = Camera(mouseposition)
+        scrolling = Border((startX, startY), mouseposition)
+
         # #<--------------- Background --------------->#
         # # Render background image and color
         gameloopList[1].fill((SKYBLUE))
-        gameloopList[1].blit(backgroundCombined.image, (startX, startY))
+        gameloopList[1].blit(backgroundCombined.image, (scrolling.offset[0], scrolling.offset[1]))
 
         #<--------------- Render Pumpkin --------------->#
         # Render pumpkin to the screen
@@ -372,17 +377,19 @@ def gameLoop(gameloopList):
 
         #<--------------- Map scroll --------------->#
         # Move camera
-        if gameloopList[13].cursor_rect.center[0] < 50 or left:
+        if gameloopList[13].cursor_rect.center[0] < 50:
             if startX >= backgroundCombined.rect[0]:
                 startX += 0
             else:
                 startX += 5
-        if WIDTH - gameloopList[13].cursor_rect.center[0] < 50 or right:
+        if WIDTH - gameloopList[13].cursor_rect.center[0] < 50:
             if startX - WIDTH <= -backgroundCombined.rect[2] + 50:
                 startX -= 0
             else:
                 startX -= 5
-
+        scrolling = Border((startX, startY), mouseposition)
+        camera.setmethod(scrolling)
+        camera.scroll()
         #<--------------- Render MenuBar --------------->#
         # render top menu bar
         gameloopList[7].drawRectGame(
