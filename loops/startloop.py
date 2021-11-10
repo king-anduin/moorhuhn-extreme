@@ -55,18 +55,24 @@ def screenLoop(startloopLoop):
             # Change states when selecting a rect
             elif event.type == pg.MOUSEBUTTONDOWN:
                 if startloopLoop[4].objectsRectStart[0].collidepoint(event.pos):
-                    running = False
                     startloopLoop[2].button.play()
                     startloopLoop[2].start_sound.stop()
-                    return True
+                    running = False
+                    return 1
 
                 elif startloopLoop[4].objectsRectStart[1].collidepoint(event.pos):
                     startloopLoop[2].button.play()
                     startloopLoop[2].start_sound.stop()
                     running = False
-                    return False
+                    return 2
 
                 elif startloopLoop[4].objectsRectStart[2].collidepoint(event.pos):
+                    startloopLoop[2].button.play()
+                    startloopLoop[2].start_sound.stop()
+                    running = False
+                    return 3
+
+                elif startloopLoop[4].objectsRectStart[3].collidepoint(event.pos):
                     startloopLoop[2].button.play()
                     startloopLoop[2].start_sound.stop()
                     running = False
@@ -134,10 +140,10 @@ def screenLoop(startloopLoop):
                                   spriteChickenHole.getRect())
 
         # Render text and rects for menu
-        startloopLoop[4].drawRectStart(startloopLoop[1], 3, WHITE,
+        startloopLoop[4].drawRectStart(startloopLoop[1], 4, WHITE,
                                        WIDTH * 0.5 - 100, 100, 200, 50, 5)
         startloopLoop[4].drawText(startloopLoop[1], startloopLoop[3].font_text,
-                                  LOCATION, TEXT, 3, BLACK)
+                                  LOCATION, TEXT, 4, BLACK)
 
         # Blit the image at the rect's topleft coords.
         startloopLoop[1].blit(startloopLoop[5].CURSOR_IMG,

@@ -41,16 +41,21 @@ BULLETHOLESIZE = (35, 37)
 
 # startloop.py
 BORDERRADIUS = 5
-LOCATION = [(WIDTH * 0.5, 125), (WIDTH * 0.5, 225), (WIDTH * 0.5, 325)]
-TEXT = ["start", "best list", "exit"]
+LOCATION = [(WIDTH * 0.5, 125), (WIDTH * 0.5, 225),
+            (WIDTH * 0.5, 325), (WIDTH * 0.5, 425)]
+TEXT = ["Start", "Highscore", "Help", "Exit"]
 
 # endloop.py
 LOCATIONEND = [(WIDTH * 0.5, 125), (WIDTH * 0.5, 225)]
-TEXTEND = ["menu", "exit"]
+TEXTEND = ["Menu", "Exit"]
 
 # bestlistloop.py
 LOCATIONBEST = [(WIDTH * 0.5, 125), (WIDTH * 0.5, 225)]
-TEXTBEST = ["menu", "Best list"]
+TEXTBEST = ["Menu", "Highscore"]
+
+# helploop.py
+LOCATIONBEST = [(WIDTH * 0.5, 125), (WIDTH * 0.5, 225)]
+TEXTBEST = ["Menu", "Help"]
 
 # gameloop.py
 LOCATIONGAME = [(WIDTH * 0.5, 15)]

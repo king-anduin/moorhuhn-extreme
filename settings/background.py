@@ -31,6 +31,7 @@ background1 = Background(bg, [0, 100])
 bg = ((pg.image.load(os.path.join(img_folder, 'world/background2.png'))))
 background2 = Background(bg, [0, 50])
 
+
 # Adding Backround random world 1
 bg = ((pg.image.load(os.path.join(img_folder, 'world/backgroundcombined.png'))))
 backgroundCombined = Background(bg, [0, 50])
@@ -49,3 +50,8 @@ endGameBG = BackgroundScreens(bgEndGame, [WIDTH * 0.5, HEIGHT * 0.5])
 bgBestList = (
     (pg.image.load(os.path.join(img_folder, 'backgrounds/backgroundtarget2.png'))))
 bestListBG = BackgroundScreens(bgBestList, [WIDTH * 0.5, HEIGHT * 0.5])
+
+# Adding Backround start, end, bestlist screen 2
+bgHelpGame = (
+    (pg.image.load(os.path.join(img_folder, 'backgrounds/background3.png'))))
+helpGameBG = BackgroundScreens(bgHelpGame, [WIDTH * 0.5, HEIGHT * 0.5])

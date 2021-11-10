@@ -2,7 +2,7 @@ import pygame as pg
 from settings.settings import *
 from settings.background import *
 
-# bestlistloop = [clock, screen, Sounds, Fonts, Predator]
+# bestlistloop = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
 
 
 def bestlistloop(bestlistloopList):

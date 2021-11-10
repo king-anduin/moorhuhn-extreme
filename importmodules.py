@@ -23,3 +23,4 @@ from loops.startloop import *
 from loops.gameloop import *
 from loops.endloop import *
 from loops.bestlistloop import *
+from loops.helploop import *
