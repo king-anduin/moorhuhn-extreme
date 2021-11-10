@@ -107,6 +107,7 @@ class ChickenList(Chicken):
         self.sy = sy
         self.direction = direction
         self.isDead = False
+        self.fullDead = False
 
         # Coin Speed
         self.maxtimer = COINSPEED
@@ -179,4 +180,7 @@ class ChickenList(Chicken):
                     self.flyweightImages['chickendead' + str(self.imageIndexDead)], self.size)
             else:
                 self.image.fill(transparent)
-                # return True
+                self.fullDead = True  # ------
+
+    def isFullDead(self):
+        return self.fullDead  # -----------

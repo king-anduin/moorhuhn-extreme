@@ -81,8 +81,10 @@ class ChickenList(Chicken):
         self.maxtimer = CHICKENFOREGROUNDSPEED
         self.timer = 0
         self.alive = True
+        self.fullDead = False  # -------------
 
     # update function
+
     def updateChicken(self):
         if self.alive:
             self.rotate()
@@ -127,3 +129,7 @@ class ChickenList(Chicken):
                     self.flyweightImages['chickenforegrounddead' + str(self.imageIndexDead)], CHICKENFOREGROUND)
             else:
                 self.image.fill(TRANSPARENT)
+                self.fullDead = True  # ------
+
+    def isFullDead(self):
+        return self.fullDead  # -----------
