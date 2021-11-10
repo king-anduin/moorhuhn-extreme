@@ -83,22 +83,22 @@ def screenLoop(startloopLoop):
             if game_timer == 1:
                 spritesBullethole.append(
                     startloopLoop[6].createAmmo(coordinates[0], "bullethole1"))
-                startloopLoop[2].shot_sound.play()
+                # startloopLoop[2].shot_sound.play()
             if game_timer == 2:
                 spritesBullethole.append(
                     startloopLoop[6].createAmmo(coordinates[1], "bullethole1"))
-                startloopLoop[2].shot_sound.play()
+                # startloopLoop[2].shot_sound.play()
                 spritesChickenHoleOut = True
 
             if game_timer == 3:
                 spritesBullethole.append(
                     startloopLoop[6].createAmmo(coordinates[2], "bullethole1"))
-                startloopLoop[2].shot_sound.play()
+                # startloopLoop[2].shot_sound.play()
 
             if game_timer == 4:
                 spritesBullethole.append(
                     startloopLoop[6].createAmmo(coordinates[3], "bullethole1"))
-                startloopLoop[2].shot_sound.play()
+                # startloopLoop[2].shot_sound.play()
                 spritesBulletholeAppend = False
 
         # Update Bullethole
