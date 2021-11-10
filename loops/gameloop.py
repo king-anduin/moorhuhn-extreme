@@ -87,6 +87,7 @@ def gameLoop(gameloopList):
 
     # check for chickenhole shoot and sprite list
     spritesOut = False
+    spritesEnd = False
     spritesChickenHole = []
     spritesCreated = True
 
@@ -165,10 +166,11 @@ def gameLoop(gameloopList):
                 for spriteChickenHole in spritesChickenHole:
                     if spriteChickenHole.checkHitChickenHole(mousex, mousey) and shoot and spritesOut:
                         gameloopList[5].chickenDeadSound(chickenSound).play()
+                        spritesEnd = True
                         # spritesOut = False
                         # print(sprite.getPos())
                         # sprite.deadchicken()
-                        spritesChickenHole.remove(spriteChickenHole)
+                        # spritesChickenHole.remove(spriteChickenHole)
 
                 # checks for hitting pumpkin
                 for spritePumpkin in spritesPumpkin:
@@ -376,7 +378,7 @@ def gameLoop(gameloopList):
         # Update Chickenhole
         if spritesOut:
             for spriteChickenHole in spritesChickenHole:
-                spriteChickenHole.updateChickenHole()
+                spriteChickenHole.updateChickenHole(spritesEnd)
 
         #<--------------- chickenWindmil --------------->#
         # Append Leaves Sprites to the list

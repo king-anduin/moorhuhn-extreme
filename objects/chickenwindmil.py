@@ -5,11 +5,6 @@ from settings.settings import *
 # Flyweight
 
 
-class Image:
-    def __init__(self, image):
-        self.image = pg.image.load(image).convert_alpha()
-
-
 class ImageChickenWindmil:
     def __init__(self):
         # initialize all variables and do all the setup for a new game
@@ -75,75 +70,6 @@ class ChickenHole(Sprite):
         self.x = self.x
         self.y = self.y
         self.rect.topleft = (self.x, self.y)
-
-# State Pattern
-
-
-class ChickenHoleStates:
-    def alive(self):
-        raise NotImplementedError
-
-    def dead(self):
-        raise NotImplementedError
-
-    def enter(self):
-        raise NotImplementedError
-
-    def exit(self):
-        raise NotImplementedError
-
-
-class LeaveChange:
-    def __init__(self):
-        self.chickenState = ChickenHoleNormal(self)
-
-    def changeState(self, newState: ChickenHoleStates):
-        if self.chickenState != None:
-            self.chickenState.exit()
-        self.chickenState = newState
-        self.chickenState.enter()
-
-    def aliveState(self):
-        self.chickenState.alive()
-
-    def deadState(self):
-        self.chickenState.dead()
-
-
-class ChickenHoleNormal(ChickenHoleStates):
-    def __init__(self, chickenForeground: LeaveChange):
-        self.chickenForeground = chickenForeground
-
-    def alive(self):
-        print("Sign is already in start state, SignPostStartState")
-
-    def dead(self):
-        self.chickenForeground.changeState(
-            ChickenHoleOut(self.chickenForeground))
-
-    def enter(self):
-        print("Sign is in start state, SignPostStartState")
-
-    def exit(self):
-        pass
-
-
-class ChickenHoleOut(ChickenHoleStates):
-    def __init__(self, chickenForeground: LeaveChange):
-        self.chickenForeground = chickenForeground
-
-    def alive(self):
-        self.chickenForeground.changeState(
-            ChickenHoleNormal(self.chickenForeground))
-
-    def dead(self):
-        print("Sign is already in end state, SignPostEndState")
-
-    def enter(self):
-        print("sign is now in end state, SignPostEndState")
-
-    def exit(self):
-        pass
 # Sprites
 
 

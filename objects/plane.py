@@ -6,11 +6,6 @@ from settings.settings import *
 # Flyweight
 
 
-class Image:
-    def __init__(self, image):
-        self.image = pg.image.load(image).convert_alpha()
-
-
 class ImagePlane:
     def __init__(self):
         # initialize all variables and do all the setup for a new game
@@ -79,76 +74,6 @@ class Plane(Sprite):
         self.x = self.x + self.sx
         self.y = self.y + self.sy
         self.rect.topleft = (self.x, self.y)
-
-# State Pattern
-
-
-class PlaneState:
-    def alive(self):
-        raise NotImplementedError
-
-    def dead(self):
-        raise NotImplementedError
-
-    def enter(self):
-        raise NotImplementedError
-
-    def exit(self):
-        raise NotImplementedError
-
-
-class PlaneChange:
-    def __init__(self):
-        self.planeState = PlaneNormal(self)
-
-    def changeState(self, newState: PlaneState):
-        if self.planeState != None:
-            self.planeState.exit()
-        self.planeState = newState
-        self.planeState.enter()
-
-    def aliveState(self):
-        self.planeState.alive()
-
-    def deadState(self):
-        self.planeState.dead()
-
-
-class PlaneNormal(PlaneState):
-    def __init__(self, planeChange: PlaneChange):
-        self.plane = planeChange
-
-    def alive(self):
-        print("Sign is already in start state, SignPostStartState")
-
-    def dead(self):
-        self.plane.changeState(
-            PlaneFly(self.planeChange))
-
-    def enter(self):
-        print("Sign is in start state, SignPostStartState")
-
-    def exit(self):
-        pass
-
-
-class PlaneFly(PlaneState):
-    def __init__(self, planeChange: PlaneChange):
-        self.chickenForeground = planeChange
-
-    def alive(self):
-        self.chickenForeground.changeState(
-            PlaneNormal(self.chickenForeground))
-
-    def dead(self):
-        print("Sign is already in end state, SignPostEndState")
-
-    def enter(self):
-        print("sign is now in end state, SignPostEndState")
-
-    def exit(self):
-        pass
-
 # Sprites
 
 
