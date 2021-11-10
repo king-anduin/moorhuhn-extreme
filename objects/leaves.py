@@ -90,6 +90,7 @@ class LeavesList(Leaves):
         self.sy = sy
         self.direction = direction
         self.shot = False
+        self.fullDead = False
 
         self.maxtimer = COINSPEED
         self.timer = 0
@@ -138,3 +139,7 @@ class LeavesList(Leaves):
                     self.flyweightImages['leavesshot' + str(self.imageIndexShot)], LEAVESIZE)
             else:
                 self.image.fill(TRANSPARENT)
+                self.fullDead = True  # ------
+
+    def isFullDead(self):
+        return self.fullDead  # -----------

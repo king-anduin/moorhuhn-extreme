@@ -298,8 +298,8 @@ def gameLoop(gameloopList):
         # Update chicken sprites
         for sprite in sprites:
             sprite.update()
-            # if sprite.isFullDead():
-            #    sprites.remove(sprite)
+            if sprite.isFullDead():
+                sprites.remove(sprite)
 
         #<--------------- Ammo --------------->#
         # Update ammo list
@@ -321,6 +321,8 @@ def gameLoop(gameloopList):
         # Update chickenForeground sprites
         for spriteChickenForeground in SpritesChickenForeground:
             spriteChickenForeground.updateChicken()
+            if spriteChickenForeground.isFullDead():
+                SpritesChickenForeground.remove(spriteChickenForeground)
 
         #<--------------- SignPost --------------->#
         # Append SignPost Sprites to the list
@@ -366,6 +368,8 @@ def gameLoop(gameloopList):
         if spritesFalling:
             for spriteLeaves in spritesLeaves:
                 spriteLeaves.updateLeaves()
+                if spriteLeaves.isFullDead():
+                    spritesLeaves.remove(spriteLeaves)
 
         #<--------------- Chickenhole --------------->#
         # Append Leaves Sprites to the list
