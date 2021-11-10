@@ -47,10 +47,11 @@ def helpLoop(helpLoopList):
         helpLoopList[1].blit(helpGameBG.image, helpGameBG.rect)
 
         # Render text and rects for menu
+        rect = ()
         helpLoopList[4].drawRectHelp(helpLoopList[1], 2, WHITE,
-                                     WIDTH * 0.5 - 100, 100, 200, 50, 5)
+                                     LOCATIONRECTS, SIZERECTS, 5)
         helpLoopList[4].drawText(helpLoopList[1], helpLoopList[3].font_text,
-                                 LOCATIONBEST, TEXTBEST, 2, BLACK)
+                                 LOCATIONHELP, TEXTHELP, 11, BLACK)
 
         # Blit the image at the rect's topleft coords.
         helpLoopList[1].blit(

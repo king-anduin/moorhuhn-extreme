@@ -54,8 +54,15 @@ LOCATIONBEST = [(WIDTH * 0.5, 125), (WIDTH * 0.5, 225)]
 TEXTBEST = ["Menu", "Highscore"]
 
 # helploop.py
-LOCATIONBEST = [(WIDTH * 0.5, 125), (WIDTH * 0.5, 225)]
-TEXTBEST = ["Menu", "Help"]
+LOCATIONHELP = [(WIDTH * 0.5, 125), (WIDTH * 0.3, 225), (WIDTH * 0.3, 275),
+                (WIDTH * 0.3, 325), (WIDTH * 0.3, 375), (WIDTH * 0.3, 425),
+                (WIDTH * 0.6, 225), (WIDTH * 0.6, 275), (WIDTH * 0.6, 325),
+                (WIDTH * 0.6, 375), (WIDTH * 0.6, 425)]
+TEXTHELP = ["Menu", "Space", "Right Click",
+            "Left Click", "Arrow Left", "Arrow Right", "Reload your weapon", "Reload your weapon",
+            "Shoot", "Scroll left", "Scroll right"]
+LOCATIONRECTS = [(WIDTH * 0.5 - 100, 100), (WIDTH * 0.2, 200)]
+SIZERECTS = [(200, 50), (525, 250)]
 
 # gameloop.py
 LOCATIONGAME = [(WIDTH * 0.5, 15)]

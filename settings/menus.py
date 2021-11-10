@@ -20,14 +20,6 @@ class MenuButtons():
             rect_box.center = location[i]
             screen.blit(font_box, rect_box)
 
-    def drawRect(self, screen, amount: int, color: int, left: int, top: int, width: int, height: int, borderradius: int):
-        y = top
-        for i in range(amount):
-            result = pg.draw.rect(
-                screen, color, pg.Rect(left, y, width, height), border_radius=borderradius)
-            y += 100
-            return result
-
     def drawRectStart(self, screen, amount, color, left, top, width, height, borderradius):
         y = top
         for i in range(amount):
@@ -60,10 +52,9 @@ class MenuButtons():
                 screen, color, self.objectsRectBest[i], border_radius=borderradius)
             y += 100
 
-    def drawRectHelp(self, screen, amount, color, left, top, width, height, borderradius):
-        y = top
+    def drawRectHelp(self, screen, amount, color, position, size, borderradius):
         for i in range(amount):
-            self.objectsRectHelp.append(pg.Rect(left, y, width, height))
+            self.objectsRectHelp.append(
+                pg.Rect(position[i][0], position[i][1], size[i][0], size[i][1]))
             pg.draw.rect(
                 screen, color, self.objectsRectHelp[i], border_radius=borderradius)
-            y += 100
