@@ -239,9 +239,8 @@ def gameLoop(gameloopList):
                 # Checks for hitting the leaves
                 for spriteLeaves in spritesLeaves:
                     if spriteLeaves.checkHitLeaves(mousex, mousey) and shoot:
-                        # chickenForeground.remove(spriteChickenForeground)
                         gameloopList[5].leafHit.play()
-                        spritesFalling = True
+                        spriteLeaves.fallingShot()
 
         #<--------------- Pumpkin --------------->#
         # Append Pumpkin Sprites to the list

@@ -18,6 +18,10 @@ class ImageLeave:
             self.images['leaves'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
                 img_folder, 'leaves'+str(i)+'.png')).convert_alpha(), (LEAVESIZE))
 
+        for i in range(0, 25):
+            self.images['leavesshot'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'leavesshot'+str(i)+'.png')).convert_alpha(), (LEAVESIZE))
+
     def getFlyweightImages(self):
         return self.images
 
@@ -79,19 +83,25 @@ class LeavesList(Leaves):
         self.flyweightImages = flyweightImages
         self.image = self.flyweightImages['leaves1']
         self.imageIndex = 1
+        self.imageIndexShot = 0
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
         self.sx = sx
         self.sy = sy
         self.direction = direction
+        self.shot = False
 
         self.maxtimer = COINSPEED
         self.timer = 0
 
     # update function
     def updateLeaves(self):
-        self.fallingLeaves()
-        Leaves.update(self)
+        if not self.shot:
+            self.fallingLeaves()
+            Leaves.update(self)
+        else:
+            self.fallingShot()
+            Leaves.update(self)
 
     # get position of the mouse
     def getPos(self):
@@ -116,3 +126,15 @@ class LeavesList(Leaves):
                     self.imageIndex = 1
                 self.image = pg.transform.scale(
                     self.flyweightImages['leaves' + str(self.imageIndex)], LEAVESIZE)
+
+    def fallingShot(self):
+        self.shot = True
+        self.timer += 1
+        if self.timer == self.maxtimer:
+            self.timer = 0
+            self.imageIndexShot += 1
+            if (self.imageIndexShot < 25):
+                self.image = pg.transform.scale(
+                    self.flyweightImages['leavesshot' + str(self.imageIndexShot)], LEAVESIZE)
+            else:
+                self.image.fill(TRANSPARENT)

@@ -26,6 +26,7 @@ def screenLoop(startloopLoop):
     spritesChickenHole = []
     spritesChickenHoleOut = False
     spritesChickenHoleCreated = True
+    spritesEnd = False
 
     # time initiater variable
     timerinitialiser = 0
@@ -58,12 +59,13 @@ def screenLoop(startloopLoop):
                     startloopLoop[2].button.play()
                     startloopLoop[2].start_sound.stop()
                     return True
+
                 elif startloopLoop[4].objectsRectStart[1].collidepoint(event.pos):
                     startloopLoop[2].button.play()
                     startloopLoop[2].start_sound.stop()
                     running = False
-
                     return False
+
                 elif startloopLoop[4].objectsRectStart[2].collidepoint(event.pos):
                     startloopLoop[2].button.play()
                     startloopLoop[2].start_sound.stop()
@@ -113,7 +115,7 @@ def screenLoop(startloopLoop):
         # Update chickenhole
         if spritesChickenHoleOut:
             for spriteChickenHole in spritesChickenHole:
-                spriteChickenHole.updateChickenHole()
+                spriteChickenHole.updateChickenHole(spritesEnd)
 
         # Render
         startloopLoop[1].fill((WHITE))

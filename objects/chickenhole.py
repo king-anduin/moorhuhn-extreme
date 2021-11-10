@@ -83,8 +83,8 @@ class ChickenHoleList(ChickenHole):
         self.timer = 0
 
     # update function
-    def updateChickenHole(self, out):
-        self.rotate(out)
+    def updateChickenHole(self, end: bool):
+        self.rotate(end)
         ChickenHole.update(self)
 
     # get position of the mouse
@@ -100,9 +100,9 @@ class ChickenHoleList(ChickenHole):
             return False
 
     # iterates over all .png to animate the signPost
-    def rotate(self, out):
-        self.out = out
-        if not self.out:
+    def rotate(self, end: bool):
+        self.end = end
+        if not self.end:
             if (self.direction == "Out"):
                 self.timer += 1
                 if self.timer == self.maxtimer:
