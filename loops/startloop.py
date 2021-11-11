@@ -13,6 +13,8 @@ def screenLoop(startloopLoop):
     # GameLoop running?
     running = True
 
+    move = 0
+
     # Endless sound loop
     startloopLoop[2].start_sound.play(-1)
 
@@ -115,13 +117,12 @@ def screenLoop(startloopLoop):
         # Append Leaves Sprites to the list
         if spritesChickenHoleCreated:
             spritesChickenHole.append(startloopLoop[7].createChickenHole(
-                (WIDTH * 0.6), 170, "Out"))
+                (WIDTH * 0.6), 170, "Out", move))
             spritesChickenHoleCreated = False
 
         # Update chickenhole
-        if spritesChickenHoleOut:
-            for spriteChickenHole in spritesChickenHole:
-                spriteChickenHole.updateChickenHole(spritesEnd)
+        for spriteChickenHole in spritesChickenHole:
+            spriteChickenHole.updateChickenHole(move, spritesChickenHoleOut, spritesEnd)
 
         # Render
         startloopLoop[1].fill((WHITE))

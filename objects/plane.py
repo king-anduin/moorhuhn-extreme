@@ -100,9 +100,9 @@ class PlaneList(Plane):
         Plane.update(self, position)
 
     # update function banner
-    def updateBanner(self):
+    def updateBanner(self, position):
         self.planeBanner()
-        Plane.update(self)
+        Plane.update(self, position)
 
     # get position of the mouse
     def getPos(self):

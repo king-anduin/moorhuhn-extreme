@@ -262,19 +262,19 @@ def gameLoop(gameloopList):
         randomizerPlane = random.randrange(1, SPAWNERPLANE, 1)
         if randomizerPlane == 1:
             height1 = random.uniform((0.1*HEIGHT), (0.6*HEIGHT))
-            speed = SPEED * random.choice([1, -1, 0.5, -0.5])
-            spritesPlane.append(gameloopList[10].createPlaneRight(
+            speed = SPEED * random.choice([-1, -1, -0.5, -0.5])
+            spritesPlane.append(gameloopList[10].createPlane(
                 (1.12*WIDTH), height1, "Left", "plane0", speed))
-            spritesBanner.append(gameloopList[10].createPlaneRight(
+            spritesBanner.append(gameloopList[10].createPlane(
                 (1.18*WIDTH), height1, "Left", "planebanner0", speed))
 
-        # create a plane every spawners iteration on right side of screen
+        # create a plane every spawners iteration on left side of screen
         if randomizerPlane == 2:
             height2 = random.uniform((0.1*HEIGHT), (0.6*HEIGHT))
-            speed = SPEED * random.choice([1, -1, 0.5, -0.5])
-            spritesPlane.append(gameloopList[10].createPlaneLeft(
+            speed = SPEED * random.choice([1, 1, 0.5, 0.5])
+            spritesPlane.append(gameloopList[10].createPlane(
                 (-0.12*WIDTH), height2, "Right", "plane0", speed))
-            spritesBanner.append(gameloopList[10].createPlaneLeft(
+            spritesBanner.append(gameloopList[10].createPlane(
                 (-0.18*WIDTH), height2, "Right", "planebanner0", speed))
 
         # Update plane
@@ -283,7 +283,7 @@ def gameLoop(gameloopList):
 
         # Update banners
         for spriteBanner in spritesBanner:
-            spriteBanner.updateBanner()
+            spriteBanner.updateBanner(move)
 
         #<--------------- Chicken --------------->#
         # create a chicken every spawners iteration on right side of screen
@@ -300,7 +300,7 @@ def gameLoop(gameloopList):
 
         # Update chicken sprites
         for sprite in sprites:
-            sprite.update()
+            sprite.update(move)
             if sprite.isFullDead():
                 sprites.remove(sprite)
 
@@ -384,23 +384,25 @@ def gameLoop(gameloopList):
         for spriteChickenHole in spritesChickenHole:
                 spriteChickenHole.updateChickenHole(move, spritesOut, spritesEnd)
 
-        #<--------------- Camera --------------->#
-        # Camera Variables
-        camera = Camera(mouseposition)
-        scrolling = Border((startX, startY), mouseposition)
-        move = 0
+        
 
         #<--------------- chickenWindmil --------------->#
         # Append Leaves Sprites to the list
         if spritesWindmilCreate:
             for i in range(0, 4):
                 spritesWindmil.append(gameloopList[16].createChickenWindmil(
-                    (WIDTH * 0.5), 100, windmilList[i], index[i]))
+                    2380, 90, windmilList[i], index[i]))
             spritesWindmilCreate = False
 
         # Update Leaves
         for spriteWindmil in spritesWindmil:
-            spriteWindmil.updateChickenHole(spritesWindmilAlive)
+            spriteWindmil.updateChickenHole(spritesWindmilAlive, move)
+
+        #<--------------- Camera --------------->#
+        # Camera Variables
+        camera = Camera(mouseposition)
+        scrolling = Border((startX, startY), mouseposition)
+        move = 0
 
         # #<--------------- Background --------------->#
         # # Render background image and color
