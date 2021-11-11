@@ -20,6 +20,8 @@ def gameLoop(gameloopList):
 
     # Starting movement of map
     move = 0
+    left = False
+    right = False
 
     # Mouseposition
     mouseposition = gameloopList[13].cursor_rect.center
@@ -110,11 +112,13 @@ def gameLoop(gameloopList):
                 gameloopList[5].background_sound.stop()
                 running = False
 
-            # Ends the game on ESC
+            # Keys pressed
             if event.type == pg.KEYDOWN:
+                # Ends the game on ESC
                 if event.key == pg.K_ESCAPE:
                     gameloopList[5].background_sound.stop()
                     running = False
+                # Reload on space
                 if event.key == pg.K_SPACE:
                     if len(ammos) < 10:
                         gameloopList[5].reload_sound.play()
@@ -124,7 +128,17 @@ def gameLoop(gameloopList):
                             ammo_y = screen_height - AMMOSIZE[1]
                             ammos.append(
                                 gameloopList[14].createAmmo((ammo_x, ammo_y), "Ammo1"))
-
+            # move camera with arrows
+                if event.key ==pg.K_LEFT:
+                    left = True
+                if event.key ==pg.K_RIGHT:
+                    right = True
+            elif event.type == pg.KEYUP:
+                if event.key ==pg.K_LEFT:
+                    left = False
+                if event.key ==pg.K_RIGHT:
+                    right = False
+            
             elif event.type == pg.MOUSEMOTION:
                 # If the mouse is moved, set the center of the rect
                 # to the mouse pos. You can also use pg.mouse.get_pos()
@@ -353,7 +367,7 @@ def gameLoop(gameloopList):
         # Append Trunks Sprites to the list
         if spritesTrunkAppendSmall:
             spritesTrunkSmall.append(
-                gameloopList[8].createTree(WIDTH * 0.1, 0, "trunkSmall1"))
+                gameloopList[8].createTree(1500, 0, "trunkSmall1"))
             spritesTrunkAppendSmall = False
 
         # Update Trunk
@@ -475,13 +489,13 @@ def gameLoop(gameloopList):
 
         #<--------------- Map scroll --------------->#
         # Move camera
-        if gameloopList[13].cursor_rect.center[0] < 50:
+        if gameloopList[13].cursor_rect.center[0] < 50 or left:
             if startX >= backgroundCombined.rect[0]:
                 startX += 0
             else:
                 move = 5
                 startX += move
-        if WIDTH - gameloopList[13].cursor_rect.center[0] < 50:
+        if WIDTH - gameloopList[13].cursor_rect.center[0] < 50 or right:
             if startX - WIDTH <= -backgroundCombined.rect[2] + 50:
                 startX -= 0
             else:
