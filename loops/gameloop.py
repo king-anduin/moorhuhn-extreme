@@ -182,12 +182,14 @@ def gameLoop(gameloopList):
                 # Mouse position
                 mousex, mousey = event.pos
 
+        #<------------------------------------------- WINDMIL ----------------------------------------------->#
                 # checks for hitting chickenwindmil
                 for spriteWindmil in spritesWindmil:
-                    if spriteWindmil.checkHitWindmil(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and shoot:
+                    if spriteWindmil.checkHitWindmil(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and not spritePlane.rect.collidepoint(event.pos) and not sprite.rect.collidepoint(event.pos) and shoot:
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         # spritesWindmilAlive = False
 
+        #<---------------------------------------- CHICKENHOLE ----------------------------------------------->#
                 # checks for hitting chickenhole
                 for spriteChickenHole in spritesChickenHole:
                     if spriteChickenHole.checkHitChickenHole(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and shoot and spritesOut:
@@ -197,29 +199,34 @@ def gameLoop(gameloopList):
                         if spritesChickenHoleOut:
                             spritesChickenHoleEnd = True
 
+        #<------------------------------------------- PUMPKIN ----------------------------------------------->#
                 # checks for hitting pumpkin
                 for spritePumpkin in spritesPumpkin:
-                    if spritePumpkin.checkHitPumpkin(mousex, mousey) and shoot:
+                    if spritePumpkin.checkHitPumpkin(mousex, mousey) and not sprite.rect.collidepoint(event.pos) and not spritePlane.rect.collidepoint(event.pos) and shoot:
                         gameloopList[5].scarecrowHit.play()
                         pumpkinMove = True
 
+        #<------------------------------------------- PLANES ----------------------------------------------->#
                 # checks for hitting planes
                 for spritePlane in spritesPlane:
                     if spritePlane.checkHitPlane(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
                         gameloopList[5].planeCrash(planeSound).play()
 
+        #<------------------------------------------ BANNERS ----------------------------------------------->#
                 # checks for hitting banners
                 for spriteBanner in spritesBanner:
                     if spriteBanner.checkHitPlane(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
                         spritesBanner.remove(spriteBanner)
 
+        #<------------------------------------------ CHICKENS ----------------------------------------------->#
                 # checks for hitting chickens
                 for sprite in sprites:
-                    if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                    if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         score = gameloopList[15].erhoehePunkte(sprite.points)
                         sprite.deadchicken()
 
+        #<------------------------------------------- SIGNPOST ----------------------------------------------->#
                 # checks for hitting sign post and uses state pattern to change
                 for spritePost in spritesSignPost:
                     if spritePost.checkHitSign(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and shoot:
@@ -231,6 +238,7 @@ def gameLoop(gameloopList):
                             # post = signPost.startState()
                             post = True
 
+        #<--------------------------------------- CHICKENFOREGROUND -------------------------------------->#
                 # Checks for hitting the ChickenForeground
                 for spriteChickenForeground in SpritesChickenForeground:
                     if spriteChickenForeground.checkHitChicken(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
@@ -238,6 +246,7 @@ def gameLoop(gameloopList):
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         spriteChickenForeground.deadchicken()
 
+        #<------------------------------------------ TRUNK BIG ------------------------------------------->#
                 # Checks for hitting the TrunkBig
                 for spriteTrunk in spritesTrunk:
                     if spriteTrunk.checkHitTrunk(mousex, mousey) and shoot:
@@ -245,6 +254,7 @@ def gameLoop(gameloopList):
                         spritesFalling = True
                         spritesOut = True
 
+        #<---------------------------------------- TRUNK SMALL ------------------------------------------->#
                 # Checks for hitting the TrunkSmall
                 for spriteTrunk in spritesTrunkSmall:
                     if spriteTrunk.checkHitTrunk(mousex, mousey) and shoot:
@@ -258,7 +268,7 @@ def gameLoop(gameloopList):
                         gameloopList[5].leafHit.play()
                         spriteLeaves.fallingShot()
 
-        #<--------------- Pumpkin --------------->#
+        #<------------------------------------------- Pumpkin ------------------------------------------->#
         # Append Pumpkin Sprites to the list
         if pumpkinAppend:
             spritesPumpkin.append(
@@ -269,7 +279,7 @@ def gameLoop(gameloopList):
         for spritePumpkin in spritesPumpkin:
             spritePumpkin.updatePumpkin(move, pumpkinMove)
 
-        #<--------------- Plane --------------->#
+        #<------------------------------------------- Plane ------------------------------------------->#
         # create a plane every spawners iteration on right side of screen
         randomizerPlane = random.randrange(1, SPAWNERPLANE, 1)
         if randomizerPlane == 1:
@@ -297,7 +307,7 @@ def gameLoop(gameloopList):
         for spriteBanner in spritesBanner:
             spriteBanner.updateBanner(move)
 
-        #<--------------- Chicken --------------->#
+        #<------------------------------------------- Chicken ------------------------------------------->#
         # create a chicken every spawners iteration on right side of screen
         randomizer = random.randrange(1, SPAWNER, 1)
         points = gameloopList[6].renderFont(str(score))
@@ -316,7 +326,7 @@ def gameLoop(gameloopList):
             if sprite.isFullDead():
                 sprites.remove(sprite)
 
-        #<--------------- Ammo --------------->#
+        #<------------------------------------------- AMMO ----------------------------------------------->#
         # Update ammo list
         for ammo in deadAmmos:
             ammo.updateAmmo()
@@ -326,11 +336,11 @@ def gameLoop(gameloopList):
                 except:
                     pass
 
-        #<--------------- ChickenForeground --------------->#
+        #<------------------------------------ ChickenForeground ------------------------------------------>#
         # Append chickenForeground Sprites to the list
         if spritesChickenForegroundAppend:
             SpritesChickenForeground.append(
-                gameloopList[4].createChickenForeground(WIDTH * 0.3, HEIGHT - 300))
+                gameloopList[4].createChickenForeground(random.randrange(100, 2700), HEIGHT - 300))
             spritesChickenForegroundAppend = False
 
         # Update chickenForeground sprites
@@ -339,7 +349,7 @@ def gameLoop(gameloopList):
             if spriteChickenForeground.isFullDead():
                 SpritesChickenForeground.remove(spriteChickenForeground)
 
-        #<--------------- SignPost --------------->#
+        #<------------------------------------------- SignPost -------------------------------------------->#
         # Append SignPost Sprites to the list
         if spritesSignPostAppend:
             spritesSignPost.append(
@@ -350,7 +360,7 @@ def gameLoop(gameloopList):
         for spritePost in spritesSignPost:
             spritePost.updateSign(post, move)
 
-        #<--------------- TrunksBig --------------->#
+        #<------------------------------------------- TrunksBig -------------------------------------------->#
         # Append Trunks Sprites to the list
         if spritesTrunkAppend:
             spritesTrunk.append(
@@ -361,7 +371,7 @@ def gameLoop(gameloopList):
         for spriteTrunk in spritesTrunk:
             spriteTrunk.updateTrunk(move)
 
-        #<--------------- TrunksSmall --------------->#
+        #<------------------------------------------- TrunksSmall ------------------------------------------->#
         # Append Trunks Sprites to the list
         if spritesTrunkAppendSmall:
             spritesTrunkSmall.append(
@@ -372,7 +382,7 @@ def gameLoop(gameloopList):
         for spriteTrunk in spritesTrunkSmall:
             spriteTrunk.updateTrunk(move)
 
-        #<--------------- Leaves --------------->#
+        #<------------------------------------------- Leaves ------------------------------------------------>#
         # Append Leaves Sprites to the list
         randomizerLeaves = random.randrange(1, SPAWNERLEAVES, 1)
         if randomizerLeaves == 1:
@@ -389,7 +399,7 @@ def gameLoop(gameloopList):
             if spriteLeaves.isFullDead():
                 spritesLeaves.remove(spriteLeaves)
 
-        #<--------------- Chickenhole --------------->#
+        #<------------------------------------------- Chickenhole ------------------------------------------->#
         # Append Chickenhole Sprites to the list
         if spritesCreated:
             spritesChickenHole.append(gameloopList[12].createChickenHole(
@@ -406,7 +416,7 @@ def gameLoop(gameloopList):
             spriteChickenHole.updateChickenHole(
                 move, spritesOut, spritesChickenHoleOut, spritesEnd, spritesChickenHoleEnd)
 
-        #<--------------- chickenWindmil --------------->#
+        #<------------------------------------------- chickenWindmil ---------------------------------------->#
         # Append Windmil Sprites to the list
         if spritesWindmilCreate:
             for i in range(0, 4):
@@ -418,83 +428,83 @@ def gameLoop(gameloopList):
         for spriteWindmil in spritesWindmil:
             spriteWindmil.updateWindmil(spritesWindmilAlive, move)
 
-        #<--------------- Camera --------------->#
+        #<------------------------------------------- Camera ------------------------------------------------>#
         # Camera Variables
         camera = gameloopList[17](mouseposition)
         scrolling = gameloopList[18]((startX, startY), mouseposition)
         move = 0
 
-        # #<--------------- Background --------------->#
+        # #<------------------------------------------- Background ------------------------------------------->#
         # # Render background image and color
 
         gameloopList[1].fill((SKYBLUE))
         gameloopList[1].blit(backgroundCombined.image,
                              (scrolling.offset[0], scrolling.offset[1]))
 
-        #<--------------- Render chickenWindmil --------------->#
+        #<------------------------------------------- Render chickenWindmil ----------------------------------->#
         # Render chickens to the screen
         for spriteWindmil in spritesWindmil:
             gameloopList[1].blit(spriteWindmil.getImage(),
                                  spriteWindmil.getRect())
 
-        #<--------------- Render Pumpkin --------------->#
+        #<------------------------------------------- Render Pumpkin ------------------------------------------>#
         # Render pumpkin to the screen
         for spritePumpkin in spritesPumpkin:
             gameloopList[1].blit(spritePumpkin.getImage(),
                                  spritePumpkin.getRect())
 
-        #<--------------- Render Plane --------------->#
+        #<------------------------------------------- Render Plane -------------------------------------------->#
         # Render pumpkin to the screen
         for spritePlane in spritesPlane:
             gameloopList[1].blit(spritePlane.getImage(),
                                  spritePlane.getRect())
 
-        #<--------------- Render Banner --------------->#
+        #<------------------------------------------- Render Banner -------------------------------------------->#
         # Render pumpkin to the screen
         for spriteBanner in spritesBanner:
             gameloopList[1].blit(spriteBanner.getImage(),
                                  spriteBanner.getRect())
 
-        #<--------------- Render Chicken --------------->#
+        #<------------------------------------------- Render Chicken ------------------------------------------->#
         # Render chickens to the screen
         for sprite in sprites:
             gameloopList[1].blit(sprite.getImage(), sprite.getRect())
 
-        #<--------------- Render TrunkBig --------------->#
+        #<------------------------------------------- Render TrunkBig ------------------------------------------->#
         # loops through the signPost list and render it
         for spriteTrunk in spritesTrunk:
             gameloopList[1].blit(spriteTrunk.getImage(),
                                  spriteTrunk.getRect())
 
-        #<--------------- Render TrunkSmall --------------->#
+        #<------------------------------------------- Render TrunkSmall ----------------------------------------->#
         # loops through the signPost list and render it
         for spriteTrunk in spritesTrunkSmall:
             gameloopList[1].blit(spriteTrunk.getImage(),
                                  spriteTrunk.getRect())
 
-        #<--------------- Render SignPost --------------->#
+        #<------------------------------------------- Render SignPost ------------------------------------------->#
         # loops through the signPost list and render it
         gameloopList[1].blit(spritePost.getImage(),
                              spritePost.getRect())
 
-        #<--------------- Render ChickenHole --------------->#
+        #<------------------------------------------- Render ChickenHole ---------------------------------------->#
         # Render chickens to the screen
         for spriteChickenHole in spritesChickenHole:
             gameloopList[1].blit(spriteChickenHole.getImage(),
                                  spriteChickenHole.getRect())
 
-        #<--------------- Render Leaves --------------->#
+        #<------------------------------------------- Render Leaves --------------------------------------------->#
         # Render chickens to the screen
         for spriteLeaves in spritesLeaves:
             gameloopList[1].blit(spriteLeaves.getImage(),
                                  spriteLeaves.getRect())
 
-        #<--------------- Render ChickenForeground --------------->#
+        #<------------------------------------------- Render ChickenForeground ---------------------------------->#
         for spriteChickenForeground in SpritesChickenForeground:
             gameloopList[1].blit(spriteChickenForeground.getImage(),
                                  spriteChickenForeground.getRect())
 
-        #<--------------- Map scroll --------------->#
+        #<------------------------------------------- Map scroll ------------------------------------------------>#
         # Move camera
         if gameloopList[13].cursor_rect.center[0] < 50 or left:
             if startX >= backgroundCombined.rect[0]:
@@ -511,13 +521,14 @@ def gameLoop(gameloopList):
         scrolling = gameloopList[18]((startX, startY), mouseposition)
         camera.setmethod(scrolling)
         camera.scroll()
-        #<--------------- Render MenuBar --------------->#
+        #<------------------------------------------- Render MenuBar ------------------------------------------->#
         # render top menu bar
         gameloopList[7].drawRectGame(
             gameloopList[1], 1, BLACK, 0, 0, WIDTH, 30, 0)
         gameloopList[7].drawText(gameloopList[1], gameloopList[6].font_text,
                                  LOCATIONGAME, TEXTGAME, 1, WHITE)
 
+        #<------------------------------------------- TIMER ----------------------------------------------->#
         # initiate the timer
         timerinitialiser = timerinitialiser + 1
         if timerinitialiser == 1:
@@ -536,13 +547,14 @@ def gameLoop(gameloopList):
         # render points
         gameloopList[1].blit(points, (WIDTH * 0.1, 0))
 
+        #<------------------------------------------- RENDER AMMO ----------------------------------------------->#
         # render the current ammo
         for ammo in ammos:
             gameloopList[1].blit(ammo.getImage(), ammo.getRect())
         for ammo in deadAmmos:
             gameloopList[1].blit(ammo.getImage(), ammo.getRect())
 
-        #<--------------- Render Cursor --------------->#
+        #<------------------------------------------- Render Cursor ------------------------------------------->#
         # Blit the image at the rect's topleft coords.
         if result:
             cursorColor = redCursor
