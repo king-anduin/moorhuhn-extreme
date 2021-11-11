@@ -122,7 +122,8 @@ def screenLoop(startloopLoop):
 
         # Update chickenhole
         for spriteChickenHole in spritesChickenHole:
-            spriteChickenHole.updateChickenHole(move, spritesChickenHoleOut, spritesEnd)
+            spriteChickenHole.updateChickenHole(
+                move, spritesChickenHoleOut, False, spritesEnd, False)
 
         # Render
         startloopLoop[1].fill((WHITE))

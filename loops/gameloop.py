@@ -4,7 +4,6 @@ import time
 
 from settings.settings import *
 from settings.background import *
-from camera import *
 
 # gameloopList = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory,
 #                  Sounds, Fonts, MenuButtons, TreeFactory, PumpkinFactory, PlaneFactory,
@@ -92,10 +91,14 @@ def gameLoop(gameloopList):
     index = [1, 10, 19, 28]
 
     # check for chickenhole shoot and sprite list
+    spritesChickenHoleBooelanList = []
     spritesOut = False
     spritesEnd = False
+    spritesChickenHoleOut = False
+    spritesChickenHoleEnd = False
     spritesChickenHole = []
     spritesCreated = True
+    spritesChickenholeCreated = True
 
     # Can predator shoot
     shoot = True
@@ -134,16 +137,16 @@ def gameLoop(gameloopList):
                             ammos.append(
                                 gameloopList[14].createAmmo((ammo_x, ammo_y), "Ammo1"))
             # move camera with arrows
-                if event.key ==pg.K_LEFT:
+                if event.key == pg.K_LEFT:
                     left = True
-                if event.key ==pg.K_RIGHT:
+                if event.key == pg.K_RIGHT:
                     right = True
             elif event.type == pg.KEYUP:
-                if event.key ==pg.K_LEFT:
+                if event.key == pg.K_LEFT:
                     left = False
-                if event.key ==pg.K_RIGHT:
+                if event.key == pg.K_RIGHT:
                     right = False
-            
+
             elif event.type == pg.MOUSEMOTION:
                 # If the mouse is moved, set the center of the rect
                 # to the mouse pos. You can also use pg.mouse.get_pos()
@@ -189,24 +192,21 @@ def gameLoop(gameloopList):
                 for spriteChickenHole in spritesChickenHole:
                     if spriteChickenHole.checkHitChickenHole(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and shoot and spritesOut:
                         gameloopList[5].chickenDeadSound(chickenSound).play()
-                        spritesEnd = True
-                        # spritesOut = False
-                        # print(sprite.getPos())
-                        # sprite.deadchicken()
-                        # spritesChickenHole.remove(spriteChickenHole)
+                        if spritesOut:
+                            spritesEnd = True
+                        if spritesChickenHoleOut:
+                            spritesChickenHoleEnd = True
 
                 # checks for hitting pumpkin
                 for spritePumpkin in spritesPumpkin:
                     if spritePumpkin.checkHitPumpkin(mousex, mousey) and shoot:
                         gameloopList[5].scarecrowHit.play()
                         pumpkinMove = True
-                        # sprites.remove(sprite)
 
                 # checks for hitting planes
                 for spritePlane in spritesPlane:
                     if spritePlane.checkHitPlane(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
                         gameloopList[5].planeCrash(planeSound).play()
-                        # spritesPlane.remove(spritePlane)
 
                 # checks for hitting banners
                 for spriteBanner in spritesBanner:
@@ -218,11 +218,9 @@ def gameLoop(gameloopList):
                     if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         score = gameloopList[15].erhoehePunkte(sprite.points)
-                        # print(sprite.getPos())
                         sprite.deadchicken()
-                        # sprites.remove(sprite)
 
-                        # checks for hitting sign post and uses state pattern to change
+                # checks for hitting sign post and uses state pattern to change
                 for spritePost in spritesSignPost:
                     if spritePost.checkHitSign(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and shoot:
                         gameloopList[5].treeHit.play()
@@ -237,16 +235,12 @@ def gameLoop(gameloopList):
                 for spriteChickenForeground in SpritesChickenForeground:
                     if spriteChickenForeground.checkHitChicken(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
                         # score = gameloopList[15].erhoehePunkte(sprite.points)
-                        # chickenForeground.remove(spriteChickenForeground)
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         spriteChickenForeground.deadchicken()
-
-                        # gameloopList[13].aliveState("huhu")
 
                 # Checks for hitting the TrunkBig
                 for spriteTrunk in spritesTrunk:
                     if spriteTrunk.checkHitTrunk(mousex, mousey) and shoot:
-                        # chickenForeground.remove(spriteChickenForeground)
                         gameloopList[5].treeHit.play()
                         spritesFalling = True
                         spritesOut = True
@@ -254,10 +248,9 @@ def gameLoop(gameloopList):
                 # Checks for hitting the TrunkSmall
                 for spriteTrunk in spritesTrunkSmall:
                     if spriteTrunk.checkHitTrunk(mousex, mousey) and shoot:
-                        # chickenForeground.remove(spriteChickenForeground)
                         gameloopList[5].treeHit.play()
-                        # spritesFalling = True
-                        # spritesOut = True
+                        spritesFalling = True
+                        spritesChickenHoleOut = True
 
                 # Checks for hitting the leaves
                 for spriteLeaves in spritesLeaves:
@@ -386,6 +379,10 @@ def gameLoop(gameloopList):
             spritesLeaves.append(gameloopList[11].createLeaves(
                 (random.uniform(384, 864)), 0, "Down"))
 
+        if randomizerLeaves == 2:
+            spritesLeaves.append(gameloopList[11].createLeaves(
+                (random.uniform(1300, 1700)), 0, "Down"))
+
         # Update Leaves
         for spriteLeaves in spritesLeaves:
             spriteLeaves.updateLeaves(move, spritesFalling)
@@ -396,14 +393,18 @@ def gameLoop(gameloopList):
         # Append Chickenhole Sprites to the list
         if spritesCreated:
             spritesChickenHole.append(gameloopList[12].createChickenHole(
-                (WIDTH * 0.9), 200, "Out", move))
+                (WIDTH * 0.87), 270, "Out", move))
             spritesCreated = False
+
+        if spritesChickenholeCreated:
+            spritesChickenHole.append(gameloopList[12].createChickenHole(
+                1515, 150, "Out2", move))
+            spritesChickenholeCreated = False
 
         # Update Chickenhole
         for spriteChickenHole in spritesChickenHole:
-                spriteChickenHole.updateChickenHole(move, spritesOut, spritesEnd)
-
-        
+            spriteChickenHole.updateChickenHole(
+                move, spritesOut, spritesChickenHoleOut, spritesEnd, spritesChickenHoleEnd)
 
         #<--------------- chickenWindmil --------------->#
         # Append Windmil Sprites to the list
@@ -415,20 +416,21 @@ def gameLoop(gameloopList):
 
         # Update Leaves
         for spriteWindmil in spritesWindmil:
-            spriteWindmil.updateChickenHole(spritesWindmilAlive, move)
+            spriteWindmil.updateWindmil(spritesWindmilAlive, move)
 
         #<--------------- Camera --------------->#
         # Camera Variables
-        camera = Camera(mouseposition)
-        scrolling = Border((startX, startY), mouseposition)
+        camera = gameloopList[17](mouseposition)
+        scrolling = gameloopList[18]((startX, startY), mouseposition)
         move = 0
 
         # #<--------------- Background --------------->#
         # # Render background image and color
-        
+
         gameloopList[1].fill((SKYBLUE))
-        gameloopList[1].blit(backgroundCombined.image, (scrolling.offset[0], scrolling.offset[1]))
-           
+        gameloopList[1].blit(backgroundCombined.image,
+                             (scrolling.offset[0], scrolling.offset[1]))
+
         #<--------------- Render chickenWindmil --------------->#
         # Render chickens to the screen
         for spriteWindmil in spritesWindmil:
@@ -506,7 +508,7 @@ def gameLoop(gameloopList):
             else:
                 move = -5
                 startX += move
-        scrolling = Border((startX, startY), mouseposition)
+        scrolling = gameloopList[18]((startX, startY), mouseposition)
         camera.setmethod(scrolling)
         camera.scroll()
         #<--------------- Render MenuBar --------------->#

@@ -59,7 +59,8 @@ startloopList = [clock, screen, Sounds,
                  Fonts, MenuButtons, Predator, AmmoFactory, ChickenHoleFactory]
 gameloopList = [clock, screen, ChickenFactory, SignPostFactory,
                 ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory,
-                PumpkinFactory, PlaneFactory, LeavesFactory, ChickenHoleFactory, Predator, AmmoFactory, ObserverSubject, ChickenWindmilFactory]
+                PumpkinFactory, PlaneFactory, LeavesFactory, ChickenHoleFactory, Predator,
+                AmmoFactory, ObserverSubject, ChickenWindmilFactory, Camera, Border]
 endloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
 bestlistloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
 helpLoopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
@@ -246,7 +247,7 @@ class GameHelpState(GameState):
 game = Game()
 
 # Starts the game
-game.startGame()
+game.loopGame()
 
 # Done! Time to quit.
 pg.quit()

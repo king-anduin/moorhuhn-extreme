@@ -88,7 +88,7 @@ class ChickenHoleList(ChickenHole):
         self.timer = 0
 
     # update function
-    def updateChickenHole(self, alive, position):
+    def updateWindmil(self, alive, position):
         self.rotate(alive)
         ChickenHole.update(self, position)
 

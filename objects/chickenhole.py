@@ -28,7 +28,8 @@ class ChickenHoleFactory:
         self.imageDict = ImageChickenHole().getFlyweightImages()
 
     def createChickenHole(self, x, y, direction: str, position):
-        chickenHole = ChickenHoleList(self.imageDict, x, y, direction, position)
+        chickenHole = ChickenHoleList(
+            self.imageDict, x, y, direction, position)
         return chickenHole
 # Sprites
 
@@ -76,19 +77,23 @@ class ChickenHoleList(ChickenHole):
         self.image = self.flyweightImages['chickenhole1']
         self.image_mask = pg.mask.from_surface(self.image)
         self.imageIndex = 1
+        self.imageIndex2 = 1
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
         self.direction = direction
         self.out = False
+        self.out2 = False
 
         self.maxtimer = CHICKENHOLESPEED
         self.timer = 0
 
      # update function
-    def updateChickenHole(self, position, out, end: bool):
+    def updateChickenHole(self, position: int, out: bool, out2: bool, end: bool, end2: bool):
         if out:
-            self.rotate(end)
-        ChickenHole.update(self, position)   
+            self.rotateTrunkBig(end)
+        if out2:
+            self.rotateTrunkSmall(end2)
+        ChickenHole.update(self, position)
 
     # get position of the mouse
     def getPos(self):
@@ -109,7 +114,7 @@ class ChickenHoleList(ChickenHole):
             return False
 
     # iterates over all .png to animate the signPost
-    def rotate(self, end: bool):
+    def rotateTrunkBig(self, end: bool):
         self.end = end
         if not self.end:
             if (self.direction == "Out"):
@@ -120,6 +125,23 @@ class ChickenHoleList(ChickenHole):
                     self.imageIndex += 1
                     if (self.imageIndex == 14):
                         self.imageIndex = 1
+                    self.image = pg.transform.scale(
+                        self.flyweightImages['chickenhole' + str(self.imageIndex)], CHICKENHOLESIZE)
+        else:
+            self.image = self.flyweightImages['chickenhole1']
+
+    # iterates over all .png to animate the signPost
+    def rotateTrunkSmall(self, end2: bool):
+        self.end2 = end2
+        if not self.end2:
+            if (self.direction == "Out2"):
+                self.out2 = True
+                self.timer += 1
+                if self.timer == self.maxtimer:
+                    self.timer = 0
+                    self.imageIndex2 += 1
+                    if (self.imageIndex2 == 14):
+                        self.imageIndex2 = 1
                     self.image = pg.transform.scale(
                         self.flyweightImages['chickenhole' + str(self.imageIndex)], CHICKENHOLESIZE)
         else:

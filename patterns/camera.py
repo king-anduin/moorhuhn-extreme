@@ -1,8 +1,9 @@
-import pygame
-vec = pygame.math.Vector2
-from abc import ABC, abstractmethod
-from settings.settings import *
 from settings.background import *
+from settings.settings import *
+from abc import ABC, abstractmethod
+import pygame as pg
+vec = pg.math.Vector2
+
 
 class Camera:
     def __init__(self, player):
@@ -14,8 +15,9 @@ class Camera:
     def scroll(self):
         self.method.scroll()
 
+
 class CamScroll(ABC):
-    def __init__(self, camera,player):
+    def __init__(self, camera, player):
         self.camera = camera
         self.player = player
 
@@ -31,7 +33,7 @@ class Border(CamScroll):
         self.offset_x = self.offset[0]
         self.offset_y = self.offset[1]
 
-    def scroll(self):        
+    def scroll(self):
         self.offset_x += (self.camera[0] - self.offset_x)
         self.offset_y += (self.camera[1] - self.offset_y)
         self.offset = (int(self.offset_x), int(self.offset_y))
