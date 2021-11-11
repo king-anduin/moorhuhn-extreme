@@ -109,7 +109,7 @@ Bewertungsmatrix:
 - Sichere Präsentation des Projektes (10%)
 
 Sprites:
-https://www.spriters-resource.com/fullview/46803/
+https://www.spriters-resource.com/pc_computer/moorhuhnremake/
 
 Vorgehensmodell:
 
