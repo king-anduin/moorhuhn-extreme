@@ -539,7 +539,7 @@ def gameLoop(gameloopList):
         time_string = (str(120-game_timer)+" time left")
         text = gameloopList[6].renderFont(time_string)
         gameloopList[1].blit(text, (WIDTH * 0.8, 0))
-        if game_timer == 20:
+        if game_timer == 120:
             gameloopList[5].background_sound.stop()
             running = False
             return True
