@@ -68,7 +68,7 @@ class SignPostList(Post):
         self.y = y
         self.flyweightImages = flyweightImages
         self.image = self.flyweightImages['signpost1']
-        self.mask = pg.mask.from_surface(self.image)
+        self.image_mask = pg.mask.from_surface(self.image)
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
 
@@ -82,10 +82,14 @@ class SignPostList(Post):
         return self.x, self.y
 
     # Checks that the hit is inside rect of signPost borders
-    def checkHitSign(self, x, y):
-        # print("Sign", self.rect.left, self.rect.right,
-        #       self.rect.top, self.rect.bottom)
-        if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
+    def checkHitSign(self, cursor, x, y):
+        # checks for rect collision
+        # if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
+
+        # checks for mask collition instead of rect position
+        offset = (x - self.rect.topleft[0], y - self.rect.topleft[1])
+        result = self.image_mask.overlap(cursor, offset)
+        if result:
             print("HIT signpost")
             return True
         else:

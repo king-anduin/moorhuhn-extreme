@@ -79,6 +79,7 @@ class ChickenHoleList(ChickenHole):
         self.y = y
         self.flyweightImages = flyweightImages
         self.image = self.flyweightImages[imagename]
+        self.image_mask = pg.mask.from_surface(self.image)
         self.imageIndex = index
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
@@ -96,8 +97,14 @@ class ChickenHoleList(ChickenHole):
         return self.x, self.y
 
     # Checks that the hit is inside rect of signPost borders
-    def checkHitWindmil(self, x, y):
-        if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
+    def checkHitWindmil(self, cursor, x, y):
+        # checks for rect collision
+        # if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
+
+        # checks for mask collition instead of rect position
+        offset = (x - self.rect.topleft[0], y - self.rect.topleft[1])
+        result = self.image_mask.overlap(cursor, offset)
+        if result:
             print("HIT chickenwindmil")
             return True
         else:

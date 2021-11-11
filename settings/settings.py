@@ -26,12 +26,13 @@ SPAWNERLEAVES = 110
 
 # flyweight.py
 CHICKEN_SIZE = (70, 70)
+
+# signpost.py
 SIGNPOSTSIZE = (379, 313)
 
 # predator.py
 CURSOR_SIZE = (20, 20)
 CURSOR_MID = (40, 40)
-
 
 # ammo.py
 AMMOSIZE = (48, 80)
@@ -91,3 +92,6 @@ CHICKENWINDMILSIZE = (200, 200)
 
 # chickenforeground.py
 CHICKENFOREGROUND = (300, 350)
+
+# fonts.py
+FIGURESIZE = (23, 36)

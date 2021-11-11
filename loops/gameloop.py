@@ -7,7 +7,8 @@ from settings.background import *
 
 # gameloopList = [clock, screen, ChickenFactory, SignPostFactory, ChickenForegroundFactory,
 #                  Sounds, Fonts, MenuButtons, TreeFactory, PumpkinFactory, PlaneFactory,
-#                   LeavesFactory, ChickenHoleFactory, Predator, ammoFactory ,ObserverSubject, ChickenWindmilFactory]
+#                   LeavesFactory, ChickenHoleFactory, Predator, ammoFactory ,ObserverSubject,
+#                   ChickenWindmilFactory]
 
 
 def gameLoop(gameloopList):
@@ -93,6 +94,7 @@ def gameLoop(gameloopList):
 
     # Can predator shoot
     shoot = True
+    red = False
 
     while running:
         # Delta Time
@@ -158,13 +160,13 @@ def gameLoop(gameloopList):
 
                 # checks for hitting chickenwindmil
                 for spriteWindmil in spritesWindmil:
-                    if spriteWindmil.checkHitWindmil(mousex, mousey) and shoot:
+                    if spriteWindmil.checkHitWindmil(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and shoot:
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         # spritesWindmilAlive = False
 
                 # checks for hitting chickenhole
                 for spriteChickenHole in spritesChickenHole:
-                    if spriteChickenHole.checkHitChickenHole(mousex, mousey) and shoot and spritesOut:
+                    if spriteChickenHole.checkHitChickenHole(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and shoot and spritesOut:
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         spritesEnd = True
                         # spritesOut = False
@@ -199,9 +201,9 @@ def gameLoop(gameloopList):
                         sprite.deadchicken()
                         # sprites.remove(sprite)
 
-                # checks for hitting sign post and uses state pattern to change
+                        # checks for hitting sign post and uses state pattern to change
                 for spritePost in spritesSignPost:
-                    if spritePost.checkHitSign(mousex, mousey) and shoot:
+                    if spritePost.checkHitSign(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and shoot:
                         gameloopList[5].treeHit.play()
                         if post:
                             # post = signPost.endState()
@@ -384,7 +386,7 @@ def gameLoop(gameloopList):
                 spriteChickenHole.updateChickenHole(spritesEnd)
 
         #<--------------- chickenWindmil --------------->#
-        # Append Leaves Sprites to the list
+        # Append Windmil Sprites to the list
         if spritesWindmilCreate:
             for i in range(0, 4):
                 spritesWindmil.append(gameloopList[16].createChickenWindmil(
@@ -509,8 +511,12 @@ def gameLoop(gameloopList):
 
         #<--------------- Render Cursor --------------->#
         # Blit the image at the rect's topleft coords.
-        gameloopList[1].blit(gameloopList[13].CURSOR_IMG,
-                             gameloopList[13].cursor_rect)
+        if not red:
+            gameloopList[1].blit(gameloopList[13].CURSOR_IMG,
+                                 gameloopList[13].cursor_rect)
+        else:
+            gameloopList[1].blit(gameloopList[13].CURSOR_IMG_RED,
+                                 gameloopList[13].cursor_rect)
 
         # Double Buffering
         pg.display.flip()

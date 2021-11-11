@@ -11,7 +11,11 @@ class Predator():
 
         # Cursor image for the predator
         self.CURSOR_IMG = (
-            (pg.image.load(os.path.join(self.img_folder, 'cursor/cursor.png'))))
+            (pg.image.load(os.path.join(self.img_folder, 'cursor/cursor.png')).convert_alpha()))
+        self.CURSOR_IMG_RED = (
+            (pg.image.load(os.path.join(self.img_folder, 'cursor/cursorred.png')).convert_alpha()))
+        self.CURSOR_IMG_MASK = pg.mask.from_surface(self.CURSOR_IMG)
+        self.CURSOR_IMG_RED_MASK = pg.mask.from_surface(self.CURSOR_IMG_RED)
         # Get rect for the predator image
         self.cursor_rect = self.CURSOR_IMG.get_rect()
 
