@@ -49,8 +49,8 @@ class Sprite:
         self.rect.topleft = (self.x, self.y)
         self.direction = ""
 
-    def update(self):
-        self.x = self.x + self.sx
+    def update(self, position):
+        self.x = self.x + self.sx + position
         self.y = self.y + self.sy
         self.rect.topleft = (self.x, self.y)
 
@@ -70,8 +70,8 @@ class Plane(Sprite):
         self.sx = sx
         self.sy = sy
 
-    def update(self):
-        self.x = self.x + self.sx
+    def update(self, position):
+        self.x = self.x + self.sx + position
         self.y = self.y + self.sy
         self.rect.topleft = (self.x, self.y)
 # Sprites
@@ -95,15 +95,15 @@ class PlaneList(Plane):
         self.maxtimer = COINSPEED
         self.timer = 0
 
-    # update function plane
-    def updatePlane(self):
+    # update function
+    def updatePlane(self, position):
         self.rotate()
-        Plane.update(self)
+        Plane.update(self, position)
 
     # update function banner
-    def updateBanner(self):
+    def updateBanner(self, position):
         self.planeBanner()
-        Plane.update(self)
+        Plane.update(self, position)
 
     # get position of the mouse
     def getPos(self):

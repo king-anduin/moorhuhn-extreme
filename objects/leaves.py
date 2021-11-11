@@ -48,8 +48,8 @@ class Sprite:
         self.rect.topleft = (self.x, self.y)
         self.direction = ""
 
-    def update(self):
-        self.x = self.x + self.sx
+    def update(self, position):
+        self.x = self.x + self.sx + position
         self.y = self.y + self.sy
         self.rect.topleft = (self.x, self.y)
 
@@ -69,9 +69,12 @@ class Leaves(Sprite):
         self.sx = sx
         self.sy = sy
 
-    def update(self):
-        self.x = self.x + self.sx
-        self.y = self.y + self.sy
+    def update(self, position, falling):
+        self.x = self.x + position
+        self.y = self.y
+        if falling:
+            self.x = self.x + self.sx
+            self.y = self.y + self.sy
         self.rect.topleft = (self.x, self.y)
 # Sprites
 
@@ -96,13 +99,19 @@ class LeavesList(Leaves):
         self.timer = 0
 
     # update function
-    def updateLeaves(self):
-        if not self.shot:
+    def updateLeaves(self, position, falling):
+        if falling:
             self.fallingLeaves()
-            Leaves.update(self)
+        Leaves.update(self, position, falling)
+    def updateLeaves(self, position, falling):
+        if not self.shot:
+            if falling:
+                self.fallingLeaves()
+            Leaves.update(self, position, falling)
         else:
-            self.fallingShot()
-            Leaves.update(self)
+            if falling:
+                self.fallingShot()
+            Leaves.update(self, position, falling)
 
     # get position of the mouse
     def getPos(self):

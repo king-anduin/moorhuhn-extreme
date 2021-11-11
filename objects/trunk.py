@@ -59,8 +59,8 @@ class Tree(Sprite):
     def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
         Sprite.__init__(self, x, y, imagename)
 
-    def update(self):
-        self.x = self.x
+    def update(self, position):
+        self.x = self.x + position
         self.y = self.y
         self.rect.topleft = (self.x, self.y)
 # Sprites
@@ -78,8 +78,8 @@ class TreeList(Tree):
         self.rect.topleft = (self.x, self.y)
 
     # update function
-    def updateTrunk(self):
-        Tree.update(self)
+    def updateTrunk(self, position):
+        Tree.update(self, position)
 
     # get position of the mouse
     def getPos(self):

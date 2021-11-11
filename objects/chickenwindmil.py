@@ -47,8 +47,8 @@ class Sprite:
         self.rect.topleft = (self.x, self.y)
         self.direction = ""
 
-    def update(self):
-        self.x = self.x
+    def update(self, position):
+        self.x = self.x + position
         self.y = self.y
         self.rect.topleft = (self.x, self.y)
 
@@ -66,8 +66,8 @@ class ChickenHole(Sprite):
     def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
         Sprite.__init__(self, x, y, imagename)
 
-    def update(self):
-        self.x = self.x
+    def update(self, position):
+        self.x = self.x + position
         self.y = self.y
         self.rect.topleft = (self.x, self.y)
 # Sprites
@@ -88,9 +88,9 @@ class ChickenHoleList(ChickenHole):
         self.timer = 0
 
     # update function
-    def updateChickenHole(self, alive):
+    def updateChickenHole(self, alive, position):
         self.rotate(alive)
-        ChickenHole.update(self)
+        ChickenHole.update(self, position)
 
     # get position of the mouse
     def getPos(self):

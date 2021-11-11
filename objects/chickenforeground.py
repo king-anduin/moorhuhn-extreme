@@ -59,8 +59,8 @@ class Chicken(Sprite):
     def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
         Sprite.__init__(self, x, y, imagename)
 
-    def update(self):
-        self.x = self.x
+    def update(self, position):
+        self.x = self.x + position
         self.y = self.y
         self.rect.topleft = (self.x, self.y)
 # Sprites
@@ -84,11 +84,10 @@ class ChickenList(Chicken):
         self.fullDead = False  # -------------
 
     # update function
-
-    def updateChicken(self):
+    def updateChicken(self, position):
         if self.alive:
             self.rotate()
-            Chicken.update(self)
+            Chicken.update(self, position)
         else:
             self.deadchicken()
 

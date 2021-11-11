@@ -55,8 +55,8 @@ class Post(Sprite):
     def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
         Sprite.__init__(self, x, y, imagename)
 
-    def update(self):
-        self.x = self.x
+    def update(self, position):
+        self.x = self.x + position
         self.y = self.y
         self.rect.topleft = (self.x, self.y)
 # Sprites
@@ -73,9 +73,9 @@ class SignPostList(Post):
         self.rect.topleft = (self.x, self.y)
 
     # update function
-    def updateSign(self, start: bool):
+    def updateSign(self, start: bool, position):
         self.rotate(start)
-        Post.update(self)
+        Post.update(self, position)
 
     # get position of the mouse
     def getPos(self):
