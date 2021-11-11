@@ -33,8 +33,13 @@ class PlaneFactory:
     def __init__(self):
         self.imageDict = ImagePlane().getFlyweightImages()
 
-    def createPlane(self, x, y, direction: str):
-        plane = PlaneList(self.imageDict, x, y, SPEED * random.choice([1, -1, 0.5, -0.5]),
+    def createPlaneLeft(self, x, y, direction: str):
+        plane = PlaneList(self.imageDict, x, y, SPEED * random.choice([1, 1, 0.5, 0.5]),
+                          SPEED * random.choice([0, -0, 0, -0]), direction)
+        return plane
+
+    def createPlaneRight(self, x, y, direction: str):
+        plane = PlaneList(self.imageDict, x, y, SPEED * random.choice([-1, -1, -0.5, -0.5]),
                           SPEED * random.choice([0, -0, 0, -0]), direction)
         return plane
 
@@ -50,8 +55,8 @@ class Sprite:
         self.rect.topleft = (self.x, self.y)
         self.direction = ""
 
-    def update(self):
-        self.x = self.x + self.sx
+    def update(self, position):
+        self.x = self.x + self.sx + position
         self.y = self.y + self.sy
         self.rect.topleft = (self.x, self.y)
 
@@ -71,8 +76,8 @@ class Plane(Sprite):
         self.sx = sx
         self.sy = sy
 
-    def update(self):
-        self.x = self.x + self.sx
+    def update(self, position):
+        self.x = self.x + self.sx + position
         self.y = self.y + self.sy
         self.rect.topleft = (self.x, self.y)
 
@@ -166,9 +171,9 @@ class PlaneList(Plane):
         self.timer = 0
 
     # update function
-    def updatePlane(self):
+    def updatePlane(self, position):
         self.rotate()
-        Plane.update(self)
+        Plane.update(self, position)
 
     # get position of the mouse
     def getPos(self):

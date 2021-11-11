@@ -16,6 +16,9 @@ def gameLoop(gameloopList):
     # Starting coordinates for map
     startX, startY = 0, 100
 
+    # Starting movement of map
+    move = 0
+
     # Mouseposition
     mouseposition = gameloopList[13].cursor_rect.center
 
@@ -207,45 +210,44 @@ def gameLoop(gameloopList):
         # Append Pumpkin Sprites to the list
         if pumpkinAppend:
             spritesPumpkin.append(
-                gameloopList[9].createPumpkin(WIDTH * 0.7, HEIGHT * 0.5))
+                gameloopList[9].createPumpkin(2060, HEIGHT * 0.6))
             pumpkinAppend = False
 
         # Update Pumpkin
-        if pumpkinMove:
-            for spritePumpkin in spritesPumpkin:
-                spritePumpkin.updatePumpkin()
+        for spritePumpkin in spritesPumpkin:
+            spritePumpkin.updatePumpkin(move, pumpkinMove)
 
         #<--------------- Plane --------------->#
         # create a plane every spawners iteration on right side of screen
         randomizerPlane = random.randrange(1, SPAWNERPLANE, 1)
         if randomizerPlane == 1:
-            spritesPlane.append(gameloopList[10].createPlane(
+            spritesPlane.append(gameloopList[10].createPlaneRight(
                 (1.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Left"))
 
         # create a plane every spawners iteration on right side of screen
         if randomizerPlane == 2:
-            spritesPlane.append(gameloopList[10].createPlane(
+            spritesPlane.append(gameloopList[10].createPlaneLeft(
                 (-0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Right"))
 
         # Update plane
         for spritePlane in spritesPlane:
-            spritePlane.updatePlane()
+            spritePlane.updatePlane(move)
 
         #<--------------- Chicken --------------->#
         # create a chicken every spawners iteration on right side of screen
         randomizer = random.randrange(1, SPAWNER, 1)
         if randomizer == 1:
-            sprites.append(gameloopList[2].createChicken(
+            sprites.append(gameloopList[2].createChickenRight(
                 (1.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Left"))
 
         # create a chicken every spawners iteration on right side of screen
         if randomizer == 2:
-            sprites.append(gameloopList[2].createChicken(
+            sprites.append(gameloopList[2].createChickenLeft(
                 (-0.12*WIDTH), random.uniform((0.1*HEIGHT), (0.6*HEIGHT)), "Right"))
 
         # Update chicken sprites
         for sprite in sprites:
-            sprite.update()
+            sprite.update(move)
 
         #<--------------- ChickenForeground --------------->#
         # Append chickenForeground Sprites to the list
@@ -256,7 +258,7 @@ def gameLoop(gameloopList):
 
         # Update chickenForeground sprites
         for spriteChickenForeground in SpritesChickenForeground:
-            spriteChickenForeground.updateChicken()
+            spriteChickenForeground.updateChicken(move)
 
         #<--------------- SignPost --------------->#
         # Append SignPost Sprites to the list
@@ -267,7 +269,7 @@ def gameLoop(gameloopList):
 
         # Update signpost
         for spritePost in spritesSignPost:
-            spritePost.updateSign(post)
+            spritePost.updateSign(post, move)
 
         #<--------------- TrunksBig --------------->#
         # Append Trunks Sprites to the list
@@ -278,7 +280,7 @@ def gameLoop(gameloopList):
 
         # Update Trunk
         for spriteTrunk in spritesTrunk:
-            spriteTrunk.updateTrunk()
+            spriteTrunk.updateTrunk(move)
 
         #<--------------- TrunksSmall --------------->#
         # Append Trunks Sprites to the list
@@ -289,41 +291,42 @@ def gameLoop(gameloopList):
 
         # Update Trunk
         for spriteTrunk in spritesTrunkSmall:
-            spriteTrunk.updateTrunk()
+            spriteTrunk.updateTrunk(move)
 
         #<--------------- Leaves --------------->#
         # Append Leaves Sprites to the list
         randomizerLeaves = random.randrange(1, SPAWNERLEAVES, 1)
         if randomizerLeaves == 1:
             spritesLeaves.append(gameloopList[11].createLeaves(
-                (WIDTH * random.uniform(0.4, 0.9)), 0, "Down"))
+                (random.uniform(384, 864)), 0, "Down"))
 
         # Update Leaves
-        if spritesFalling:
-            for spriteLeaves in spritesLeaves:
-                spriteLeaves.updateLeaves()
+        for spriteLeaves in spritesLeaves:
+            spriteLeaves.updateLeaves(move, spritesFalling)
 
         #<--------------- Chickenhole --------------->#
-        # Append Leaves Sprites to the list
+        # Append Chickenhole Sprites to the list
         if spritesCreated:
             spritesChickenHole.append(gameloopList[12].createChickenHole(
-                (WIDTH * 0.9), 200, "Out"))
+                (WIDTH * 0.9), 200, "Out", move))
             spritesCreated = False
 
-        # Update Leaves
-        if spritesOut:
-            for spriteChickenHole in spritesChickenHole:
-                spriteChickenHole.updateChickenHole()
+        # Update Chickenhole
+        for spriteChickenHole in spritesChickenHole:
+                spriteChickenHole.updateChickenHole(move, spritesOut)
+
 
         # Camera Variables
         camera = Camera(mouseposition)
         scrolling = Border((startX, startY), mouseposition)
+        move = 0
 
         # #<--------------- Background --------------->#
         # # Render background image and color
+        
         gameloopList[1].fill((SKYBLUE))
         gameloopList[1].blit(backgroundCombined.image, (scrolling.offset[0], scrolling.offset[1]))
-
+           
         #<--------------- Render Pumpkin --------------->#
         # Render pumpkin to the screen
         for spritePumpkin in spritesPumpkin:
@@ -381,12 +384,14 @@ def gameLoop(gameloopList):
             if startX >= backgroundCombined.rect[0]:
                 startX += 0
             else:
-                startX += 5
+                move = 5
+                startX += move
         if WIDTH - gameloopList[13].cursor_rect.center[0] < 50:
             if startX - WIDTH <= -backgroundCombined.rect[2] + 50:
                 startX -= 0
             else:
-                startX -= 5
+                move = -5
+                startX += move
         scrolling = Border((startX, startY), mouseposition)
         camera.setmethod(scrolling)
         camera.scroll()

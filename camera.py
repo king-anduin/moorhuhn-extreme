@@ -32,7 +32,6 @@ class Border(CamScroll):
         self.offset_y = self.offset[1]
 
     def scroll(self):        
-        if self.player[0] < 50 or WIDTH - self.player[0] < 50:
-            self.offset_x += (self.camera[0] - self.offset_x)
-            self.offset_y += (self.camera[1] - self.offset_y)
-            self.offset = (int(self.offset_x), int(self.offset_y))
+        self.offset_x += (self.camera[0] - self.offset_x)
+        self.offset_y += (self.camera[1] - self.offset_y)
+        self.offset = (int(self.offset_x), int(self.offset_y))
