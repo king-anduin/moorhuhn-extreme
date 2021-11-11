@@ -246,7 +246,7 @@ class GameHelpState(GameState):
 game = Game()
 
 # Starts the game
-game.startGame()
+game.loopGame()
 
 # Done! Time to quit.
 pg.quit()

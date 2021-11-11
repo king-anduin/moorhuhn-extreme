@@ -94,7 +94,10 @@ def gameLoop(gameloopList):
 
     # Can predator shoot
     shoot = True
-    red = False
+    normaleCursor = gameloopList[13].CURSOR_IMG
+    redCursor = gameloopList[13].CURSOR_IMG_RED
+    cursorColor = normaleCursor
+    result = False
 
     while running:
         # Delta Time
@@ -511,12 +514,12 @@ def gameLoop(gameloopList):
 
         #<--------------- Render Cursor --------------->#
         # Blit the image at the rect's topleft coords.
-        if not red:
-            gameloopList[1].blit(gameloopList[13].CURSOR_IMG,
-                                 gameloopList[13].cursor_rect)
+        if result:
+            cursorColor = redCursor
         else:
-            gameloopList[1].blit(gameloopList[13].CURSOR_IMG_RED,
-                                 gameloopList[13].cursor_rect)
+            cursorColor = normaleCursor
+        gameloopList[1].blit(cursorColor,
+                             gameloopList[13].cursor_rect)
 
         # Double Buffering
         pg.display.flip()
