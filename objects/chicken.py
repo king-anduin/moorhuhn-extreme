@@ -32,8 +32,13 @@ class ChickenFactory:
     def __init__(self):
         self.imageDict = ImageChicken().getFlyweightImages()
 
-    def createChicken(self, x, y, direction: str, points: int):
-        chicken = ChickenList(self.imageDict, x, y, SPEED * random.choice([1, -1, 0.5, -0.5]),
+    def createChickenLeft(self, x, y, direction: str, points: int):
+        chicken = ChickenList(self.imageDict, x, y, SPEED * random.choice([1, 1, 0.5, 0.5]),
+                              SPEED * random.choice([0, -0, 0, -0]), direction, points)
+        return chicken
+
+    def createChickenRight(self, x, y, direction: str, points: int):
+        chicken = ChickenList(self.imageDict, x, y, SPEED * random.choice([-1, -1, -0.5, -0.5]),
                               SPEED * random.choice([0, -0, 0, -0]), direction, points)
         return chicken
 
@@ -65,8 +70,8 @@ class Chicken(Sprite):
         self.sx = sx
         self.sy = sy
 
-    def update(self):
-        self.x = self.x + self.sx
+    def update(self, position):
+        self.x = self.x + self.sx + position
         self.y = self.y + self.sy
         self.rect.topleft = (self.x, self.y)
 
@@ -123,10 +128,10 @@ class ChickenList(Chicken):
         return self.points
 
 # update function
-    def update(self):
+    def update(self, position):
         if self.isDead == False:
             self.rotate()
-            Chicken.update(self)
+            Chicken.update(self, position)
         else:
             self.deadchicken()
 

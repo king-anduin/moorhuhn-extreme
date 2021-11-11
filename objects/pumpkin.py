@@ -55,8 +55,8 @@ class Pumpkin(Sprite):
     def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str):
         Sprite.__init__(self, x, y, imagename)
 
-    def update(self):
-        self.x = self.x
+    def update(self, position):
+        self.x = self.x + position
         self.y = self.y
         self.rect.topleft = (self.x, self.y)
 # Sprites
@@ -78,9 +78,10 @@ class PumpkinList(Pumpkin):
         self.alive = True
 
     # update function
-    def updatePumpkin(self):
-        self.rotate()
-        Pumpkin.update(self)
+    def updatePumpkin(self, position, state):
+        if state:
+            self.rotate()
+        Pumpkin.update(self, position)
 
     # get position of the mouse
     def getPos(self):

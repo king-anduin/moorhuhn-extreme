@@ -27,14 +27,14 @@ class ChickenHoleFactory:
     def __init__(self):
         self.imageDict = ImageChickenHole().getFlyweightImages()
 
-    def createChickenHole(self, x, y, direction: str):
-        chickenHole = ChickenHoleList(self.imageDict, x, y, direction)
+    def createChickenHole(self, x, y, direction: str, position):
+        chickenHole = ChickenHoleList(self.imageDict, x, y, direction, position)
         return chickenHole
 # Sprites
 
 
 class Sprite:
-    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str, direction: str):
+    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str, direction: str, position):
         self.x = x
         self.y = y
         self.image = flyweightImages[imagename]
@@ -42,8 +42,8 @@ class Sprite:
         self.rect.topleft = (self.x, self.y)
         self.direction = ""
 
-    def update(self):
-        self.x = self.x
+    def update(self, position):
+        self.x = self.x + position
         self.y = self.y
         self.rect.topleft = (self.x, self.y)
 
@@ -58,18 +58,18 @@ class Sprite:
 
 
 class ChickenHole(Sprite):
-    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str, direction: str):
+    def __init__(self, flyweightImages: dict, x: int, y: int, imagename: str, direction: str, position):
         Sprite.__init__(self, x, y, imagename)
 
-    def update(self):
-        self.x = self.x
+    def update(self, position):
+        self.x = self.x + position
         self.y = self.y
         self.rect.topleft = (self.x, self.y)
 # Sprites
 
 
 class ChickenHoleList(ChickenHole):
-    def __init__(self, flyweightImages: dict, x: int, y: int, direction: str):
+    def __init__(self, flyweightImages: dict, x: int, y: int, direction: str, position):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
@@ -78,14 +78,16 @@ class ChickenHoleList(ChickenHole):
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
         self.direction = direction
+        self.out = False
 
         self.maxtimer = CHICKENHOLESPEED
         self.timer = 0
 
-    # update function
-    def updateChickenHole(self, end: bool):
-        self.rotate(end)
-        ChickenHole.update(self)
+     # update function
+    def updateChickenHole(self, position, out, end: bool):
+        if out:
+            self.rotate(end)
+        ChickenHole.update(self, position)   
 
     # get position of the mouse
     def getPos(self):
@@ -104,6 +106,7 @@ class ChickenHoleList(ChickenHole):
         self.end = end
         if not self.end:
             if (self.direction == "Out"):
+                self.out = True
                 self.timer += 1
                 if self.timer == self.maxtimer:
                     self.timer = 0
