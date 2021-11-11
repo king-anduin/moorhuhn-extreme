@@ -13,13 +13,13 @@ class ImageChickenForeground:
         # Make Dictionary of Images
         self.images = {}
 
-        for i in range(1, 20):
+        for i in range(1, 19):
             self.images['chickenforeground'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'chickenforeground'+str(i)+'.png')).convert_alpha(), (SIGNPOSTSIZE))
+                img_folder, 'chickenforeground'+str(i)+'.png')).convert_alpha(), (CHICKENFOREGROUND))
 
         for i in range(1, 6):
-            self.images['chickenforegroundead'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'chickenforegroundead'+str(i)+'.png')).convert_alpha(), (SIGNPOSTSIZE))
+            self.images['chickenforegrounddead'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'chickenforegrounddead'+str(i)+'.png')).convert_alpha(), (CHICKENFOREGROUND))
 
     def getFlyweightImages(self):
         return self.images
@@ -63,75 +63,6 @@ class Chicken(Sprite):
         self.x = self.x + position
         self.y = self.y
         self.rect.topleft = (self.x, self.y)
-
-# State Pattern
-
-
-class ChickenForegroundState:
-    def alive(self):
-        raise NotImplementedError
-
-    def dead(self):
-        raise NotImplementedError
-
-    def enter(self):
-        raise NotImplementedError
-
-    def exit(self):
-        raise NotImplementedError
-
-
-class ChickenForeground:
-    def __init__(self):
-        self.chickenState = ChickenForegroundAliveState(self)
-
-    def changeState(self, newState: ChickenForegroundState):
-        if self.chickenState != None:
-            self.chickenState.exit()
-        self.chickenState = newState
-        self.chickenState.enter()
-
-    def aliveState(self, test):
-        self.chickenState.alive()
-
-    def deadState(self):
-        self.chickenState.dead()
-
-
-class ChickenForegroundAliveState(ChickenForegroundState):
-    def __init__(self, chickenForeground: ChickenForeground):
-        self.chickenForeground = chickenForeground
-
-    def alive(self):
-        print("Sign is already in start state, SignPostStartState")
-
-    def dead(self):
-        self.chickenForeground.changeState(
-            ChickenForegroundDeadState(self.chickenForeground))
-
-    def enter(self):
-        print("Sign is in start state, SignPostStartState")
-
-    def exit(self):
-        pass
-
-
-class ChickenForegroundDeadState(ChickenForegroundState):
-    def __init__(self, chickenForeground: ChickenForeground):
-        self.chickenForeground = chickenForeground
-
-    def alive(self):
-        self.chickenForeground.changeState(
-            ChickenForegroundAliveState(self.chickenForeground))
-
-    def dead(self):
-        print("Sign is already in end state, SignPostEndState")
-
-    def enter(self):
-        print("sign is now in end state, SignPostEndState")
-
-    def exit(self):
-        pass
 # Sprites
 
 
@@ -147,10 +78,10 @@ class ChickenList(Chicken):
         self.rect.topleft = (self.x, self.y)
 
         self.direction = True
-        self.size = (300, 360)
         self.maxtimer = CHICKENFOREGROUNDSPEED
         self.timer = 0
         self.alive = True
+        self.fullDead = False  # -------------
 
     # update function
     def updateChicken(self, position):
@@ -184,10 +115,9 @@ class ChickenList(Chicken):
                 if (self.imageIndex == 19):
                     self.imageIndex = 1
                 self.image = pg.transform.flip(
-                    pg.transform.scale(self.flyweightImages['chickenforeground' + str(self.imageIndex)], self.size), True, False)
+                    pg.transform.scale(self.flyweightImages['chickenforeground' + str(self.imageIndex)], CHICKENFOREGROUND), True, False)
 
     def deadchicken(self):
-        transparent = (0, 0, 0, 0)
         self.alive = False
         self.timer += 1
         if self.timer == self.maxtimer:
@@ -195,6 +125,10 @@ class ChickenList(Chicken):
             self.imageIndexDead += 1
             if (self.imageIndexDead < 6):
                 self.image = pg.transform.scale(
-                    self.flyweightImages['chickenforegroundead' + str(self.imageIndexDead)], self.size)
+                    self.flyweightImages['chickenforegrounddead' + str(self.imageIndexDead)], CHICKENFOREGROUND)
             else:
-                self.image.fill(transparent)
+                self.image.fill(TRANSPARENT)
+                self.fullDead = True  # ------
+
+    def isFullDead(self):
+        return self.fullDead  # -----------

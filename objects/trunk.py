@@ -15,11 +15,11 @@ class ImageTree:
 
         for i in range(1, 2):
             self.images['trunkSmall'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'trunkSmall'+str(i)+'.png')).convert_alpha(), (100, HEIGHT))
+                img_folder, 'trunkSmall'+str(i)+'.png')).convert_alpha(), (100, int(HEIGHT)))
 
         for i in range(1, 2):
             self.images['trunkBig'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
-                img_folder, 'trunkBig'+str(i)+'.png')).convert_alpha(), (200, HEIGHT))
+                img_folder, 'trunkBig'+str(i)+'.png')).convert_alpha(), (200, int(HEIGHT)))
 
     def getFlyweightImages(self):
         return self.images
@@ -63,75 +63,6 @@ class Tree(Sprite):
         self.x = self.x + position
         self.y = self.y
         self.rect.topleft = (self.x, self.y)
-
-# State Pattern
-
-
-class TreeState:
-    def alive(self):
-        raise NotImplementedError
-
-    def dead(self):
-        raise NotImplementedError
-
-    def enter(self):
-        raise NotImplementedError
-
-    def exit(self):
-        raise NotImplementedError
-
-
-class ChickenForeground:
-    def __init__(self):
-        self.chickenState = TreeNormal(self)
-
-    def changeState(self, newState: TreeState):
-        if self.chickenState != None:
-            self.chickenState.exit()
-        self.chickenState = newState
-        self.chickenState.enter()
-
-    def aliveState(self):
-        self.chickenState.alive()
-
-    def deadState(self):
-        self.chickenState.dead()
-
-
-class TreeNormal(TreeState):
-    def __init__(self, chickenForeground: ChickenForeground):
-        self.chickenForeground = chickenForeground
-
-    def alive(self):
-        print("Sign is already in start state, SignPostStartState")
-
-    def dead(self):
-        self.chickenForeground.changeState(
-            TreeAction(self.chickenForeground))
-
-    def enter(self):
-        print("Sign is in start state, SignPostStartState")
-
-    def exit(self):
-        pass
-
-
-class TreeAction(TreeState):
-    def __init__(self, chickenForeground: ChickenForeground):
-        self.chickenForeground = chickenForeground
-
-    def alive(self):
-        self.chickenForeground.changeState(
-            TreeNormal(self.chickenForeground))
-
-    def dead(self):
-        print("Sign is already in end state, SignPostEndState")
-
-    def enter(self):
-        print("sign is now in end state, SignPostEndState")
-
-    def exit(self):
-        pass
 # Sprites
 
 

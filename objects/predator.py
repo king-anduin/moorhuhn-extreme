@@ -15,11 +15,11 @@ class Predator():
         # Get rect for the predator image
         self.cursor_rect = self.CURSOR_IMG.get_rect()
 
-        # Images for the ammo
-        self.SHELL_IMG = (
-            (pg.image.load(os.path.join(self.img_folder, 'munition/shell.png'))))
-        # Get rect for the ammo image
-        self.shell_rect = self.SHELL_IMG.get_rect()
+        # # Images for the ammo
+        # self.SHELL_IMG = (
+        #     (pg.image.load(os.path.join(self.img_folder, 'munition/shell.png'))))
+        # # Get rect for the ammo image
+        # self.shell_rect = self.SHELL_IMG.get_rect()
 
 # Create crosshair for aiming
 # CURSOR_IMG = pg.Surface((CURSOR_MID), pg.SRCALPHA)

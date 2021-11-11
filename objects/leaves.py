@@ -6,11 +6,6 @@ from settings.settings import *
 # Flyweight
 
 
-class Image:
-    def __init__(self, image):
-        self.image = pg.image.load(image).convert_alpha()
-
-
 class ImageLeave:
     def __init__(self):
         # initialize all variables and do all the setup for a new game
@@ -22,6 +17,10 @@ class ImageLeave:
         for i in range(1, 21):
             self.images['leaves'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
                 img_folder, 'leaves'+str(i)+'.png')).convert_alpha(), (LEAVESIZE))
+
+        for i in range(0, 25):
+            self.images['leavesshot'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
+                img_folder, 'leavesshot'+str(i)+'.png')).convert_alpha(), (LEAVESIZE))
 
     def getFlyweightImages(self):
         return self.images
@@ -77,75 +76,6 @@ class Leaves(Sprite):
             self.x = self.x + self.sx
             self.y = self.y + self.sy
         self.rect.topleft = (self.x, self.y)
-
-# State Pattern
-
-
-class LeavesStates:
-    def alive(self):
-        raise NotImplementedError
-
-    def dead(self):
-        raise NotImplementedError
-
-    def enter(self):
-        raise NotImplementedError
-
-    def exit(self):
-        raise NotImplementedError
-
-
-class LeaveChange:
-    def __init__(self):
-        self.chickenState = LeavesNormal(self)
-
-    def changeState(self, newState: LeavesStates):
-        if self.chickenState != None:
-            self.chickenState.exit()
-        self.chickenState = newState
-        self.chickenState.enter()
-
-    def aliveState(self):
-        self.chickenState.alive()
-
-    def deadState(self):
-        self.chickenState.dead()
-
-
-class LeavesNormal(LeavesStates):
-    def __init__(self, chickenForeground: LeaveChange):
-        self.chickenForeground = chickenForeground
-
-    def alive(self):
-        print("Sign is already in start state, SignPostStartState")
-
-    def dead(self):
-        self.chickenForeground.changeState(
-            LeavesFalling(self.chickenForeground))
-
-    def enter(self):
-        print("Sign is in start state, SignPostStartState")
-
-    def exit(self):
-        pass
-
-
-class LeavesFalling(LeavesStates):
-    def __init__(self, chickenForeground: LeaveChange):
-        self.chickenForeground = chickenForeground
-
-    def alive(self):
-        self.chickenForeground.changeState(
-            LeavesNormal(self.chickenForeground))
-
-    def dead(self):
-        print("Sign is already in end state, SignPostEndState")
-
-    def enter(self):
-        print("sign is now in end state, SignPostEndState")
-
-    def exit(self):
-        pass
 # Sprites
 
 
@@ -156,11 +86,14 @@ class LeavesList(Leaves):
         self.flyweightImages = flyweightImages
         self.image = self.flyweightImages['leaves1']
         self.imageIndex = 1
+        self.imageIndexShot = 0
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
         self.sx = sx
         self.sy = sy
         self.direction = direction
+        self.shot = False
+        self.fullDead = False
 
         self.maxtimer = COINSPEED
         self.timer = 0
@@ -170,6 +103,15 @@ class LeavesList(Leaves):
         if falling:
             self.fallingLeaves()
         Leaves.update(self, position, falling)
+    def updateLeaves(self, position, falling):
+        if not self.shot:
+            if falling:
+                self.fallingLeaves()
+            Leaves.update(self, position, falling)
+        else:
+            if falling:
+                self.fallingShot()
+            Leaves.update(self, position, falling)
 
     # get position of the mouse
     def getPos(self):
@@ -194,3 +136,19 @@ class LeavesList(Leaves):
                     self.imageIndex = 1
                 self.image = pg.transform.scale(
                     self.flyweightImages['leaves' + str(self.imageIndex)], LEAVESIZE)
+
+    def fallingShot(self):
+        self.shot = True
+        self.timer += 1
+        if self.timer == self.maxtimer:
+            self.timer = 0
+            self.imageIndexShot += 1
+            if (self.imageIndexShot < 25):
+                self.image = pg.transform.scale(
+                    self.flyweightImages['leavesshot' + str(self.imageIndexShot)], LEAVESIZE)
+            else:
+                self.image.fill(TRANSPARENT)
+                self.fullDead = True  # ------
+
+    def isFullDead(self):
+        return self.fullDead  # -----------

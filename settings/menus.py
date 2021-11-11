@@ -9,6 +9,7 @@ class MenuButtons():
         self.objectsRectGame = []
         self.objectsRectEnd = []
         self.objectsRectBest = []
+        self.objectsRectHelp = []
 
     def drawText(self, screen, font_text, location, text, amount, color):
         for i in range(amount):
@@ -50,3 +51,10 @@ class MenuButtons():
             pg.draw.rect(
                 screen, color, self.objectsRectBest[i], border_radius=borderradius)
             y += 100
+
+    def drawRectHelp(self, screen, amount, color, position, size, borderradius):
+        for i in range(amount):
+            self.objectsRectHelp.append(
+                pg.Rect(position[i][0], position[i][1], size[i][0], size[i][1]))
+            pg.draw.rect(
+                screen, color, self.objectsRectHelp[i], border_radius=borderradius)

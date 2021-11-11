@@ -3,10 +3,7 @@ import random
 import pygame as pg
 from settings.settings import *
 
-
-class Image:
-    def __init__(self, image):
-        self.image = pg.image.load(image).convert_alpha()
+# Flyweight
 
 
 class ImageChicken:
@@ -35,14 +32,14 @@ class ChickenFactory:
     def __init__(self):
         self.imageDict = ImageChicken().getFlyweightImages()
 
-    def createChickenLeft(self, x, y, direction: str):
+    def createChickenLeft(self, x, y, direction: str, points: int):
         chicken = ChickenList(self.imageDict, x, y, SPEED * random.choice([1, 1, 0.5, 0.5]),
-                              SPEED * random.choice([0, -0, 0, -0]), direction)
+                              SPEED * random.choice([0, -0, 0, -0]), direction, points)
         return chicken
 
-    def createChickenRight(self, x, y, direction: str):
+    def createChickenRight(self, x, y, direction: str, points: int):
         chicken = ChickenList(self.imageDict, x, y, SPEED * random.choice([-1, -1, -0.5, -0.5]),
-                              SPEED * random.choice([0, -0, 0, -0]), direction)
+                              SPEED * random.choice([0, -0, 0, -0]), direction, points)
         return chicken
 
 # Sprites
@@ -68,7 +65,7 @@ class Sprite:
 
 
 class Chicken(Sprite):
-    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, imagename: str, direction: str):
+    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, imagename: str, direction: str, points: int):
         Sprite.__init__(self, x, y, imagename)
         self.sx = sx
         self.sy = sy
@@ -83,86 +80,29 @@ class Chicken(Sprite):
 
         if (self.rect.top <= 0):
             self.sy = self.sy * -1
-
-# State Pattern
-
-
-class ChickenForegroundState:
-    def alive(self):
-        raise NotImplementedError
-
-    def dead(self):
-        raise NotImplementedError
-
-    def enter(self):
-        raise NotImplementedError
-
-    def exit(self):
-        raise NotImplementedError
-
-
-class ChickenNormal:
-    def __init__(self):
-        self.chickenState = ChickenAliveState(self)
-
-    def changeState(self, newState: ChickenForegroundState):
-        if self.chickenState != None:
-            self.chickenState.exit()
-        self.chickenState = newState
-        self.chickenState.enter()
-
-    def aliveState(self, test):
-        self.chickenState.alive()
-
-    def deadState(self):
-        self.chickenState.dead()
-
-
-class ChickenAliveState(ChickenForegroundState):
-    def __init__(self, chickenForeground: ChickenNormal):
-        self.chickenForeground = chickenForeground
-
-    def alive(self):
-        print("Sign is already in start state, SignPostStartState")
-
-    def dead(self):
-        self.chickenForeground.changeState(
-            ChickenDeadState(self.chickenForeground))
-
-    def enter(self):
-        print("Sign is in start state, SignPostStartState")
-
-    def exit(self):
-        pass
-
-
-class ChickenDeadState(ChickenForegroundState):
-    def __init__(self, chickenForeground: ChickenNormal):
-        self.chickenForeground = chickenForeground
-
-    def alive(self):
-        self.chickenForeground.changeState(
-            ChickenAliveState(self.chickenForeground))
-
-    def dead(self):
-        print("Sign is already in end state, SignPostEndState")
-
-    def enter(self):
-        print("sign is now in end state, SignPostEndState")
-
-    def exit(self):
-        pass
 # Sprites
 
 
 class ChickenList(Chicken):
-    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, direction: str):
+    def __init__(self, flyweightImages: dict, x: int, y: int, sx: int, sy: int, direction: str, points: int):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
         self.size = random.choice([CHICKENSIZE1, CHICKENSIZE2, CHICKENSIZE3])
         self.image = pg.transform.scale(
             self.flyweightImages['chicken1'], self.size)
+        self.mask = pg.mask.from_surface(self.image)
+        #self.points = get_points(self.size)
+        if self.size[0] == 30:
+            print("chicken size 30")
+            self.points = 25
+        if self.size[0] == 50:
+            print("chicken size 50")
+            self.points = 15
+        if self.size[0] > 50:
+            print("chicken size 70")
+            self.points = 10
+
         self.imageIndex = 1
         self.imageIndexDead = 1
         # print(id(self.flyweightImages))
@@ -172,10 +112,20 @@ class ChickenList(Chicken):
         self.sy = sy
         self.direction = direction
         self.isDead = False
+        self.fullDead = False
 
         # Coin Speed
         self.maxtimer = COINSPEED
         self.timer = 0
+
+    def get_points(self):
+        if self.size == 30:
+            self.points = 25
+        if self.size == 50:
+            self.points = 15
+        if self.size == 70:
+            self.points == 10
+        return self.points
 
 # update function
     def update(self, position):
@@ -195,6 +145,7 @@ class ChickenList(Chicken):
         #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
             print("HIT chicken")
+            print("Points "+str(self.points))
             return True
         else:
             return False
@@ -234,4 +185,7 @@ class ChickenList(Chicken):
                     self.flyweightImages['chickendead' + str(self.imageIndexDead)], self.size)
             else:
                 self.image.fill(transparent)
-                # return True
+                self.fullDead = True  # ------
+
+    def isFullDead(self):
+        return self.fullDead  # -----------

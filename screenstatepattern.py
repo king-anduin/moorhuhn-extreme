@@ -13,6 +13,12 @@ ChickenFactory = ChickenFactory()
 SignPostFactory = SignPostFactory()
 
 # Create Object
+AmmoFactory = AmmoFactory()
+
+# Create Object
+ChickenHoleFactory = ChickenHoleFactory()
+
+# Create Object
 TreeFactory = TreeFactory()
 
 # Create Predator
@@ -22,16 +28,13 @@ Predator = Predator()
 ChickenForegroundFactory = ChickenForegroundFactory()
 
 # Create Object
-# ChickenForeground = ChickenForeground()
-
-# Create Object
 PumpkinFactory = PumpkinFactory()
 
 # Create Object
 PlaneFactory = PlaneFactory()
 
 # Create Object
-ChickenHoleFactory = ChickenHoleFactory()
+ChickenWindmilFactory = ChickenWindmilFactory()
 
 # Create Object
 LeavesFactory = LeavesFactory()
@@ -45,16 +48,21 @@ Fonts = Fonts()
 # Create Buttons Object
 MenuButtons = MenuButtons()
 
+# observer
+ObserverSubject = Player()
+
 # pg Clock
 clock = pg.time.Clock()
 
 # List for handing over to loops
-startloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
+startloopList = [clock, screen, Sounds,
+                 Fonts, MenuButtons, Predator, AmmoFactory, ChickenHoleFactory]
 gameloopList = [clock, screen, ChickenFactory, SignPostFactory,
                 ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory,
-                PumpkinFactory, PlaneFactory, LeavesFactory, ChickenHoleFactory, Predator]
+                PumpkinFactory, PlaneFactory, LeavesFactory, ChickenHoleFactory, Predator, AmmoFactory, ObserverSubject, ChickenWindmilFactory]
 endloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
 bestlistloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
+helpLoopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
 
 
 class GameState:
@@ -68,6 +76,9 @@ class GameState:
         raise NotImplementedError
 
     def best(self):
+        raise NotImplementedError
+
+    def help(self):
         raise NotImplementedError
 
     def exit(self):
@@ -96,6 +107,9 @@ class Game:
     def bestGame(self):
         self.gameState.best()
 
+    def helpGame(self):
+        self.gameState.help()
+
     def endGame(self):
         self.gameState.end()
 
@@ -106,10 +120,13 @@ class GameStartState(GameState):
 
     def start(self):
         print("Already in start screen, GameStartState")
-        if screenLoop(startloopList):
+        check = screenLoop(startloopList)
+        if check == 1:
             game.loopGame()
-        elif screenLoop(startloopList) == False:
+        elif check == 2:
             game.bestGame()
+        elif check == 3:
+            game.helpGame()
 
     def loop(self):
         self.game.changeState(GameLoopState(self.game))
@@ -117,15 +134,21 @@ class GameStartState(GameState):
     def best(self):
         self.game.changeState(GameBestList(self.game))
 
+    def help(self):
+        self.game.changeState(GameHelpState(self.game))
+
     def end(self):
         self.game.changeState(GameEndState(self.game))
 
     def enter(self):
         print("You enter start screen, GameStartState")
-        if screenLoop(startloopList):
+        check = screenLoop(startloopList)
+        if check == 1:
             game.loopGame()
-        elif screenLoop(startloopList) == False:
+        elif check == 2:
             game.bestGame()
+        elif check == 3:
+            game.helpGame()
 
     def exit(self):
         pass
@@ -140,9 +163,6 @@ class GameLoopState(GameState):
 
     def loop(self):
         print("Already in Game loop, GameLoopState")
-
-    def best(self):
-        self.game.changeState(GameBestList(self.game))
 
     def end(self):
         self.game.changeState(GameEndState(self.game))
@@ -163,14 +183,11 @@ class GameEndState(GameState):
     def start(self):
         self.game.changeState(GameStartState(self.game))
 
-    def loop(self):
-        self.game.changeState(GameLoopState(self.game))
-
     def best(self):
         self.game.changeState(GameBestList(self.game))
 
     def end(self):
-        print("Already in End Screen")
+        print("Already in End Screen, GameEndState")
 
     def enter(self):
         print("You enter end game, GameEndState")
@@ -188,18 +205,37 @@ class GameBestList(GameState):
     def start(self):
         self.game.changeState(GameStartState(self.game))
 
-    def loop(self):
-        self.game.changeState(GameLoopState(self.game))
-
     def best(self):
-        print("Already in best list")
+        print("Already in best list, GameBestList")
 
     def end(self):
         self.game.changeState(GameEndState(self.game))
 
     def enter(self):
-        print("You enter best list, GameEndState")
+        print("You enter best list, GameBestList")
         if bestlistloop(bestlistloopList):
+            game.startGame()
+
+    def exit(self):
+        pass
+
+
+class GameHelpState(GameState):
+    def __init__(self, game: Game):
+        self.game = game
+
+    def start(self):
+        self.game.changeState(GameStartState(self.game))
+
+    def best(self):
+        self.game.changeState(GameBestList(self.game))
+
+    def help(self):
+        print("Already in help Screen, GameHelpState")
+
+    def enter(self):
+        print("You enter help game, GameHelpState")
+        if helpLoop(helpLoopList):
             game.startGame()
 
     def exit(self):

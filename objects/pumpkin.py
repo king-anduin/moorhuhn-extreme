@@ -5,11 +5,6 @@ from settings.settings import *
 # Flyweight
 
 
-class Image:
-    def __init__(self, image):
-        self.image = pg.image.load(image).convert_alpha()
-
-
 class ImagePumpkin:
     def __init__(self):
         # initialize all variables and do all the setup for a new game
@@ -18,7 +13,7 @@ class ImagePumpkin:
         # Make Dictionary of Images
         self.images = {}
 
-        for i in range(1, 9):
+        for i in range(1, 10):
             self.images['pumpkin'+str(i)] = pg.transform.scale(pg.image.load(os.path.join(
                 img_folder, 'pumpkin'+str(i)+'.png')).convert_alpha(), (100, 100))
 
@@ -64,75 +59,6 @@ class Pumpkin(Sprite):
         self.x = self.x + position
         self.y = self.y
         self.rect.topleft = (self.x, self.y)
-
-# State Pattern
-
-
-class PumpkinState:
-    def alive(self):
-        raise NotImplementedError
-
-    def dead(self):
-        raise NotImplementedError
-
-    def enter(self):
-        raise NotImplementedError
-
-    def exit(self):
-        raise NotImplementedError
-
-
-class ChickenForeground:
-    def __init__(self):
-        self.chickenState = PumpkinNormal(self)
-
-    def changeState(self, newState: Pumpkin):
-        if self.chickenState != None:
-            self.chickenState.exit()
-        self.chickenState = newState
-        self.chickenState.enter()
-
-    def aliveState(self):
-        self.chickenState.alive()
-
-    def deadState(self):
-        self.chickenState.dead()
-
-
-class PumpkinNormal(Pumpkin):
-    def __init__(self, chickenForeground: ChickenForeground):
-        self.chickenForeground = chickenForeground
-
-    def alive(self):
-        print("Sign is already in start state, SignPostStartState")
-
-    def dead(self):
-        self.chickenForeground.changeState(
-            PumpkinShot(self.chickenForeground))
-
-    def enter(self):
-        print("Sign is in start state, SignPostStartState")
-
-    def exit(self):
-        pass
-
-
-class PumpkinShot(Pumpkin):
-    def __init__(self, chickenForeground: ChickenForeground):
-        self.chickenForeground = chickenForeground
-
-    def alive(self):
-        self.chickenForeground.changeState(
-            PumpkinNormal(self.chickenForeground))
-
-    def dead(self):
-        print("Sign is already in end state, SignPostEndState")
-
-    def enter(self):
-        print("sign is now in end state, SignPostEndState")
-
-    def exit(self):
-        pass
 # Sprites
 
 
@@ -177,7 +103,7 @@ class PumpkinList(Pumpkin):
         if self.timer == self.maxtimer:
             self.timer = 0
             self.imageIndex += 1
-            if (self.imageIndex == 8):
-                self.imageIndex = 1
+            if (self.imageIndex == 9):
+                self.imageIndex = 8
             self.image = pg.transform.scale(
                 self.flyweightImages['pumpkin' + str(self.imageIndex)], self.size)
