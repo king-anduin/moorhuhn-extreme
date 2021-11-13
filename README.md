@@ -1,7 +1,4 @@
-Projektarbeit
-
-Pull Re :
-
+Semester project:
 Mindestanforderungen:
 
     Programmierung eines lauffähigen Spiels
@@ -50,44 +47,92 @@ Bewertungsmatrix:
 
     Sichere Präsentation des Projektes (10%)
 
-Moorhuhn Infos zum Ablauf
-
-To-Do-Liste:
-
-Klassendiagramm aufzeichnen (UML) (Seite 59) --> Moh
-
-- Ist ein
-- Hat ein
-
+-------------------------------------------------------------------------------------
 Designpattern
 
 - Dependency Injection (Seite 93)
-- Strategy (Seite 103)
-- State (Seite 112) --> Sebastian
-  - SignPost ---> Peter (Flyweight, Factory)
-  - Ammo --> MoH (Flyweight, Factory, StatePattern)
-- MVC (Seite 124)
-- Observer (Seite 133)
-- Factory (Seite 142)
-- Command (Seite 152)
+- Strategy (Seite 103)    --> ./objects/* & ./statepattern.py
+- State (Seite 112)       --> ./statepattern.py
+- MVC (Seite 124)         --> ./objects/* & ./highscore/highscore.json & ./loops/*
+- Observer (Seite 133)    --> ./patterns/observer.py
+- Factory (Seite 142)     --> ./objects/*
+- Command (Seite 152)     --> not implemented
 
-Designpattern pg
+Designpattern pygame
 
-- Gameloop (Seite 194) --> Peter
-  - Sprites --> Sebastian (chicken)
-  - Zeit und Punkte --> Richard (eventuell decorater, Verwendung Observer pattern für Punkte) (Huhnpunkte = (5, 10, 25), AbzügeSign = (-5)), Mutterhuhn = (25)
-- Update (Seite 206)
-- Movement (Seite 219) --> Richard
-- Vektoren (Seite 237)
-- Collusion Detection (Seite 246)
-- Tilemap (Seite 282)
-- Flyweight (Seite 300)
-- Camera (Seite 310) ---> Sebastian (Hühner spwanen auf der ganzen Welt, scrollen mit arrow left & arrow right, Sprites bewegen sich mit)
+- Gameloop (Seite 194)    --> ./loops/*
+- Update (Seite 206)      --> ./objects/*
+- Movement (Seite 219)    --> ./objects/*
+- Vektoren (Seite 237)    --> partly conducted (pixel perfect collision instead of rect)
+- Collusion Detection (Seite 246) --> ./objects/* (pixel perfect collision instead of rect)
+- Flyweight (Seite 300)   --> ./objects/*
+- Camera (Seite 310)      --> ./patterns/camera.py
+- Tilemap (Seite 282)     --> we don't use tiles
 
-Sounds --> Moh
+-------------------------------------------------------------------------------------
+Task which were implemented by the following team member
+Peter:
+- root folder
+  - statepattern.py
+  - importmodules.py
+  - start.py
+- objects
+  - chicken.py
+  - chickenforeground.py
+  - chickenhole.py
+  - chickenwindmil.py
+  - leaves.py
+  - plane.py
+  - predator.py
+  - pumpkin.py
+  - signpost.py
+  - trunk.py
+- settings 
+  - background.py
+  - menus.py
+  - sounds.py (original sounds)
+- loops
+  - bestlistloop.py
+  - endloop.py
+  - gameloop.py
+  - helploop.py
+  - startloop.py
+- _img
 
-Startbildschirm, Game Over, Spiel --> Peter
+MoH:
+- _img
+- highscore (still in progress)
+  - highscore.json
+- objects
+  - ammo.py
+- settings
+  - sounds.py (old sounds were replaced by original sounds)
+- uml
+  - UML.uxf
 
+Sebastian:
+- _img
+- objects
+  - chicken
+- patterns
+  - camera.py
+
+Richard:
+- _img
+- fonts
+- objects
+  - chicken.py
+- patterns
+  - observer.py
+- settings
+  - fonts.py
+- start template from lecture
+
+Ressources:
+Sprites:
+  - https://www.spriters-resource.com/pc_computer/moorhuhnremake/
+
+-------------------------------------------------------------------------------------
 Mindestanforderungen:
 
 - Mind. 3 Szenen: Startbildschirm, Game Over, Spiel, Bestenliste
@@ -108,31 +153,24 @@ Bewertungsmatrix:
 - Codestärke (Lesbarkeit und Patterns) (30%)
 - Sichere Präsentation des Projektes (10%)
 
-Sprites:
-https://www.spriters-resource.com/pc_computer/moorhuhnremake/
-
+-------------------------------------------------------------------------------------
 Vorgehensmodell:
 
-SCRUM
+SCRUM (start 01.11 - 14.11)
 
-Rollen
+Rolls
 
 - Scrum Master: Moh
 - Product Owner: Peter
 - Team: Richard, Sebastian
 
-Dailys jeweils 11 Uhr:
+Dailys at 11 am:
 
-- Mittwoch, Freitag
+- Wednesday, Friday
 
-Weekly 12 Uhr:
+Weekly 12 pm:
 
-- Sonntag (Fertiges Produkt)
-
-Nächste Meeting ist am Samstag (30.10) um 11:00 Uhr:
-Es dauert maximal eineinhalb Stunden.
+- Sunday (Fertiges Produkt)
 
 Nice to have:
-
-- Explosionen
 - Mute Button
