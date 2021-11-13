@@ -245,9 +245,3 @@ class GameHelpState(GameState):
 
 # Creates game states
 game = Game()
-
-# Starts the game
-game.startGame()
-
-# Done! Time to quit.
-pg.quit()
