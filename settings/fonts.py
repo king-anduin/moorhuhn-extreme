@@ -11,6 +11,8 @@ class Fonts:
             self.font_folder, 'comicsansms3.ttf'), 24)
 
     # define with font is used for ingame text
-    def renderFont(self, string):
-        string = self.font_text.render(string, True, (WHITE))
+    def renderFont(self, string, *color):
+        if not color:
+            color = WHITE
+        string = self.font_text.render(string, True, (color))
         return string

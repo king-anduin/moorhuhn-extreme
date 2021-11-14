@@ -1,7 +1,7 @@
 import pygame as pg
 from settings.settings import *
 from settings.background import *
-
+import json
 # bestlistloop = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
 
 
@@ -11,6 +11,27 @@ def bestlistloop(bestlistloopList):
 
     # Endless Sound loop
     bestlistloopList[2].bestlist_sound.play(-1)
+
+    data = {"highscores": []}
+    try:
+        with open("highscore\highscore.json", "r") as f:
+            data = json.load(f)
+    except:
+        pass
+
+    highscores = []
+    highscoreLocs = []
+    orders = []
+    orderLocs = []
+    y_offset = 50
+    count = 1
+    # Create best list
+    for high in data["highscores"]:
+        highscores.append(str(high["value"]))
+        highscoreLocs.append((WIDTH * 0.5 + 100, y_offset * count + 100))
+        orders.append(str(count) + ".")
+        orderLocs.append((WIDTH * 0.5 - 100, y_offset * count + 100))
+        count = count + 1
 
     while running:
         # Delta Time
@@ -47,10 +68,18 @@ def bestlistloop(bestlistloopList):
         bestlistloopList[1].blit(bestListBG.image, bestListBG.rect)
 
         # Render text and rects for menu
-        bestlistloopList[4].drawRectBest(bestlistloopList[1], 2, WHITE,
-                                         WIDTH * 0.5 - 100, 100, 200, 50, 5)
+        bestlistloopList[4].drawRectBest(bestlistloopList[1], 1, WHITE,
+                                         WIDTH * 0.5 - 100, 50, 200, 50, 5)
         bestlistloopList[4].drawText(bestlistloopList[1], bestlistloopList[3].font_text,
-                                     LOCATIONBEST, TEXTBEST, 2, BLACK)
+                                     LOCATIONBEST, TEXTBEST, 1, BLACK)
+
+        # Render best list
+        pg.draw.rect(bestlistloopList[1], WHITE, pg.Rect(
+            WIDTH * 0.5 - 150, 125, 300, 300), border_radius=5)
+        bestlistloopList[4].drawText(bestlistloopList[1], bestlistloopList[3].font_text,
+                                     highscoreLocs, highscores, len(highscores), BLACK)
+        bestlistloopList[4].drawText(bestlistloopList[1], bestlistloopList[3].font_text,
+                                     orderLocs, orders, len(highscores), BLACK)
 
         # Blit the image at the rect's topleft coords.
         bestlistloopList[1].blit(

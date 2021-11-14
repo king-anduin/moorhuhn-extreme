@@ -1,6 +1,7 @@
 import pygame as pg
 import random
 import time
+import json
 
 from settings.settings import *
 from settings.background import *
@@ -12,6 +13,22 @@ from settings.background import *
 
 
 def gameLoop(gameloopList):
+
+    # def show_go_screen():
+    #     draw_text (screen, "GAME OVER", 64, screen_width * 0.5, screen-height * 0.25 )
+    #
+
+    #     pg.display.flip()
+    #     waiting = True
+    #     while waiting:
+    #         clock.tick(FPS)
+    #         for event in pg.event.get():
+    #             if event.type ==  pg.QUIT:
+    #                 pg.quit()
+
+    #             if event.type == pg.KEYUP:
+    #                 waiting = False
+
     # set score to 0
     score = 0
 
@@ -107,9 +124,49 @@ def gameLoop(gameloopList):
     cursorColor = normaleCursor
     result = False
 
-    while running:
+    # Game Over variables
+    game_over = False
+    game_over_text = gameloopList[6].renderFont("GAME OVER", BLACK)
+
+    # Window should exit?
+    exited = False
+
+    while running or game_over:
         # Delta Time
         dt = gameloopList[0].tick(FPS)
+        if game_over:
+            for event in pg.event.get():
+                if event.type == pg.QUIT:
+                    gameloopList[5].background_sound.stop()
+                    game_over = False
+                    exited = True
+                if event.type == pg.KEYDOWN:
+                    # Ends the game on ESC
+                    if event.key == pg.K_RETURN:
+                        gameloopList[5].background_sound.stop()
+                        game_over = False
+                if event.type == pg.MOUSEMOTION:
+                    gameloopList[13].cursor_rect.center = event.pos
+                    mouseposition = gameloopList[13].cursor_rect.center
+            # Render background
+            gameloopList[1].fill((SKYBLUE))
+
+            # Render Game Over label and final score
+            gameloopList[1].blit(
+                game_over_text, (WIDTH * 0.5 - game_over_text.get_rect().width/2, HEIGHT * 0.5 - 50))
+            gameloopList[1].blit(
+                points, (WIDTH * 0.5 - points.get_rect().width/2, HEIGHT * 0.5))
+
+            # Render mouse
+            if result:
+                cursorColor = redCursor
+            else:
+                cursorColor = normaleCursor
+            gameloopList[1].blit(cursorColor,
+                                 gameloopList[13].cursor_rect)
+
+            pg.display.flip()
+            continue
 
         chickenSound = random.randint(0, 2)
         planeSound = random.randint(1, 2)
@@ -119,13 +176,15 @@ def gameLoop(gameloopList):
             if event.type == pg.QUIT:
                 gameloopList[5].background_sound.stop()
                 running = False
+                return False
 
             # Keys pressed
             if event.type == pg.KEYDOWN:
                 # Ends the game on ESC
                 if event.key == pg.K_ESCAPE:
-                    gameloopList[5].background_sound.stop()
+                    # gameloopList[5].background_sound.stop()
                     running = False
+                    game_over = True
                 # Reload on space
                 if event.key == pg.K_SPACE:
                     if len(ammos) < 10:
@@ -540,9 +599,10 @@ def gameLoop(gameloopList):
         text = gameloopList[6].renderFont(time_string)
         gameloopList[1].blit(text, (WIDTH * 0.8, 0))
         if game_timer == 120:
-            gameloopList[5].background_sound.stop()
+            # gameloopList[5].background_sound.stop()
             running = False
-            return True
+            game_over = True
+            # return True
 
         # render points
         gameloopList[1].blit(points, (WIDTH * 0.1, 0))
@@ -565,3 +625,24 @@ def gameLoop(gameloopList):
 
         # Double Buffering
         pg.display.flip()
+
+    # Save Score
+    data = {"highscores": []}
+    try:
+        with open("highscore\highscore.json", "r+") as f:
+            data = json.load(f)
+    except Exception as e:
+        pass
+    try:
+        with open("highscore\highscore.json", "w+") as f:
+            data["highscores"].append({"value": score})
+            data["highscores"] = sorted(
+                data["highscores"], key=lambda score: score["value"], reverse=True)[:6]
+            json.dump(data, f, indent=4)
+    except Exception as e:
+        pass
+
+
+# Game Over
+
+    return not exited

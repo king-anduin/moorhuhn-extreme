@@ -51,8 +51,8 @@ LOCATIONEND = [(WIDTH * 0.5, 125), (WIDTH * 0.5, 225)]
 TEXTEND = ["Menu", "Exit"]
 
 # bestlistloop.py
-LOCATIONBEST = [(WIDTH * 0.5, 125), (WIDTH * 0.5, 225)]
-TEXTBEST = ["Menu", "Highscore"]
+LOCATIONBEST = [(WIDTH * 0.5, 75)]
+TEXTBEST = ["Menu"]
 
 # helploop.py
 LOCATIONHELP = [(WIDTH * 0.5, 125), (WIDTH * 0.3, 225), (WIDTH * 0.3, 275),
