@@ -107,12 +107,6 @@ CHICKEN_SIZE_50_POINTS = 15
 # Chicken size 30
 CHICKEN_SIZE_30_POINTS = 25
 
-#hitting TrunkBig
-HIT_TRUNK_BIG = 15
-
-#hitting TrunkSmall
-HIT_TRUNK_SMALL = 25
-
 # hit Banner 
 HIT_BANNER = 15
 
