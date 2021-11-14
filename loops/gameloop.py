@@ -220,9 +220,10 @@ def gameLoop(gameloopList):
         #<------------------------------------------ CHICKENS ----------------------------------------------->#
                 # checks for hitting chickens
                 for sprite in sprites:
-                    if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
+                    if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
                         gameloopList[5].chickenDeadSound(chickenSound).play()
-                        score = gameloopList[15].erhoehePunkte(sprite.points)
+                        score = gameloopList[15].erhoehePunkte(
+                            sprite.get_points())
                         sprite.deadchicken()
 
         #<------------------------------------------- SIGNPOST ----------------------------------------------->#
