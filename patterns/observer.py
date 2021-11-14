@@ -16,10 +16,9 @@ class ObserverSubject:
 class Player(ObserverSubject):
     def __init__(self):
         ObserverSubject.__init__(self)
-        self._punkte = 0
+        self._points = 0
 
-    def erhoehePunkte(self, anzahlPunkte):
-        self._punkte += anzahlPunkte
-        print("Meine Punkte sind nun", self._punkte)
+    def raisePoints(self, amountPoints):
+        self._points += amountPoints
         self._notify()
-        return self._punkte
+        return self._points

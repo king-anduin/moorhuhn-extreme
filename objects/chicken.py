@@ -108,12 +108,12 @@ class ChickenList(Chicken):
 
     def get_points(self):
         points = 0
-        if self.size[0] == 30:
-            points = 25
+        if self.size[0] < 50:
+            points = CHICKEN_SIZE_30_POINTS
         if self.size[0] == 50:
-            points = 15
-        if self.size[0] == 70:
-            points == 10
+            points = CHICKEN_SIZE_50_POINTS
+        if self.size[0] > 50:
+            points = CHICKEN_SIZE_70_POINTS
         return points
 
 # update function
