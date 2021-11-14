@@ -40,6 +40,10 @@ class Sounds():
         self.button = pg.mixer.Sound(os.path.join(
             self.sound_folder, 'button1.ogg'))
 
+        # ChickenForeground sound when comming up
+        self.chickenForeground = pg.mixer.Sound(os.path.join(
+            self.sound_folder, 'big-chicken-pops-up.ogg'))
+
     def planeCrash(self, sound: int):
         self.chick_hit1 = pg.mixer.Sound(os.path.join(
             self.sound_folder, 'airplane_loop3.ogg'))

@@ -68,7 +68,6 @@ def gameLoop(gameloopList):
 
     # Boolean values for stopping appending list objects
     spritesSignPostAppend = True
-    spritesChickenForegroundAppend = True
 
     # GameLoop running?
     running = True
@@ -187,7 +186,7 @@ def gameLoop(gameloopList):
                 for spriteWindmil in spritesWindmil:
                     if spriteWindmil.checkHitWindmil(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and not spritePlane.rect.collidepoint(event.pos) and not sprite.rect.collidepoint(event.pos) and shoot:
                         gameloopList[5].chickenDeadSound(chickenSound).play()
-                        # spritesWindmilAlive = False
+                        spritesWindmilAlive = False
 
         #<---------------------------------------- CHICKENHOLE ----------------------------------------------->#
                 # checks for hitting chickenhole
@@ -241,7 +240,7 @@ def gameLoop(gameloopList):
         #<--------------------------------------- CHICKENFOREGROUND -------------------------------------->#
                 # Checks for hitting the ChickenForeground
                 for spriteChickenForeground in SpritesChickenForeground:
-                    if spriteChickenForeground.checkHitChicken(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                    if spriteChickenForeground.checkHitChicken(mousex, mousey) and shoot:
                         # score = gameloopList[15].erhoehePunkte(sprite.points)
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         spriteChickenForeground.deadchicken()
@@ -338,10 +337,12 @@ def gameLoop(gameloopList):
 
         #<------------------------------------ ChickenForeground ------------------------------------------>#
         # Append chickenForeground Sprites to the list
-        if spritesChickenForegroundAppend:
+        randomizerChickenForeground = random.randrange(
+            1, SPAWNERCHICKENFOREGROUND, 1)
+        if randomizerChickenForeground == 1:
+            gameloopList[5].chickenForeground.play()
             SpritesChickenForeground.append(
                 gameloopList[4].createChickenForeground(random.randrange(100, 2700), HEIGHT - 300))
-            spritesChickenForegroundAppend = False
 
         # Update chickenForeground sprites
         for spriteChickenForeground in SpritesChickenForeground:

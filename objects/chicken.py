@@ -174,7 +174,6 @@ class ChickenList(Chicken):
 
 # changes the state of the chicken to dead
     def deadchicken(self):
-        transparent = (0, 0, 0, 0)
         self.isDead = True
         self.timer += 1
         if self.timer == self.maxtimer:
@@ -184,8 +183,7 @@ class ChickenList(Chicken):
                 self.image = pg.transform.scale(
                     self.flyweightImages['chickendead' + str(self.imageIndexDead)], self.size)
             else:
-                self.image.fill(transparent)
-                self.fullDead = True  # ------
+                self.fullDead = True
 
     def isFullDead(self):
-        return self.fullDead  # -----------
+        return self.fullDead

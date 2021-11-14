@@ -20,9 +20,10 @@ TRANSPARENT = (0, 0, 0, 0)
 # SPAWNER is the iteration Timer for spawning new chickens
 # as lower as more chickens will spawn
 # Maybe usefull for dificulties
-SPAWNER = 100
-SPAWNERPLANE = 120
+SPAWNER = 120
+SPAWNERPLANE = 180
 SPAWNERLEAVES = 110
+SPAWNERCHICKENFOREGROUND = 420
 
 # flyweight.py
 CHICKEN_SIZE = (70, 70)
