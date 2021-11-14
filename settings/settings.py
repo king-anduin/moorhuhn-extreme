@@ -96,3 +96,34 @@ CHICKENFOREGROUND = (300, 350)
 
 # fonts.py
 FIGURESIZE = (23, 36)
+
+#------ Points -------#
+# Chicken size 70
+CHICKEN_SIZE_70_POINTS = 10
+
+# Chicken size 50
+CHICKEN_SIZE_50_POINTS = 15
+
+# Chicken size 30
+CHICKEN_SIZE_30_POINTS = 25
+
+# hit Banner 
+HIT_BANNER = 15
+
+#hit Pumpkin
+HIT_PUMPKIN = 25
+
+#hit Chicken hole
+HIT_CHICKEN_HOLE = 25
+
+#Chicken Windmill
+HIT_CHICKEN_WINDMILL = 35
+
+#hit leave
+HIT_LEAVE = 2
+
+#hitting sign post
+HIT_SIGN = -15
+
+#hit plane
+HIT_PLANE = -15
