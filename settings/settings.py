@@ -20,9 +20,10 @@ TRANSPARENT = (0, 0, 0, 0)
 # SPAWNER is the iteration Timer for spawning new chickens
 # as lower as more chickens will spawn
 # Maybe usefull for dificulties
-SPAWNER = 100
-SPAWNERPLANE = 120
+SPAWNER = 120
+SPAWNERPLANE = 180
 SPAWNERLEAVES = 110
+SPAWNERCHICKENFOREGROUND = 420
 
 # flyweight.py
 CHICKEN_SIZE = (70, 70)
@@ -95,3 +96,34 @@ CHICKENFOREGROUND = (300, 350)
 
 # fonts.py
 FIGURESIZE = (23, 36)
+
+#------ Points -------#
+# Chicken size 70
+CHICKEN_SIZE_70_POINTS = 10
+
+# Chicken size 50
+CHICKEN_SIZE_50_POINTS = 15
+
+# Chicken size 30
+CHICKEN_SIZE_30_POINTS = 25
+
+# hit Banner 
+HIT_BANNER = 15
+
+#hit Pumpkin
+HIT_PUMPKIN = 25
+
+#hit Chicken hole
+HIT_CHICKEN_HOLE = 25
+
+#Chicken Windmill
+HIT_CHICKEN_WINDMILL = 35
+
+#hit leave
+HIT_LEAVE = 2
+
+#hitting sign post
+HIT_SIGN = -15
+
+#hit plane
+HIT_PLANE = -15

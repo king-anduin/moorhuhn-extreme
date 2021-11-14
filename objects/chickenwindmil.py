@@ -127,7 +127,8 @@ class ChickenHoleList(ChickenHole):
             if self.timer == self.maxtimer:
                 self.timer = 0
                 self.imageIndex += 1
-                if (self.imageIndex == 74):
-                    self.imageIndex = 1
-                self.image = pg.transform.scale(
-                    self.flyweightImages['chickenwindmildead' + str(self.imageIndex)], CHICKENWINDMILSIZE)
+                if (self.imageIndex <= 74):
+                    self.image = pg.transform.scale(
+                        self.flyweightImages['chickenwindmildead' + str(self.imageIndex)], CHICKENWINDMILSIZE)
+                else:
+                    self.image = self.flyweightImages['chickenwindmildead74']

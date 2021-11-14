@@ -85,7 +85,6 @@ def gameLoop(gameloopList):
 
     # Boolean values for stopping appending list objects
     spritesSignPostAppend = True
-    spritesChickenForegroundAppend = True
 
     # GameLoop running?
     running = True
@@ -245,23 +244,33 @@ def gameLoop(gameloopList):
                 # checks for hitting chickenwindmil
                 for spriteWindmil in spritesWindmil:
                     if spriteWindmil.checkHitWindmil(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and not spritePlane.rect.collidepoint(event.pos) and not sprite.rect.collidepoint(event.pos) and shoot:
+                        if spritesWindmilAlive:
+                            score = gameloopList[15].raisePoints(HIT_CHICKEN_WINDMILL)
                         gameloopList[5].chickenDeadSound(chickenSound).play()
-                        # spritesWindmilAlive = False
+                        spritesWindmilAlive = False
 
         #<---------------------------------------- CHICKENHOLE ----------------------------------------------->#
                 # checks for hitting chickenhole
                 for spriteChickenHole in spritesChickenHole:
-                    if spriteChickenHole.checkHitChickenHole(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and shoot and spritesOut:
+                    if spriteChickenHole.checkHitChickenHole(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and shoot and spritesOut:   
                         gameloopList[5].chickenDeadSound(chickenSound).play()
+                        if spritesOut and not spritesEnd:
+                            score = gameloopList[15].raisePoints(HIT_CHICKEN_HOLE)
+                        if spritesChickenHoleOut and not spritesChickenHoleEnd:
+                            score = gameloopList[15].raisePoints(HIT_CHICKEN_HOLE)
                         if spritesOut:
                             spritesEnd = True
+                            
                         if spritesChickenHoleOut:
                             spritesChickenHoleEnd = True
+                        
 
         #<------------------------------------------- PUMPKIN ----------------------------------------------->#
                 # checks for hitting pumpkin
                 for spritePumpkin in spritesPumpkin:
                     if spritePumpkin.checkHitPumpkin(mousex, mousey) and not sprite.rect.collidepoint(event.pos) and not spritePlane.rect.collidepoint(event.pos) and shoot:
+                        if not pumpkinMove:
+                            score = gameloopList[15].raisePoints(HIT_PUMPKIN)
                         gameloopList[5].scarecrowHit.play()
                         pumpkinMove = True
 
@@ -269,20 +278,22 @@ def gameLoop(gameloopList):
                 # checks for hitting planes
                 for spritePlane in spritesPlane:
                     if spritePlane.checkHitPlane(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                        score = gameloopList[15].raisePoints(HIT_PLANE)
                         gameloopList[5].planeCrash(planeSound).play()
 
         #<------------------------------------------ BANNERS ----------------------------------------------->#
                 # checks for hitting banners
                 for spriteBanner in spritesBanner:
                     if spriteBanner.checkHitPlane(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                        score = gameloopList[15].raisePoints(HIT_BANNER)
                         spritesBanner.remove(spriteBanner)
 
         #<------------------------------------------ CHICKENS ----------------------------------------------->#
                 # checks for hitting chickens
                 for sprite in sprites:
-                    if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
+                    if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
+                        score = gameloopList[15].raisePoints(sprite.get_points())
                         gameloopList[5].chickenDeadSound(chickenSound).play()
-                        score = gameloopList[15].erhoehePunkte(sprite.points)
                         sprite.deadchicken()
 
         #<------------------------------------------- SIGNPOST ----------------------------------------------->#
@@ -290,6 +301,7 @@ def gameLoop(gameloopList):
                 for spritePost in spritesSignPost:
                     if spritePost.checkHitSign(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and shoot:
                         gameloopList[5].treeHit.play()
+                        score = gameloopList[15].raisePoints(HIT_SIGN)
                         if post:
                             # post = signPost.endState()
                             post = False
@@ -300,8 +312,8 @@ def gameLoop(gameloopList):
         #<--------------------------------------- CHICKENFOREGROUND -------------------------------------->#
                 # Checks for hitting the ChickenForeground
                 for spriteChickenForeground in SpritesChickenForeground:
-                    if spriteChickenForeground.checkHitChicken(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
-                        # score = gameloopList[15].erhoehePunkte(sprite.points)
+                    if spriteChickenForeground.checkHitChicken(mousex, mousey) and shoot:
+                        score = gameloopList[15].raisePoints(CHICKEN_SIZE_30_POINTS)
                         gameloopList[5].chickenDeadSound(chickenSound).play()
                         spriteChickenForeground.deadchicken()
 
@@ -324,6 +336,8 @@ def gameLoop(gameloopList):
                 # Checks for hitting the leaves
                 for spriteLeaves in spritesLeaves:
                     if spriteLeaves.checkHitLeaves(mousex, mousey) and shoot:
+                        if spritesFalling:
+                            score = gameloopList[15].raisePoints(HIT_LEAVE)
                         gameloopList[5].leafHit.play()
                         spriteLeaves.fallingShot()
 
@@ -397,10 +411,12 @@ def gameLoop(gameloopList):
 
         #<------------------------------------ ChickenForeground ------------------------------------------>#
         # Append chickenForeground Sprites to the list
-        if spritesChickenForegroundAppend:
+        randomizerChickenForeground = random.randrange(
+            1, SPAWNERCHICKENFOREGROUND, 1)
+        if randomizerChickenForeground == 1:
+            gameloopList[5].chickenForeground.play()
             SpritesChickenForeground.append(
                 gameloopList[4].createChickenForeground(random.randrange(100, 2700), HEIGHT - 300))
-            spritesChickenForegroundAppend = False
 
         # Update chickenForeground sprites
         for spriteChickenForeground in SpritesChickenForeground:

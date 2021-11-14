@@ -92,20 +92,8 @@ class ChickenList(Chicken):
         self.image = pg.transform.scale(
             self.flyweightImages['chicken1'], self.size)
         self.mask = pg.mask.from_surface(self.image)
-        #self.points = get_points(self.size)
-        if self.size[0] == 30:
-            print("chicken size 30")
-            self.points = 25
-        if self.size[0] == 50:
-            print("chicken size 50")
-            self.points = 15
-        if self.size[0] > 50:
-            print("chicken size 70")
-            self.points = 10
-
         self.imageIndex = 1
         self.imageIndexDead = 1
-        # print(id(self.flyweightImages))
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
         self.sx = sx
@@ -119,13 +107,14 @@ class ChickenList(Chicken):
         self.timer = 0
 
     def get_points(self):
-        if self.size == 30:
-            self.points = 25
-        if self.size == 50:
-            self.points = 15
-        if self.size == 70:
-            self.points == 10
-        return self.points
+        points = 0
+        if self.size[0] < 50:
+            points = CHICKEN_SIZE_30_POINTS
+        if self.size[0] == 50:
+            points = CHICKEN_SIZE_50_POINTS
+        if self.size[0] > 50:
+            points = CHICKEN_SIZE_70_POINTS
+        return points
 
 # update function
     def update(self, position):
@@ -145,7 +134,6 @@ class ChickenList(Chicken):
         #       self.rect.top, self.rect.bottom)
         if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
             print("HIT chicken")
-            print("Points "+str(self.points))
             return True
         else:
             return False
@@ -174,7 +162,6 @@ class ChickenList(Chicken):
 
 # changes the state of the chicken to dead
     def deadchicken(self):
-        transparent = (0, 0, 0, 0)
         self.isDead = True
         self.timer += 1
         if self.timer == self.maxtimer:
@@ -184,8 +171,7 @@ class ChickenList(Chicken):
                 self.image = pg.transform.scale(
                     self.flyweightImages['chickendead' + str(self.imageIndexDead)], self.size)
             else:
-                self.image.fill(transparent)
-                self.fullDead = True  # ------
+                self.fullDead = True
 
     def isFullDead(self):
-        return self.fullDead  # -----------
+        return self.fullDead
