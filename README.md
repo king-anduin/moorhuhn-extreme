@@ -48,6 +48,27 @@ Bewertungsmatrix:
     Sichere Präsentation des Projektes (10%)
 
 -------------------------------------------------------------------------------------
+Mindestanforderungen:
+
+- Mind. 3 Szenen: Startbildschirm, Game Over, Spiel, Bestenliste
+- Mind. 5 unterschiedliche agierende Objekte (Spieler, Gegner(drei verschiedene Hühnergrößen), Hindernisse, Map?) 
+- Einbindung objektorientierter Konzepte
+- Einbindung von Entwurfsmustern
+
+Pluspunkte für:
+
+- Designpatterns
+- Übersichtlicher und strukturierter Code
+- Kreativität
+
+Bewertungsmatrix:
+
+- Fehlerfreiheit (30%)
+- Vollständigkeit und Features (30%)
+- Codestärke (Lesbarkeit und Patterns) (30%)
+- Sichere Präsentation des Projektes (10%)
+
+-------------------------------------------------------------------------------------
 Designpattern
 
 - Dependency Injection (Seite 93)
@@ -132,27 +153,6 @@ Richard:
 Ressources:
 Sprites:
   - https://www.spriters-resource.com/pc_computer/moorhuhnremake/
-
--------------------------------------------------------------------------------------
-Mindestanforderungen:
-
-- Mind. 3 Szenen: Startbildschirm, Game Over, Spiel, Bestenliste
-- Mind. 5 unterschiedliche agierende Objekte (Spieler, Gegner(drei verschiedene Hühnergrößen), Hindernisse, Map?) 
-- Einbindung objektorientierter Konzepte
-- Einbindung von Entwurfsmustern
-
-Pluspunkte für:
-
-- Designpatterns
-- Übersichtlicher und strukturierter Code
-- Kreativität
-
-Bewertungsmatrix:
-
-- Fehlerfreiheit (30%)
-- Vollständigkeit und Features (30%)
-- Codestärke (Lesbarkeit und Patterns) (30%)
-- Sichere Präsentation des Projektes (10%)
 
 -------------------------------------------------------------------------------------
 Vorgehensmodell:
