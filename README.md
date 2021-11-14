@@ -124,20 +124,26 @@ Peter:
 MoH:
 - _img
 - highscore (still in progress)
-  - highscore.json
+  - highscore.py
 - objects
   - ammo.py
 - settings
   - sounds.py (old sounds were replaced by original sounds)
 - uml
   - UML.uxf
+- removed sprites from lists in objects (chicken, chickenforeground, ammo, leaves)
+- loops
+  - gameloop.py
+  - bestlistloop.py
 
 Sebastian:
 - _img
 - objects
   - chicken
 - patterns
-  - camera.py
+  - camera.py (Updated Update function in all objects)
+- loops
+  - gameloop.py
 
 Richard:
 - _img
@@ -145,14 +151,18 @@ Richard:
 - objects
   - chicken.py
 - patterns
-  - observer.py
+  - observer.py (added getPoints() in sprites which give points)
 - settings
   - fonts.py
 - start template from lecture
+- loops
+  - gameloop.py (Game timer)
 
 Ressources:
 Sprites:
   - https://www.spriters-resource.com/pc_computer/moorhuhnremake/
+Sounds:
+  - https://www.sounds-resource.com/pc_computer/moorremake/sound/334/
 
 -------------------------------------------------------------------------------------
 Vorgehensmodell:
