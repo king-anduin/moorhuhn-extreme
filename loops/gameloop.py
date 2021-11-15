@@ -230,10 +230,10 @@ def gameLoop(gameloopList):
 
         #<------------------------------------------ BANNERS ----------------------------------------------->#
                 # checks for hitting banners
-                for spriteBanner in spritesBanner
-                if spriteBanner.checkHitPlane(mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
-                    score = gameloopList[15].raisePoints(HIT_BANNER)
-                    spritesBanner.remove(spriteBanner)
+                for spriteBanner in spritesBanner:
+                    if spriteBanner.checkHitPlane(mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                        score = gameloopList[15].raisePoints(HIT_BANNER)
+                        spritesBanner.remove(spriteBanner)
 
         #<------------------------------------------ CHICKENS ----------------------------------------------->#
                 # checks for hitting chickens
