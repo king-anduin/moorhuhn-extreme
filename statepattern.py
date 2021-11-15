@@ -39,6 +39,9 @@ ChickenWindmilFactory = ChickenWindmilFactory()
 # Create Object
 LeavesFactory = LeavesFactory()
 
+# Create Object
+Highscore = Highscore()
+
 # Create Sounds Object
 Sounds = Sounds()
 
@@ -56,13 +59,14 @@ clock = pg.time.Clock()
 
 # List for handing over to loops
 startloopList = [clock, screen, Sounds,
-                 Fonts, MenuButtons, Predator, AmmoFactory, ChickenHoleFactory]
+                 Fonts, MenuButtons, Predator, AmmoFactory, ChickenHoleFactory, Highscore]
 gameloopList = [clock, screen, ChickenFactory, SignPostFactory,
                 ChickenForegroundFactory, Sounds, Fonts, MenuButtons, TreeFactory,
                 PumpkinFactory, PlaneFactory, LeavesFactory, ChickenHoleFactory, Predator,
-                AmmoFactory, ObserverSubject, ChickenWindmilFactory, Camera, Border]
+                AmmoFactory, ObserverSubject, ChickenWindmilFactory, Camera, Border, Highscore]
 endloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
-bestlistloopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
+bestlistloopList = [clock, screen, Sounds,
+                    Fonts, MenuButtons, Predator, Highscore]
 helpLoopList = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
 
 

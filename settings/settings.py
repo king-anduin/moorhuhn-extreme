@@ -52,8 +52,11 @@ LOCATIONEND = [(WIDTH * 0.5, 125), (WIDTH * 0.5, 225)]
 TEXTEND = ["Menu", "Exit"]
 
 # bestlistloop.py
-LOCATIONBEST = [(WIDTH * 0.5, 125), (WIDTH * 0.5, 225)]
-TEXTBEST = ["Menu", "Highscore"]
+LOCATIONBEST = [(WIDTH * 0.5, 125), (WIDTH * 0.3, 225), (WIDTH * 0.6, 225),
+                (WIDTH * 0.3, 275), (WIDTH * 0.6, 275), (WIDTH * 0.3, 325),
+                (WIDTH * 0.6, 325), (WIDTH * 0.3, 375), (WIDTH * 0.6, 375),
+                (WIDTH * 0.3, 425), (WIDTH * 0.6, 425)]
+LOCATIONRECTSBEST = [(WIDTH * 0.5 - 100, 100), (WIDTH * 0.2, 200)]
 
 # helploop.py
 LOCATIONHELP = [(WIDTH * 0.5, 125), (WIDTH * 0.3, 225), (WIDTH * 0.3, 275),
@@ -107,23 +110,23 @@ CHICKEN_SIZE_50_POINTS = 15
 # Chicken size 30
 CHICKEN_SIZE_30_POINTS = 25
 
-# hit Banner 
+# hit Banner
 HIT_BANNER = 15
 
-#hit Pumpkin
+# hit Pumpkin
 HIT_PUMPKIN = 25
 
-#hit Chicken hole
+# hit Chicken hole
 HIT_CHICKEN_HOLE = 25
 
-#Chicken Windmill
+# Chicken Windmill
 HIT_CHICKEN_WINDMILL = 35
 
-#hit leave
+# hit leave
 HIT_LEAVE = 2
 
-#hitting sign post
+# hitting sign post
 HIT_SIGN = -15
 
-#hit plane
+# hit plane
 HIT_PLANE = -15

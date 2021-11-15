@@ -1,5 +1,7 @@
 import pygame as pg
 
+from highscore.highscore import *
+
 from objects.chickenwindmil import *
 from objects.ammo import *
 from objects.predator import *

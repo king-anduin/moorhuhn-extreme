@@ -47,7 +47,6 @@ def helpLoop(helpLoopList):
         helpLoopList[1].blit(helpGameBG.image, helpGameBG.rect)
 
         # Render text and rects for menu
-        rect = ()
         helpLoopList[4].drawRectHelp(helpLoopList[1], 2, WHITE,
                                      LOCATIONRECTS, SIZERECTS, 5)
         helpLoopList[4].drawText(helpLoopList[1], helpLoopList[3].font_text,

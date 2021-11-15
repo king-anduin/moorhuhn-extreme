@@ -2,7 +2,7 @@ import pygame as pg
 from settings.settings import *
 from settings.background import *
 
-# bestlistloop = [clock, screen, Sounds, Fonts, MenuButtons, Predator]
+# bestlistloop = [clock, screen, Sounds, Fonts, MenuButtons, Predator, Highscore]
 
 
 def bestlistloop(bestlistloopList):
@@ -48,9 +48,9 @@ def bestlistloop(bestlistloopList):
 
         # Render text and rects for menu
         bestlistloopList[4].drawRectBest(bestlistloopList[1], 2, WHITE,
-                                         WIDTH * 0.5 - 100, 100, 200, 50, 5)
+                                         LOCATIONRECTSBEST, SIZERECTS, 5)
         bestlistloopList[4].drawText(bestlistloopList[1], bestlistloopList[3].font_text,
-                                     LOCATIONBEST, TEXTBEST, 2, BLACK)
+                                     LOCATIONBEST, bestlistloopList[6].getHighscore(), 11, BLACK)
 
         # Blit the image at the rect's topleft coords.
         bestlistloopList[1].blit(

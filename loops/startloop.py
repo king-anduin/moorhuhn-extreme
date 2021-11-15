@@ -6,7 +6,7 @@ from settings.background import *
 from settings.fonts import *
 
 # startloop = [clock, screen, Sounds, Fonts, MenuButtons, Predator,
-#               AmmoFactory, ChickenHoleFactory]
+#               AmmoFactory, ChickenHoleFactory, Highscore]
 
 
 def screenLoop(startloopLoop):
@@ -17,6 +17,9 @@ def screenLoop(startloopLoop):
 
     # Endless sound loop
     startloopLoop[2].start_sound.play(-1)
+
+    # import highscore database in form of JSON file
+    startloopLoop[8].jsonToDictionary()
 
     # list, boolean and coordinates for bulletholes
     spritesBullethole = []

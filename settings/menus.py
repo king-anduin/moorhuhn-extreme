@@ -44,13 +44,12 @@ class MenuButtons():
                 screen, color, self.objectsRectEnd[i], border_radius=borderradius)
             y += 100
 
-    def drawRectBest(self, screen, amount, color, left, top, width, height, borderradius):
-        y = top
+    def drawRectBest(self, screen, amount, color, position, size, borderradius):
         for i in range(amount):
-            self.objectsRectBest.append(pg.Rect(left, y, width, height))
+            self.objectsRectBest.append(
+                pg.Rect(position[i][0], position[i][1], size[i][0], size[i][1]))
             pg.draw.rect(
                 screen, color, self.objectsRectBest[i], border_radius=borderradius)
-            y += 100
 
     def drawRectHelp(self, screen, amount, color, position, size, borderradius):
         for i in range(amount):
