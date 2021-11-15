@@ -126,6 +126,7 @@ def gameLoop(gameloopList):
                     gameloopList[19].addHighscore(
                         "None", str(gameloopList[15]._points))
                     gameloopList[5].background_sound.stop()
+                    gameloopList[15]._points == 0
                     running = False
                     return True
                 # Reload on space
@@ -566,6 +567,7 @@ def gameLoop(gameloopList):
             gameloopList[19].addHighscore(
                 "None", str(gameloopList[15]._points))
             gameloopList[5].background_sound.stop()
+            gameloopList[15]._points == 0
             running = False
             return True
 

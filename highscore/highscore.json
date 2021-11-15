@@ -1,15 +1,15 @@
 {
     "position1": {
         "playername": "None",
-        "points": "256"
+        "points": "0"
     },
     "position2": {
         "playername": "None",
-        "points": "180"
+        "points": "0"
     },
     "position3": {
         "playername": "None",
-        "points": "80"
+        "points": "0"
     },
     "position4": {
         "playername": "None",
@@ -20,7 +20,7 @@
         "points": "0"
     },
     "position6": {
-        "playername": "Peter",
+        "playername": "None",
         "points": "0"
     }
 }

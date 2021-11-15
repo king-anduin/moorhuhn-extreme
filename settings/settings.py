@@ -55,8 +55,10 @@ TEXTEND = ["Menu", "Exit"]
 LOCATIONBEST = [(WIDTH * 0.5, 125), (WIDTH * 0.3, 225), (WIDTH * 0.6, 225),
                 (WIDTH * 0.3, 275), (WIDTH * 0.6, 275), (WIDTH * 0.3, 325),
                 (WIDTH * 0.6, 325), (WIDTH * 0.3, 375), (WIDTH * 0.6, 375),
-                (WIDTH * 0.3, 425), (WIDTH * 0.6, 425)]
+                (WIDTH * 0.3, 425), (WIDTH * 0.6, 425), (WIDTH * 0.3, 475),
+                (WIDTH * 0.6, 475)]
 LOCATIONRECTSBEST = [(WIDTH * 0.5 - 100, 100), (WIDTH * 0.2, 200)]
+SIZERECTSBEST = [(200, 50), (525, 300)]
 
 # helploop.py
 LOCATIONHELP = [(WIDTH * 0.5, 125), (WIDTH * 0.3, 225), (WIDTH * 0.3, 275),

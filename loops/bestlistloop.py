@@ -48,9 +48,9 @@ def bestlistloop(bestlistloopList):
 
         # Render text and rects for menu
         bestlistloopList[4].drawRectBest(bestlistloopList[1], 2, WHITE,
-                                         LOCATIONRECTSBEST, SIZERECTS, 5)
+                                         LOCATIONRECTSBEST, SIZERECTSBEST, 5)
         bestlistloopList[4].drawText(bestlistloopList[1], bestlistloopList[3].font_text,
-                                     LOCATIONBEST, bestlistloopList[6].getHighscore(), 11, BLACK)
+                                     LOCATIONBEST, bestlistloopList[6].getHighscore(), 12, BLACK)
 
         # Blit the image at the rect's topleft coords.
         bestlistloopList[1].blit(
