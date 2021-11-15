@@ -120,11 +120,12 @@ Peter:
   - startloop.py
 - _img
 - refactoring
+- highscore
+  - highscore.py
+  - highscore.json
 
 MoH:
 - _img
-- highscore (still in progress)
-  - highscore.py
 - objects
   - ammo.py
 - settings
@@ -134,7 +135,6 @@ MoH:
 - removed sprites from lists in objects (chicken, chickenforeground, ammo, leaves)
 - loops
   - gameloop.py
-  - bestlistloop.py
 
 Sebastian:
 - _img
