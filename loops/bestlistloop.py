@@ -50,7 +50,7 @@ def bestlistloop(bestlistloopList):
         bestlistloopList[4].drawRectBest(bestlistloopList[1], 2, WHITE,
                                          LOCATIONRECTSBEST, SIZERECTSBEST, 5)
         bestlistloopList[4].drawText(bestlistloopList[1], bestlistloopList[3].font_text,
-                                     LOCATIONBEST, bestlistloopList[6].getHighscore(), 12, BLACK)
+                                     LOCATIONBEST, bestlistloopList[6].getHighscore(), 13, BLACK)
 
         # Blit the image at the rect's topleft coords.
         bestlistloopList[1].blit(

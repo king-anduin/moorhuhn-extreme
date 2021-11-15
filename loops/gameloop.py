@@ -124,9 +124,9 @@ def gameLoop(gameloopList):
                 # Ends the game on ESC
                 if event.key == pg.K_ESCAPE:
                     gameloopList[19].addHighscore(
-                        "None", str(gameloopList[15]._points))
+                        PLAYERNAME, str(gameloopList[15]._points))
                     gameloopList[5].background_sound.stop()
-                    gameloopList[15]._points == 0
+                    gameloopList[15]._points = 0
                     running = False
                     return True
                 # Reload on space
@@ -565,9 +565,9 @@ def gameLoop(gameloopList):
         gameloopList[1].blit(text, (WIDTH * 0.8, 0))
         if game_timer == 120:
             gameloopList[19].addHighscore(
-                "None", str(gameloopList[15]._points))
+                PLAYERNAME, str(gameloopList[15]._points))
             gameloopList[5].background_sound.stop()
-            gameloopList[15]._points == 0
+            gameloopList[15]._points = 0
             running = False
             return True
 
