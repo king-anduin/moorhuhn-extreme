@@ -91,7 +91,7 @@ class ChickenList(Chicken):
         self.size = random.choice([CHICKENSIZE1, CHICKENSIZE2, CHICKENSIZE3])
         self.image = pg.transform.scale(
             self.flyweightImages['chicken1'], self.size)
-        self.mask = pg.mask.from_surface(self.image)
+        self.image_mask = pg.mask.from_surface(self.image)
         self.imageIndex = 1
         self.imageIndexDead = 1
         self.rect = self.image.get_rect()
@@ -129,10 +129,14 @@ class ChickenList(Chicken):
         return self.x, self.y
 
 # Checks that the hit is inside rect of chicken borders
-    def checkHit(self, x, y):
-        # print("Huhn", self.rect.left, self.rect.right,
-        #       self.rect.top, self.rect.bottom)
-        if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
+    def checkHit(self, cursor, x, y):
+        # checks for rect collision
+        # if self.rect.left <= x and self.rect.right >= x and self.rect.top <= y and self.rect.bottom >= y:
+
+        # checks for mask collition instead of rect position
+        offset = (x - self.rect.topleft[0], y - self.rect.topleft[1])
+        result = self.image_mask.overlap(cursor, offset)
+        if result:
             print("HIT chicken")
             return True
         else:

@@ -238,7 +238,7 @@ def gameLoop(gameloopList):
         #<------------------------------------------ CHICKENS ----------------------------------------------->#
                 # checks for hitting chickens
                 for sprite in sprites:
-                    if sprite.checkHit(mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
+                    if sprite.checkHit(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
                         score = gameloopList[15].raisePoints(
                             sprite.get_points())
                         gameloopList[5].chickenDeadSound(chickenSound).play()
@@ -260,7 +260,7 @@ def gameLoop(gameloopList):
         #<--------------------------------------- CHICKENFOREGROUND -------------------------------------->#
                 # Checks for hitting the ChickenForeground
                 for spriteChickenForeground in SpritesChickenForeground:
-                    if spriteChickenForeground.checkHitChicken(mousex, mousey) and shoot:
+                    if spriteChickenForeground.checkHitChicken(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and shoot:
                         score = gameloopList[15].raisePoints(
                             CHICKEN_SIZE_30_POINTS)
                         gameloopList[5].chickenDeadSound(chickenSound).play()
@@ -282,9 +282,10 @@ def gameLoop(gameloopList):
                         spritesFalling = True
                         spritesChickenHoleOut = True
 
+        #<---------------------------------------- LEAVES ------------------------------------------->#
                 # Checks for hitting the leaves
                 for spriteLeaves in spritesLeaves:
-                    if spriteLeaves.checkHitLeaves(mousex, mousey) and shoot:
+                    if spriteLeaves.checkHitLeaves(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and shoot:
                         if spritesFalling:
                             score = gameloopList[15].raisePoints(HIT_LEAVE)
                         gameloopList[5].leafHit.play()

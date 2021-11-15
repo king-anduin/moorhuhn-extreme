@@ -83,7 +83,6 @@ class PlaneList(Plane):
         self.y = y
         self.flyweightImages = flyweightImages
         self.image = self.flyweightImages[imagename]
-        self.image_mask = pg.mask.from_surface(self.image)
         self.imageIndex = 1
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
