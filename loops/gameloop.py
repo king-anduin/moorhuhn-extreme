@@ -224,7 +224,7 @@ def gameLoop(gameloopList):
         #<------------------------------------------- PLANES ----------------------------------------------->#
                 # checks for hitting planes
                 for spritePlane in spritesPlane:
-                    if spritePlane.checkHitPlane(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                    if spritePlane.checkHitPlane(mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
                         score = gameloopList[15].raisePoints(HIT_PLANE)
                         gameloopList[5].planeCrash(planeSound).play()
 
@@ -238,7 +238,7 @@ def gameLoop(gameloopList):
         #<------------------------------------------ CHICKENS ----------------------------------------------->#
                 # checks for hitting chickens
                 for sprite in sprites:
-                    if sprite.checkHit(mousex, mousey) and not spriteTrunk.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
+                    if sprite.checkHit(mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
                         score = gameloopList[15].raisePoints(
                             sprite.get_points())
                         gameloopList[5].chickenDeadSound(chickenSound).play()
@@ -276,8 +276,8 @@ def gameLoop(gameloopList):
 
         #<---------------------------------------- TRUNK SMALL ------------------------------------------->#
                 # Checks for hitting the TrunkSmall
-                for spriteTrunk in spritesTrunkSmall:
-                    if spriteTrunk.checkHitTrunk(mousex, mousey) and shoot:
+                for spriteTrunkSmall in spritesTrunkSmall:
+                    if spriteTrunkSmall.checkHitTrunk(mousex, mousey) and shoot:
                         gameloopList[5].treeHit.play()
                         spritesFalling = True
                         spritesChickenHoleOut = True
@@ -403,8 +403,8 @@ def gameLoop(gameloopList):
             spritesTrunkAppendSmall = False
 
         # Update Trunk
-        for spriteTrunk in spritesTrunkSmall:
-            spriteTrunk.updateTrunk(move)
+        for spriteTrunkSmall in spritesTrunkSmall:
+            spriteTrunkSmall.updateTrunk(move)
 
         #<------------------------------------------- Leaves ------------------------------------------------>#
         # Append Leaves Sprites to the list
@@ -502,9 +502,9 @@ def gameLoop(gameloopList):
 
         #<------------------------------------------- Render TrunkSmall ----------------------------------------->#
         # loops through the signPost list and render it
-        for spriteTrunk in spritesTrunkSmall:
-            gameloopList[1].blit(spriteTrunk.getImage(),
-                                 spriteTrunk.getRect())
+        for spriteTrunkSmall in spritesTrunkSmall:
+            gameloopList[1].blit(spriteTrunkSmall.getImage(),
+                                 spriteTrunkSmall.getRect())
 
         #<------------------------------------------- Render SignPost ------------------------------------------->#
         # loops through the signPost list and render it
