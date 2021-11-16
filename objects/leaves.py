@@ -69,12 +69,9 @@ class Leaves(Sprite):
         self.sx = sx
         self.sy = sy
 
-    def update(self, position, falling):
+    def update(self, position):
         self.x = self.x + position
-        self.y = self.y
-        if falling:
-            self.x = self.x + self.sx
-            self.y = self.y + self.sy
+        self.y = self.y + self.sy
         self.rect.topleft = (self.x, self.y)
 # Sprites
 
@@ -100,20 +97,13 @@ class LeavesList(Leaves):
         self.timer = 0
 
     # update function
-    def updateLeaves(self, position, falling):
-        if falling:
-            self.fallingLeaves()
-        Leaves.update(self, position, falling)
-
-    def updateLeaves(self, position, falling):
+    def updateLeaves(self, position):
         if not self.shot:
-            if falling:
-                self.fallingLeaves()
-            Leaves.update(self, position, falling)
+            self.fallingLeaves()
+            Leaves.update(self, position)
         else:
-            if falling:
-                self.fallingShot()
-            Leaves.update(self, position, falling)
+            self.fallingShot()
+            Leaves.update(self, position)
 
     # get position of the mouse
     def getPos(self):
@@ -156,7 +146,7 @@ class LeavesList(Leaves):
                     self.flyweightImages['leavesshot' + str(self.imageIndexShot)], LEAVESIZE)
             else:
                 self.image.fill(TRANSPARENT)
-                self.fullDead = True  # ------
+                self.fullDead = True
 
     def isFullDead(self):
-        return self.fullDead  # -----------
+        return self.fullDead

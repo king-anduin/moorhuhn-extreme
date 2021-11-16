@@ -78,7 +78,6 @@ def gameLoop(gameloopList):
     spritesPumpkin = []
 
     # check for leaves shoot and sprite list
-    spritesFalling = False
     spritesLeaves = []
 
     # check for chickenwindmil shoot and sprite list
@@ -224,14 +223,14 @@ def gameLoop(gameloopList):
         #<------------------------------------------- PLANES ----------------------------------------------->#
                 # checks for hitting planes
                 for spritePlane in spritesPlane:
-                    if spritePlane.checkHitPlane(mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                    if spritePlane.checkHitPlane(mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
                         score = gameloopList[15].raisePoints(HIT_PLANE)
                         gameloopList[5].planeCrash(planeSound).play()
 
         #<------------------------------------------ BANNERS ----------------------------------------------->#
                 # checks for hitting banners
                 for spriteBanner in spritesBanner:
-                    if spriteBanner.checkHitPlane(mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
+                    if spriteBanner.checkHitPlane(mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
                         score = gameloopList[15].raisePoints(HIT_BANNER)
                         spritesBanner.remove(spriteBanner)
 
@@ -271,7 +270,6 @@ def gameLoop(gameloopList):
                 for spriteTrunk in spritesTrunk:
                     if spriteTrunk.checkHitTrunk(mousex, mousey) and shoot:
                         gameloopList[5].treeHit.play()
-                        spritesFalling = True
                         spritesOut = True
 
         #<---------------------------------------- TRUNK SMALL ------------------------------------------->#
@@ -279,15 +277,13 @@ def gameLoop(gameloopList):
                 for spriteTrunkSmall in spritesTrunkSmall:
                     if spriteTrunkSmall.checkHitTrunk(mousex, mousey) and shoot:
                         gameloopList[5].treeHit.play()
-                        spritesFalling = True
                         spritesChickenHoleOut = True
 
         #<---------------------------------------- LEAVES ------------------------------------------->#
                 # Checks for hitting the leaves
                 for spriteLeaves in spritesLeaves:
                     if spriteLeaves.checkHitLeaves(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and shoot:
-                        if spritesFalling:
-                            score = gameloopList[15].raisePoints(HIT_LEAVE)
+                        score = gameloopList[15].raisePoints(HIT_LEAVE)
                         gameloopList[5].leafHit.play()
                         spriteLeaves.fallingShot()
 
@@ -420,7 +416,7 @@ def gameLoop(gameloopList):
 
         # Update Leaves
         for spriteLeaves in spritesLeaves:
-            spriteLeaves.updateLeaves(move, spritesFalling)
+            spriteLeaves.updateLeaves(move)
             if spriteLeaves.isFullDead():
                 spritesLeaves.remove(spriteLeaves)
 
