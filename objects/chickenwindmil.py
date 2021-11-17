@@ -87,6 +87,8 @@ class ChickenHoleList(ChickenHole):
         self.rect.topleft = (self.x, self.y)
         self.fullDead = False
         self.isDead = False
+        self.imageIndexDead1 = (self.imageIndex * 2)
+        self.imageIndexDead2 = ((self.imageIndex * 2) + 2)
 
         self.maxtimer = CHICKENWINDMILSPEED
         self.timer = 0
@@ -134,13 +136,12 @@ class ChickenHoleList(ChickenHole):
     def deadchicken(self):
         self.isDead = True
         self.timer += 1
-        # self.imageIndexDead = (self.imageIndex * 2)
         if self.timer == self.maxtimer:
             self.timer = 0
-            self.imageIndexDead += 1
-            if (self.imageIndexDead <= ((self.imageIndex * 2) + 2)):
+            self.imageIndexDead1 += 1
+            if (self.imageIndexDead1 <= self.imageIndexDead2):
                 self.image = pg.transform.scale(
-                    self.flyweightImages['chickenwindmildead' + str(self.imageIndexDead)], CHICKENWINDMILSIZE)
+                    self.flyweightImages['chickenwindmildead' + str(self.imageIndexDead1)], CHICKENWINDMILSIZE)
                 self.image_mask = pg.mask.from_surface(self.image)
             else:
                 self.fullDead = True
