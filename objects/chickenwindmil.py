@@ -78,19 +78,26 @@ class ChickenHoleList(ChickenHole):
         self.x = x
         self.y = y
         self.flyweightImages = flyweightImages
-        self.image = self.flyweightImages[imagename]
+        self.image = pg.transform.scale(
+            self.flyweightImages['chickenwindmil' + str(index)], CHICKENWINDMILSIZE)
         self.image_mask = pg.mask.from_surface(self.image)
         self.imageIndex = index
+        self.imageIndexDead = index
         self.rect = self.image.get_rect()
         self.rect.topleft = (self.x, self.y)
+        self.fullDead = False
+        self.isDead = False
 
         self.maxtimer = CHICKENWINDMILSPEED
         self.timer = 0
 
     # update function
-    def updateWindmil(self, alive, position):
-        self.rotate(alive)
-        ChickenHole.update(self, position)
+    def updateWindmil(self, position):
+        if not self.isDead:
+            self.rotate()
+            ChickenHole.update(self, position)
+        else:
+            self.deadchicken()
 
     # get position of the mouse
     def getPos(self):
@@ -106,29 +113,37 @@ class ChickenHoleList(ChickenHole):
         result = self.image_mask.overlap(cursor, offset)
         if result:
             print("HIT chickenwindmil")
+            print(self.imageIndex)
             return True
         else:
             return False
 
     # iterates over all .png to animate the signPost
-    def rotate(self, alive):
-        self.alive = alive
-        if self.alive:
-            self.timer += 1
-            if self.timer == self.maxtimer:
-                self.timer = 0
-                self.imageIndex += 1
-                if (self.imageIndex == 36):
-                    self.imageIndex = 1
+    def rotate(self):
+        self.timer += 1
+        if self.timer == self.maxtimer:
+            self.timer = 0
+            self.imageIndex += 1
+            if (self.imageIndex == 36):
+                self.imageIndex = 1
+            self.image = pg.transform.scale(
+                self.flyweightImages['chickenwindmil' + str(self.imageIndex)], CHICKENWINDMILSIZE)
+            self.image_mask = pg.mask.from_surface(self.image)
+
+    # changes the state of the chicken to dead
+    def deadchicken(self):
+        self.isDead = True
+        self.timer += 1
+        # self.imageIndexDead = (self.imageIndex * 2)
+        if self.timer == self.maxtimer:
+            self.timer = 0
+            self.imageIndexDead += 1
+            if (self.imageIndexDead <= ((self.imageIndex * 2) + 2)):
                 self.image = pg.transform.scale(
-                    self.flyweightImages['chickenwindmil' + str(self.imageIndex)], CHICKENWINDMILSIZE)
-        else:
-            self.timer += 1
-            if self.timer == self.maxtimer:
-                self.timer = 0
-                self.imageIndex += 1
-                if (self.imageIndex <= 74):
-                    self.image = pg.transform.scale(
-                        self.flyweightImages['chickenwindmildead' + str(self.imageIndex)], CHICKENWINDMILSIZE)
-                else:
-                    self.image = self.flyweightImages['chickenwindmildead74']
+                    self.flyweightImages['chickenwindmildead' + str(self.imageIndexDead)], CHICKENWINDMILSIZE)
+                self.image_mask = pg.mask.from_surface(self.image)
+            else:
+                self.fullDead = True
+
+    def isFullDead(self):
+        return self.fullDead

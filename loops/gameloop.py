@@ -84,12 +84,11 @@ def gameLoop(gameloopList):
     spritesWindmilAlive = True
     spritesWindmilCreate = True
     spritesWindmil = []
-    windmilList = ["chickenwindmil1", "chickenwindmil10",
-                   "chickenwindmil19", "chickenwindmil28"]
+    windmilList = ["chickenwindmil", "chickenwindmil",
+                   "chickenwindmil", "chickenwindmil"]
     index = [1, 10, 19, 28]
 
     # check for chickenhole shoot and sprite list
-    spritesChickenHoleBooelanList = []
     spritesOut = False
     spritesEnd = False
     spritesChickenHoleOut = False
@@ -192,7 +191,7 @@ def gameLoop(gameloopList):
                             score = gameloopList[15].raisePoints(
                                 HIT_CHICKEN_WINDMILL)
                         gameloopList[5].chickenDeadSound(chickenSound).play()
-                        spritesWindmilAlive = False
+                        spriteWindmil.deadchicken()
 
         #<---------------------------------------- CHICKENHOLE ----------------------------------------------->#
                 # checks for hitting chickenhole
@@ -447,7 +446,9 @@ def gameLoop(gameloopList):
 
         # Update Leaves
         for spriteWindmil in spritesWindmil:
-            spriteWindmil.updateWindmil(spritesWindmilAlive, move)
+            spriteWindmil.updateWindmil(move)
+            if spriteWindmil.isFullDead():
+                spritesWindmil.remove(spriteWindmil)
 
         #<------------------------------------------- Camera ------------------------------------------------>#
         # Camera Variables

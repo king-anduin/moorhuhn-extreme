@@ -118,7 +118,7 @@ class ChickenList(Chicken):
 
 # update function
     def update(self, position):
-        if self.isDead == False:
+        if not self.isDead:
             self.rotate()
             Chicken.update(self, position)
         else:

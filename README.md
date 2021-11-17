@@ -158,14 +158,14 @@ Richard:
 - loops
   - gameloop.py (Game timer)
 
-Ressources:
-Sprites:
-  - https://www.spriters-resource.com/pc_computer/moorhuhnremake/
-Sounds:
-  - https://www.sounds-resource.com/pc_computer/moorremake/sound/334/
+Ressources:<br>
+Sprites:<br>
+  - https://www.spriters-resource.com/pc_computer/moorhuhnremake/ <br>
+Sounds:<br>
+  - https://www.sounds-resource.com/pc_computer/moorremake/sound/334/<br>
 
 -------------------------------------------------------------------------------------
-Vorgehensmodell:
+Vorgehensmodell:<br>
 
 SCRUM (start 01.11 - 14.11)
 
@@ -185,3 +185,26 @@ Weekly 12 pm:
 
 Nice to have:
 - Mute Button
+
+# Further materials
+
+Python:<br>
+- https://www.w3schools.com/python/<br>
+
+Pygame Dokumentation:<br>
+- https://www.pygame.org/docs/<br>
+
+Pygame Buch:<br>
+- http://programarcadegames.com/index.php?lang=de<br>
+
+Kenney Assets:<br>
+- https://kenney.nl/<br>
+
+Other Free Assets:<br>
+- https://OpenGameArt.org<br>
+
+Game Programming Patterns (C++):<br>
+- https://gameprogrammingpatterns.com/contents.html<br>
+
+Nature of Code:<br>
+- https://natureofcode.com/book/<br>
