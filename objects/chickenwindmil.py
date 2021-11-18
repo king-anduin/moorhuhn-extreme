@@ -100,6 +100,7 @@ class ChickenHoleList(ChickenHole):
             ChickenHole.update(self, position)
         else:
             self.deadchicken()
+            ChickenHole.update(self, position)
 
     # get position of the mouse
     def getPos(self):

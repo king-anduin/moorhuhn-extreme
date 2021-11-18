@@ -91,6 +91,7 @@ class ChickenList(Chicken):
             Chicken.update(self, position)
         else:
             self.deadchicken()
+            Chicken.update(self, position)
 
     # get position of the mouse
     def getPos(self):
