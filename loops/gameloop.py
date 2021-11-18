@@ -186,7 +186,7 @@ def gameLoop(gameloopList):
         #<------------------------------------------- WINDMIL ----------------------------------------------->#
                 # checks for hitting chickenwindmil
                 for spriteWindmil in spritesWindmil:
-                    if spriteWindmil.checkHitWindmil(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and not spritePlane.rect.collidepoint(event.pos) and not sprite.rect.collidepoint(event.pos) and shoot:
+                    if spriteWindmil.checkHitWindmil(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and not sprite.rect.collidepoint(event.pos) and shoot:
                         if spritesWindmilAlive:
                             score = gameloopList[15].raisePoints(
                                 HIT_CHICKEN_WINDMILL)
@@ -213,7 +213,7 @@ def gameLoop(gameloopList):
         #<------------------------------------------- PUMPKIN ----------------------------------------------->#
                 # checks for hitting pumpkin
                 for spritePumpkin in spritesPumpkin:
-                    if spritePumpkin.checkHitPumpkin(mousex, mousey) and not sprite.rect.collidepoint(event.pos) and not spritePlane.rect.collidepoint(event.pos) and shoot:
+                    if spritePumpkin.checkHitPumpkin(mousex, mousey) and not sprite.rect.collidepoint(event.pos) and shoot:
                         if not pumpkinMove:
                             score = gameloopList[15].raisePoints(HIT_PUMPKIN)
                         gameloopList[5].scarecrowHit.play()
@@ -222,21 +222,21 @@ def gameLoop(gameloopList):
         #<------------------------------------------- PLANES ----------------------------------------------->#
                 # checks for hitting planes
                 for spritePlane in spritesPlane:
-                    if spritePlane.checkHitPlane(mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
+                    if spritePlane.checkHitPlane(mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
                         score = gameloopList[15].raisePoints(HIT_PLANE)
                         gameloopList[5].planeCrash(planeSound).play()
 
         #<------------------------------------------ BANNERS ----------------------------------------------->#
                 # checks for hitting banners
                 for spriteBanner in spritesBanner:
-                    if spriteBanner.checkHitPlane(mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
+                    if spriteBanner.checkHitPlane(mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spritePost.rect.collidepoint(event.pos) and shoot:
                         score = gameloopList[15].raisePoints(HIT_BANNER)
                         spritesBanner.remove(spriteBanner)
 
         #<------------------------------------------ CHICKENS ----------------------------------------------->#
                 # checks for hitting chickens
                 for sprite in sprites:
-                    if sprite.checkHit(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and not spriteLeaves.rect.collidepoint(event.pos) and shoot:
+                    if sprite.checkHit(gameloopList[13].CURSOR_IMG_MASK, mousex, mousey) and not spriteTrunkSmall.rect.collidepoint(event.pos) and not spriteTrunk.rect.collidepoint(event.pos) and shoot:
                         score = gameloopList[15].raisePoints(
                             sprite.get_points())
                         gameloopList[5].chickenDeadSound(chickenSound).play()
@@ -285,6 +285,10 @@ def gameLoop(gameloopList):
                         score = gameloopList[15].raisePoints(HIT_LEAVE)
                         gameloopList[5].leafHit.play()
                         spriteLeaves.fallingShot()
+
+            for spritesLeavesOut in spritesLeaves:
+                if spritesLeavesOut.checkGameBottom():
+                    spritesLeaves.remove(spritesLeavesOut)
 
         #<------------------------------------------- Pumpkin ------------------------------------------->#
         # Append Pumpkin Sprites to the list

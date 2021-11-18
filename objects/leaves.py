@@ -123,7 +123,16 @@ class LeavesList(Leaves):
         else:
             return False
 
+    def checkGameBottom(self):
+        # checks for rect collision with game bottom
+        if self.rect.top >= HEIGHT:
+            print("OUT leaves")
+            return True
+        else:
+            return False
+
     # iterates over all .png to animate the signPost
+
     def fallingLeaves(self):
         if (self.direction == "Down"):
             self.timer += 1

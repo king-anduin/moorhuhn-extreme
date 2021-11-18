@@ -115,7 +115,6 @@ class ChickenHoleList(ChickenHole):
         result = self.image_mask.overlap(cursor, offset)
         if result:
             print("HIT chickenwindmil")
-            print(self.imageIndex)
             return True
         else:
             return False
