@@ -23,7 +23,7 @@ TRANSPARENT = (0, 0, 0, 0)
 # as lower as more chickens will spawn
 # Maybe usefull for dificulties
 SPAWNER = 240
-SPAWNERPLANE = 300
+SPAWNERPLANE = 600
 SPAWNERLEAVES = 120
 SPAWNERCHICKENFOREGROUND = 600
 

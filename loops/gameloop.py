@@ -361,7 +361,7 @@ def gameLoop(gameloopList):
         if randomizerChickenForeground == 1:
             gameloopList[5].chickenForeground.play()
             SpritesChickenForeground.append(
-                gameloopList[4].createChickenForeground(random.randrange(100, 2700), HEIGHT - 300))
+                gameloopList[4].createChickenForeground(random.randrange(300, 2500), HEIGHT - 300))
 
         # Update chickenForeground sprites
         for spriteChickenForeground in SpritesChickenForeground:
