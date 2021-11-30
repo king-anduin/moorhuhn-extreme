@@ -126,8 +126,12 @@ class ChickenHoleList(ChickenHole):
         if self.timer == self.maxtimer:
             self.timer = 0
             self.imageIndex += 1
+            self.imageIndexDead1 += 2
+            self.imageIndexDead2 += 2
             if (self.imageIndex == 36):
                 self.imageIndex = 1
+                self.imageIndexDead1 = (self.imageIndex * 2)
+                self.imageIndexDead2 = ((self.imageIndex * 2) + 2)
             self.image = pg.transform.scale(
                 self.flyweightImages['chickenwindmil' + str(self.imageIndex)], CHICKENWINDMILSIZE)
             self.image_mask = pg.mask.from_surface(self.image)
