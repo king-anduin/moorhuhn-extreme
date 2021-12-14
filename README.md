@@ -15,10 +15,24 @@
 
 ## Pictures
 
+### That is the start screen
+
 ![That is the start screen](/_img/screenshots/start.png "Start Screen")
+
+### That is the highscore screen
+
 ![That is the highscore screen](/_img/screenshots/highscore.png "Highscore Screen")
+
+### That is the help screen
+
 ![That is the help screen](/_img/screenshots/help.png "Help Screen")
+
+### That is the game screen
+
 ![That is the game screen](/_img/screenshots/game.png "Game Screen")
+
+### That is the end screen
+
 ![That is the end screen](/_img/screenshots/end.png "End Screen")
 
 ## What's covered in this repo
