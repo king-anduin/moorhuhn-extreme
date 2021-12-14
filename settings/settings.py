@@ -1,8 +1,8 @@
 # Settings
-PLAYERNAME = "None"
+PLAYERNAME = "King-Anduin"
 
 WIDTH = 960
-HEIGHT = 720*0.70
+HEIGHT = 720 * 0.70
 FPS = 60
 
 # Sprite
@@ -39,14 +39,18 @@ CURSOR_MID = (40, 40)
 
 # ammo.py
 AMMOSIZE = (48, 80)
-AMMOSPEED = int(FPS/16)
+AMMOSPEED = int(FPS / 16)
 BULLETHOLESIZE = (35, 37)
 
 
 # startloop.py
 BORDERRADIUS = 5
-LOCATION = [(WIDTH * 0.5, 125), (WIDTH * 0.5, 225),
-            (WIDTH * 0.5, 325), (WIDTH * 0.5, 425)]
+LOCATION = [
+    (WIDTH * 0.5, 125),
+    (WIDTH * 0.5, 225),
+    (WIDTH * 0.5, 325),
+    (WIDTH * 0.5, 425),
+]
 TEXT = ["Start", "Highscore", "Help", "Exit"]
 
 # endloop.py
@@ -54,22 +58,51 @@ LOCATIONEND = [(WIDTH * 0.5, 125), (WIDTH * 0.5, 225)]
 TEXTEND = ["Menu", "Exit"]
 
 # bestlistloop.py
-LOCATIONBEST = [(WIDTH * 0.5, 125), (WIDTH * 0.3, 225), (WIDTH * 0.6, 225),
-                (WIDTH * 0.3, 275), (WIDTH * 0.6, 275), (WIDTH * 0.3, 325),
-                (WIDTH * 0.6, 325), (WIDTH * 0.3, 375), (WIDTH * 0.6, 375),
-                (WIDTH * 0.3, 425), (WIDTH * 0.6, 425), (WIDTH * 0.3, 475),
-                (WIDTH * 0.6, 475)]
+LOCATIONBEST = [
+    (WIDTH * 0.5, 125),
+    (WIDTH * 0.3, 225),
+    (WIDTH * 0.6, 225),
+    (WIDTH * 0.3, 275),
+    (WIDTH * 0.6, 275),
+    (WIDTH * 0.3, 325),
+    (WIDTH * 0.6, 325),
+    (WIDTH * 0.3, 375),
+    (WIDTH * 0.6, 375),
+    (WIDTH * 0.3, 425),
+    (WIDTH * 0.6, 425),
+    (WIDTH * 0.3, 475),
+    (WIDTH * 0.6, 475),
+]
 LOCATIONRECTSBEST = [(WIDTH * 0.5 - 100, 100), (WIDTH * 0.2, 200)]
 SIZERECTSBEST = [(200, 50), (525, 300)]
 
 # helploop.py
-LOCATIONHELP = [(WIDTH * 0.5, 125), (WIDTH * 0.3, 225), (WIDTH * 0.3, 275),
-                (WIDTH * 0.3, 325), (WIDTH * 0.3, 375), (WIDTH * 0.3, 425),
-                (WIDTH * 0.6, 225), (WIDTH * 0.6, 275), (WIDTH * 0.6, 325),
-                (WIDTH * 0.6, 375), (WIDTH * 0.6, 425)]
-TEXTHELP = ["Menu", "Space", "Right Click",
-            "Left Click", "Arrow Left", "Arrow Right", "Reload your weapon", "Reload your weapon",
-            "Shoot", "Scroll left", "Scroll right"]
+LOCATIONHELP = [
+    (WIDTH * 0.5, 125),
+    (WIDTH * 0.3, 225),
+    (WIDTH * 0.3, 275),
+    (WIDTH * 0.3, 325),
+    (WIDTH * 0.3, 375),
+    (WIDTH * 0.3, 425),
+    (WIDTH * 0.6, 225),
+    (WIDTH * 0.6, 275),
+    (WIDTH * 0.6, 325),
+    (WIDTH * 0.6, 375),
+    (WIDTH * 0.6, 425),
+]
+TEXTHELP = [
+    "Menu",
+    "Space",
+    "Right Click",
+    "Left Click",
+    "Arrow Left",
+    "Arrow Right",
+    "Reload your weapon",
+    "Reload your weapon",
+    "Shoot",
+    "Scroll left",
+    "Scroll right",
+]
 LOCATIONRECTS = [(WIDTH * 0.5 - 100, 100), (WIDTH * 0.2, 200)]
 SIZERECTS = [(200, 50), (525, 250)]
 
@@ -104,7 +137,7 @@ CHICKENFOREGROUND = (300, 350)
 # fonts.py
 FIGURESIZE = (23, 36)
 
-#------ Points -------#
+# ------ Points -------#
 # Chicken size 70
 CHICKEN_SIZE_70_POINTS = 10
 

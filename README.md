@@ -11,7 +11,10 @@
 
 ## How to start the game
 
-- Just start `start.py`
+- Just start `start.py`  
+  ![That is the start screen](/_img/screenshots/start.png "Start Screen")
+
+## Pictures
 
 ## What's covered in this repo
 
