@@ -1,15 +1,27 @@
 # Moorhuhn extreme
 
-## Table of contents
+---
+
+## On this page
+
+{:.no_toc}
 
 1. Introduction
-2. Pictures
-3. What's covered in this repo
-4. Ressources
-5. Further materials
+   {:toc}
 
-- auto-gen TOC:
-  {:toc}
+2. Pictures
+   {:toc}
+
+3. What's covered in this repo
+   {:toc}
+
+4. Ressources
+   {:toc}
+
+5. Further materials
+   {:toc}
+
+---
 
 ## Introduction
 
