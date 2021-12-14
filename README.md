@@ -27,14 +27,20 @@
 
 - This was a little project in our fifth semester and it was done in 14 days. You can use this code as you like but we're probably not maintaining this repository. It is good for people who starts with pygame.
 
+---
+
 ## What's needed for playing
 
 - Python
 - Pygame
 
+---
+
 ## How to start the game
 
 - Just start `start.py`
+
+---
 
 ## Pictures
 
@@ -59,6 +65,8 @@ That is just part of the map. You can scroll to the left and right side.
 
 ![That is the end screen](/_img/screenshots/end.png "End Screen")
 
+---
+
 ## What's covered in this repo
 
 ### Designpattern
@@ -82,6 +90,8 @@ That is just part of the map. You can scroll to the left and right side.
 - Camera --> ./patterns/camera.py
 - Tilemap --> we don't use tiles
 
+---
+
 ## Ressources
 
 ### Sprites:
@@ -91,6 +101,8 @@ That is just part of the map. You can scroll to the left and right side.
 ### Sounds:
 
 - https://www.sounds-resource.com/pc_computer/moorremake/sound/334/
+
+---
 
 ## Further materials
 
