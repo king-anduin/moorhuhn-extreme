@@ -42,32 +42,32 @@
 
 - https://www.sounds-resource.com/pc_computer/moorremake/sound/334/
 
-# Further materials
+## Further materials
 
-## Python:
+### Python:
 
 - https://www.w3schools.com/python/
 
-## Pygame Dokumentation:
+### Pygame Dokumentation:
 
 - https://www.pygame.org/docs/
 
-## Pygame Buch:
+### Pygame Buch:
 
 - http://programarcadegames.com/index.php?lang=de
 
-## Kenney Assets:
+### Kenney Assets:
 
 - https://kenney.nl/
 
-## Other Free Assets:
+### Other Free Assets:
 
 - https://OpenGameArt.org
 
-## Game Programming Patterns (C++):
+### Game Programming Patterns (C++):
 
 - https://gameprogrammingpatterns.com/contents.html
 
-## Nature of Code:
+### Nature of Code:
 
 - https://natureofcode.com/book/
