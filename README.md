@@ -4,7 +4,7 @@
 
 ## On this page
 
-1. [Introduction](#heading)
+1. [Introduction](##-introduction)
 
 2. Pictures
    {:toc}
