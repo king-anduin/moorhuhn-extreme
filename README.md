@@ -1,210 +1,73 @@
-Semester project:
-Mindestanforderungen:
+# Moorhuhn extreme
 
-    Programmierung eines lauffähigen Spiels
+## Introduction
 
-    Teambildung (2 - 4 Personen)
+- This was a little project in our fifth semester and it was done in 14 days. You can use this code as you like but we're probably not maintaining this repository. It is good for people who starts with pygame.
 
-    Ausschließlich Python mit Modul pg
+## What's needed for playing
 
-    mind. 3 Szenen: Startbildschirm, Game Over, Spiel
+- Python
+- Pygame
 
-    mind. 5 unterschiedlich agierende Objekte (Spieler, Gegner, Hindernisse)
+## What's covered in this repo
 
-    Einbindung objektorientierter Konzepte (siehe Vorlesung)
-
-    Einbindung von Entwurfsmustern (siehe Vorlesung)
-
-    Sauberer Code (siehe Vorlesung)
-
-Keine Wertung für:
-
-    supertolle Grafik
-
-    mega Sound
-
-Pluspunkte für:
-
-    Einsatz von Design Patterns (siehe Vorlesung)
-
-    Übersichtlicher und strukturierter Code
-
-    Kreativität
-
-Abgabe der Arbeit (am Ende des Semesters):
-
-    Source Code + Bericht (ZIP-Datei) im Moodle-System
-
-    Arbeitsmatrix (wer hat was gemacht)
-
-Bewertungsmatrix:
-
-    Fehlerfreiheit (30%)
-
-    Vollständigkeit und Features (30%)
-
-    Codestärke (Lesbarkeit und Patterns) (30%)
-
-    Sichere Präsentation des Projektes (10%)
-
--------------------------------------------------------------------------------------
-Mindestanforderungen:
-
-- Mind. 3 Szenen: Startbildschirm, Game Over, Spiel, Bestenliste
-- Mind. 5 unterschiedliche agierende Objekte (Spieler, Gegner(drei verschiedene Hühnergrößen), Hindernisse, Map?) 
-- Einbindung objektorientierter Konzepte
-- Einbindung von Entwurfsmustern
-
-Pluspunkte für:
-
-- Designpatterns
-- Übersichtlicher und strukturierter Code
-- Kreativität
-
-Bewertungsmatrix:
-
-- Fehlerfreiheit (30%)
-- Vollständigkeit und Features (30%)
-- Codestärke (Lesbarkeit und Patterns) (30%)
-- Sichere Präsentation des Projektes (10%)
-
--------------------------------------------------------------------------------------
-Designpattern
+### Designpattern
 
 - Dependency Injection (Seite 93)
-- Strategy (Seite 103)    --> ./objects/* & ./statepattern.py
-- State (Seite 112)       --> ./statepattern.py
-- MVC (Seite 124)         --> ./objects/* & ./highscore/highscore.json & ./loops/*
-- Observer (Seite 133)    --> ./patterns/observer.py
-- Factory (Seite 142)     --> ./objects/*
-- Command (Seite 152)     --> not implemented
+- Strategy (Seite 103) --> ./objects/\* & ./statepattern.py
+- State (Seite 112) --> ./statepattern.py
+- MVC (Seite 124) --> ./objects/_ & ./highscore/highscore.json & ./loops/_
+- Observer (Seite 133) --> ./patterns/observer.py
+- Factory (Seite 142) --> ./objects/\*
+- Command (Seite 152) --> not implemented
 
-Designpattern pygame
+### Designpattern pygame
 
-- Gameloop (Seite 194)    --> ./loops/*
-- Update (Seite 206)      --> ./objects/*
-- Movement (Seite 219)    --> ./objects/*
-- Vektoren (Seite 237)    --> partly conducted (pixel perfect collision instead of rect)
-- Collusion Detection (Seite 246) --> ./objects/* (pixel perfect collision instead of rect)
-- Flyweight (Seite 300)   --> ./objects/*
-- Camera (Seite 310)      --> ./patterns/camera.py
-- Tilemap (Seite 282)     --> we don't use tiles
+- Gameloop (Seite 194) --> ./loops/\*
+- Update (Seite 206) --> ./objects/\*
+- Movement (Seite 219) --> ./objects/\*
+- Vektoren (Seite 237) --> partly conducted (pixel perfect collision instead of rect)
+- Collusion Detection (Seite 246) --> ./objects/\* (pixel perfect collision instead of rect)
+- Flyweight (Seite 300) --> ./objects/\*
+- Camera (Seite 310) --> ./patterns/camera.py
+- Tilemap (Seite 282) --> we don't use tiles
 
--------------------------------------------------------------------------------------
-Task which were implemented by the following team member
-Peter:
-- root folder
-  - statepattern.py
-  - importmodules.py
-  - start.py
-- objects
-  - chicken.py
-  - chickenforeground.py
-  - chickenhole.py
-  - chickenwindmil.py
-  - leaves.py
-  - plane.py
-  - predator.py
-  - pumpkin.py
-  - signpost.py
-  - trunk.py
-- settings 
-  - background.py
-  - menus.py
-  - sounds.py (original sounds)
-- loops
-  - bestlistloop.py
-  - endloop.py
-  - gameloop.py
-  - helploop.py
-  - startloop.py
-- _img
-- refactoring
-- highscore
-  - highscore.py
-  - highscore.json
+## Ressources:
 
-MoH:
-- _img
-- objects
-  - ammo.py
-- settings
-  - sounds.py (old sounds were replaced by original sounds)
-- uml
-  - UML.uxf
-- removed sprites from lists in objects (chicken, chickenforeground, ammo, leaves)
-- loops
-  - gameloop.py
+### Sprites:
 
-Sebastian:
-- _img
-- objects
-  - chicken
-- patterns
-  - camera.py (Updated Update function in all objects)
-- loops
-  - gameloop.py
+- https://www.spriters-resource.com/pc_computer/moorhuhnremake/
 
-Richard:
-- _img
-- fonts
-- objects
-  - chicken.py
-- patterns
-  - observer.py (added getPoints() in sprites which give points)
-- settings
-  - fonts.py
-- start template from lecture
-- loops
-  - gameloop.py (Game timer)
+### Sounds:
 
-Ressources:<br>
-Sprites:<br>
-  - https://www.spriters-resource.com/pc_computer/moorhuhnremake/ <br>
-Sounds:<br>
-  - https://www.sounds-resource.com/pc_computer/moorremake/sound/334/<br>
-
--------------------------------------------------------------------------------------
-Vorgehensmodell:<br>
-
-SCRUM (start 01.11 - 14.11)
-
-Rolls
-
-- Scrum Master: Moh
-- Product Owner: Peter
-- Team: Richard, Sebastian
-
-Dailys at 11 am:
-
-- Wednesday, Friday
-
-Weekly 12 pm:
-
-- Sunday (Fertiges Produkt)
-
-Nice to have:
-- Mute Button
+- https://www.sounds-resource.com/pc_computer/moorremake/sound/334/
 
 # Further materials
 
-Python:<br>
-- https://www.w3schools.com/python/<br>
+## Python:
 
-Pygame Dokumentation:<br>
-- https://www.pygame.org/docs/<br>
+- https://www.w3schools.com/python/
 
-Pygame Buch:<br>
-- http://programarcadegames.com/index.php?lang=de<br>
+## Pygame Dokumentation:
 
-Kenney Assets:<br>
-- https://kenney.nl/<br>
+- https://www.pygame.org/docs/
 
-Other Free Assets:<br>
-- https://OpenGameArt.org<br>
+## Pygame Buch:
 
-Game Programming Patterns (C++):<br>
-- https://gameprogrammingpatterns.com/contents.html<br>
+- http://programarcadegames.com/index.php?lang=de
 
-Nature of Code:<br>
-- https://natureofcode.com/book/<br>
+## Kenney Assets:
+
+- https://kenney.nl/
+
+## Other Free Assets:
+
+- https://OpenGameArt.org
+
+## Game Programming Patterns (C++):
+
+- https://gameprogrammingpatterns.com/contents.html
+
+## Nature of Code:
+
+- https://natureofcode.com/book/
