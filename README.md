@@ -6,8 +6,7 @@
 
 {:.no_toc}
 
-1. Introduction
-   {:toc}
+1. [Introduction](## Introduction)
 
 2. Pictures
    {:toc}

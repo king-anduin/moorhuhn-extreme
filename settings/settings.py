@@ -1,5 +1,5 @@
 # Settings
-PLAYERNAME = "King-Anduin"
+PLAYERNAME = "None"
 
 WIDTH = 960
 HEIGHT = 720 * 0.70
