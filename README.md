@@ -4,16 +4,25 @@
 
 ## On this page
 
-- [1. What is this all about](#what-is-this-all-about)
-  - [1.1 Introduction](#introduction)
-  - [1.2 What is needed for playing](#what-is-needed-for-playing)
-  - [1.3 How to start the game](#how-to-start-the-game)
+1. [What is this all about](#what-is-this-all-about)
+   1.1 [Introduction](#introduction)
+   1.2 [What is needed for playing](#what-is-needed-for-playing)
+   1.3 [How to start the game](#how-to-start-the-game)
 
 2. [Pictures](#pictures)
+   2.1 [That is the start screen](#that-is-the-start-screen)
+   2.2 [That is the highscore screen](#that-is-the-highscore-screen)
+   2.3 [That is the help screen](#that-is-the-help-screen)
+   2.4 [That is the game screen](#that-is-the-game-screen)
+   2.5 [That is the end screen](#that-is-the-end-screen)
 
 3. [What's covered in this repo](#whats-covered-in-this-repo)
+   3.1 [Designpattern](#designpattern)
+   3.2 [Designpattern pygame](#designpattern-pygame)
 
 4. [Ressources](#ressources)
+   4.1 [Sprites](#sprites)
+   4.2 [Sounds](#sounds-pygame)
 
 5. [Further materials](#further-materials)
 
@@ -33,6 +42,7 @@
 ### How to start the game
 
 - Just start `start.py`
+- If you wanna put your name on the highscore instead of _None_, change `PLAYERNAME` on `settings/settings.py`
 
 ---
 
