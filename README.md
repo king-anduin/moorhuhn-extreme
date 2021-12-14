@@ -8,6 +8,17 @@
 4. Ressources
 5. Further materials
 
+---
+
+## On this page
+
+{:.no_toc}
+
+- TOC
+  {:toc}
+
+---
+
 ## Introduction
 
 - This was a little project in our fifth semester and it was done in 14 days. You can use this code as you like but we're probably not maintaining this repository. It is good for people who starts with pygame.
