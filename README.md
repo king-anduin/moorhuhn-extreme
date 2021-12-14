@@ -8,14 +8,8 @@
 4. Ressources
 5. Further materials
 
----
-
-## On this page
-
-1. Introduction
-   {:toc}
-
----
+- auto-gen TOC:
+  {:toc}
 
 ## Introduction
 
