@@ -4,7 +4,10 @@
 
 ## On this page
 
-1. [Introduction](#introduction)
+- [1. What is this all about](#what-is-this-all-about)
+  - [1.1 Introduction](#introduction)
+  - [1.2 What is needed for playing](#what-is-needed-for-playing)
+  - [1.3 How to start the game](#how-to-start-the-game)
 
 2. [Pictures](#pictures)
 
@@ -16,20 +19,18 @@
 
 ---
 
-## Introduction
+## What is this all about?
+
+### Introduction
 
 - This was a little project in our fifth semester and it was done in 14 days. You can use this code as you like but we're probably not maintaining this repository. It is good for people who starts with pygame.
 
----
-
-## What's needed for playing
+### What is needed for playing
 
 - Python
 - Pygame
 
----
-
-## How to start the game
+### How to start the game
 
 - Just start `start.py`
 
