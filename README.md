@@ -22,7 +22,7 @@
    4.1 [Sprites](#sprites)  
    4.2 [Sounds](#sounds-pygame)
 5. [Further materials](#further-materials)
-6. [Licence](#licence)
+6. [License](#license)
 
 ---
 
@@ -136,7 +136,9 @@ That is just part of the map. You can scroll to the left and right side.
 
 - https://natureofcode.com/book/
 
-## Licence
+---
+
+## License
 
 Shield: [![CC BY 4.0][cc-by-shield]][cc-by]
 
