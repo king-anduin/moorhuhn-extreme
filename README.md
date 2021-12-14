@@ -4,19 +4,15 @@
 
 ## On this page
 
-1. [Introduction](##-introduction)
+1. [Introduction](#introduction)
 
-2. Pictures
-   {:toc}
+2. [Pictures](#pictures)
 
-3. What's covered in this repo
-   {:toc}
+3. [What's covered in this repo](#whats-covered-in-this-repo)
 
-4. Ressources
-   {:toc}
+4. [Ressources](#ressources)
 
-5. Further materials
-   {:toc}
+5. [Further materials](#further-materials)
 
 ---
 
