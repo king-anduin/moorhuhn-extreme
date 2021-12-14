@@ -4,9 +4,7 @@
 
 ## On this page
 
-{:.no_toc}
-
-1. [Introduction](## Introduction)
+1. [Introduction](##Introduction)
 
 2. Pictures
    {:toc}
