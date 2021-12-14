@@ -13,7 +13,7 @@
 ## On this page
 
 1. Introduction
-   {:Introduction}
+   {:toc}
 
 ---
 
