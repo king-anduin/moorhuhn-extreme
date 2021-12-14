@@ -14,8 +14,8 @@
 
 {:.no_toc}
 
-- TOC
-  {:toc}
+1. Introduction
+   {:Introduction}
 
 ---
 
