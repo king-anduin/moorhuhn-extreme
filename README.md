@@ -1,5 +1,13 @@
 # Moorhuhn extreme
 
+## Table of contents
+
+1. Introduction
+2. Pictures
+3. What's covered in this repo
+4. Ressources
+5. Further materials
+
 ## Introduction
 
 - This was a little project in our fifth semester and it was done in 14 days. You can use this code as you like but we're probably not maintaining this repository. It is good for people who starts with pygame.
@@ -29,6 +37,7 @@
 
 ### That is the game screen
 
+That is just part of the map. You can scroll to the left and right side.
 ![That is the game screen](/_img/screenshots/game.png "Game Screen")
 
 ### That is the end screen
@@ -58,7 +67,7 @@
 - Camera --> ./patterns/camera.py
 - Tilemap --> we don't use tiles
 
-## Ressources:
+## Ressources
 
 ### Sprites:
 
