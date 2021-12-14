@@ -9,28 +9,32 @@
 - Python
 - Pygame
 
+## How to start the game
+
+- Just start `start.py`
+
 ## What's covered in this repo
 
 ### Designpattern
 
-- Dependency Injection (Seite 93)
-- Strategy (Seite 103) --> ./objects/\* & ./statepattern.py
-- State (Seite 112) --> ./statepattern.py
-- MVC (Seite 124) --> ./objects/_ & ./highscore/highscore.json & ./loops/_
-- Observer (Seite 133) --> ./patterns/observer.py
-- Factory (Seite 142) --> ./objects/\*
-- Command (Seite 152) --> not implemented
+- Dependency Injection
+- Strategy --> ./objects/\* & ./statepattern.py
+- State --> ./statepattern.py
+- MVC --> ./objects/_ & ./highscore/highscore.json & ./loops/_
+- Observer --> ./patterns/observer.py
+- Factory --> ./objects/\*
+- Command --> not implemented
 
 ### Designpattern pygame
 
-- Gameloop (Seite 194) --> ./loops/\*
-- Update (Seite 206) --> ./objects/\*
-- Movement (Seite 219) --> ./objects/\*
-- Vektoren (Seite 237) --> partly conducted (pixel perfect collision instead of rect)
+- Gameloop --> ./loops/\*
+- Update --> ./objects/\*
+- Movement --> ./objects/\*
+- Vektoren --> partly conducted (pixel perfect collision instead of rect)
 - Collusion Detection (Seite 246) --> ./objects/\* (pixel perfect collision instead of rect)
-- Flyweight (Seite 300) --> ./objects/\*
-- Camera (Seite 310) --> ./patterns/camera.py
-- Tilemap (Seite 282) --> we don't use tiles
+- Flyweight --> ./objects/\*
+- Camera --> ./patterns/camera.py
+- Tilemap --> we don't use tiles
 
 ## Ressources:
 
